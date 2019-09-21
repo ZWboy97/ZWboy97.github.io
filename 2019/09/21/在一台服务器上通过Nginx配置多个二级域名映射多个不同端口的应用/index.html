@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Hexo</title>
+  <title>在一台服务器上通过Nginx配置多个二级域名映射多个不同端口的应用 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="背景：需要在实验室服务器上部署gitlab，jira，jenkins等等Server服务，这些服务工作在不同的端口，无法直接通过http的80端口访问，所以之前是通过IP+端口号的方式进行访问。在申请了自己的一个域名之后，想要通过多个二级域名来访问。  需求能够通过gitlab.domain.cn访问绑定在82端口上的gitlab服务，通过jenkins.domain.cn访问绑定在9090端口">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在一台服务器上通过Nginx配置多个二级域名映射多个不同端口的应用">
+<meta property="og:url" content="http://yoursite.com/2019/09/21/在一台服务器上通过Nginx配置多个二级域名映射多个不同端口的应用/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="背景：需要在实验室服务器上部署gitlab，jira，jenkins等等Server服务，这些服务工作在不同的端口，无法直接通过http的80端口访问，所以之前是通过IP+端口号的方式进行访问。在申请了自己的一个域名之后，想要通过多个二级域名来访问。  需求能够通过gitlab.domain.cn访问绑定在82端口上的gitlab服务，通过jenkins.domain.cn访问绑定在9090端口">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-09-21T15:36:03.177Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="在一台服务器上通过Nginx配置多个二级域名映射多个不同端口的应用">
+<meta name="twitter:description" content="背景：需要在实验室服务器上部署gitlab，jira，jenkins等等Server服务，这些服务工作在不同的端口，无法直接通过http的80端口访问，所以之前是通过IP+端口号的方式进行访问。在申请了自己的一个域名之后，想要通过多个二级域名来访问。  需求能够通过gitlab.domain.cn访问绑定在82端口上的gitlab服务，通过jenkins.domain.cn访问绑定在9090端口">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -150,76 +154,192 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-在一台服务器上通过Nginx配置多个二级域名映射多个不同端口的应用" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      在一台服务器上通过Nginx配置多个二级域名映射多个不同端口的应用
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/09/21/在一台服务器上通过Nginx配置多个二级域名映射多个不同端口的应用/" class="archive-article-date">
+
+        
+        <a href="/2019/09/21/在一台服务器上通过Nginx配置多个二级域名映射多个不同端口的应用/" class="archive-article-date">
   	<time datetime="2019-09-21T15:35:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-21</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/09/21/在一台服务器上通过Nginx配置多个二级域名映射多个不同端口的应用/">在一台服务器上通过Nginx配置多个二级域名映射多个不同端口的应用</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>背景：需要在实验室服务器上部署gitlab，jira，jenkins等等Server服务，这些服务工作在不同的端口，无法直接通过http的80端口访问，所以之前是通过IP+端口号的方式进行访问。在申请了自己的一个域名之后，想要通过多个二级域名来访问。</p>
+</blockquote>
+<h4 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h4><p>能够通过gitlab.domain.cn访问绑定在82端口上的gitlab服务，通过jenkins.domain.cn访问绑定在9090端口上的jenkins服务。</p>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><ul>
+<li><ol>
+<li>在域名的解析中分别添加gitlab, jenkins,以及www三个记录，指向均为实验室服务器的IP地址。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>使用Nginx作为代理服务器，监听80端口，通过server_name进行匹配，将请求转发到对应的应用服务器。(这应该属于Nginx的反向代理功能，即为多个服务提供代理服务)<h4 id="实际解决"><a href="#实际解决" class="headerlink" title="实际解决"></a>实际解决</h4></li>
+</ol>
+</li>
+<li><ol>
+<li>编辑Nginx配置信息（Ubuntu）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置文件路径：/etc/nginx/conf.d/domain.conf，（没有的话需要创建）</span></span><br><span class="line"><span class="comment"># Nginx会自动include /etc/nginx/conf.d 目录下所有以.conf结尾的配置到主配置文件nginx.conf中.</span></span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">        listen 80;  <span class="comment"># 设置Nginx对外监听80端口</span></span><br><span class="line">        server_name *.domain.cn;  <span class="comment"># 绑定到该服务器的域名</span></span><br><span class="line">                <span class="keyword">if</span> ( <span class="variable">$http_host</span> ~* <span class="string">"^(.*?)\.domain\.cn"</span> ) &#123;  <span class="comment"># 对http_host进行正则匹配，解析domain</span></span><br><span class="line">                        <span class="built_in">set</span> <span class="variable">$domain</span> <span class="variable">$1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">        location / &#123;</span><br><span class="line">                proxy_set_header        X-Real-IP       <span class="variable">$remote_addr</span>;</span><br><span class="line">                proxy_set_header        Host            <span class="variable">$http_host</span>;</span><br><span class="line">                <span class="comment"># 分别处理各个domain</span></span><br><span class="line">                <span class="keyword">if</span> ( <span class="variable">$domain</span> ~* <span class="string">"www"</span> ) &#123;</span><br><span class="line">                        proxy_pass http://localhost:82;  <span class="comment"># 通过proxy_pass 进行代理转发</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> ( <span class="variable">$domain</span> ~* <span class="string">"gitlab"</span> ) &#123;</span><br><span class="line">                        proxy_pass http://localhost:82;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> ( <span class="variable">$domain</span> ~* <span class="string">"jenkins"</span> ) &#123;</span><br><span class="line">                        proxy_pass http://localhost:9090;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>检查配置文件合法性<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 需要将nginx添加到环境变量中</span></span><br><span class="line">sudo nginx -t</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>更新Nginx配置<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nginx -s reload</span><br></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
-          
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h4><p>最开始的思路是在Nginx中配置多个server块，再每个块中再配置proxy_pass来实现，配置文件如下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># jenkins.domain.cn.conf</span></span><br><span class="line">server &#123;</span><br><span class="line">        listen 80;  <span class="comment"># 设置Nginx对外监听80端口</span></span><br><span class="line">        server_name jenkins.domain.cn;  </span><br><span class="line">        proxy_pass http://localhost:9090;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># gitlab.domain.cn.conf</span></span><br><span class="line">server &#123;</span><br><span class="line">        listen 80;  <span class="comment"># 设置Nginx对外监听80端口</span></span><br><span class="line">        server_name gitlab.domain.cn;  </span><br><span class="line">        proxy_pass http://localhost:82;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Reload Nginx之后发现，二级域名是时效的，两个域名均指向的是gitlab，无法实现想要的效果。分析应该是gitlab.domain.cn.conf先被include到nginx.conf中，所以生效的是gitlab吧。<br>不确定，还需要进一步研究。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>Nginx是个强大的工具，可以作为Web服务器，文件服务器，代理服务器，反向代理服务器，直播服务器，负载均衡服务器等等，值得深入学习。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/21/在一台服务器上通过Nginx配置多个二级域名映射多个不同端口的应用/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/10/my-new-post/" class="archive-article-date">
-  	<time datetime="2019-08-10T09:53:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-10</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/10/my-new-post/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">my new post</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/10/my-new-post/">my new post</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -242,8 +362,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
