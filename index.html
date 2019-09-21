@@ -176,32 +176,22 @@
 <p>背景：需要在实验室服务器上部署gitlab，jira，jenkins等等Server服务，这些服务工作在不同的端口，无法直接通过http的80端口访问，所以之前是通过IP+端口号的方式进行访问。在申请了自己的一个域名之后，想要通过多个二级域名来访问。</p>
 </blockquote>
 <h4 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h4><p>能够通过gitlab.domain.cn访问绑定在82端口上的gitlab服务，通过jenkins.domain.cn访问绑定在9090端口上的jenkins服务。</p>
-<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><ul>
-<li><ol>
-<li>在域名的解析中分别添加gitlab, jenkins,以及www三个记录，指向均为实验室服务器的IP地址。</li>
-</ol>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><ol>
+<li><p>在域名的解析中分别添加gitlab, jenkins,以及www三个记录，指向均为实验室服务器的IP地址。</p>
 </li>
-<li><ol start="2">
-<li>使用Nginx作为代理服务器，监听80端口，通过server_name进行匹配，将请求转发到对应的应用服务器。(这应该属于Nginx的反向代理功能，即为多个服务提供代理服务)<h4 id="实际解决"><a href="#实际解决" class="headerlink" title="实际解决"></a>实际解决</h4></li>
-</ol>
+<li><p>使用Nginx作为代理服务器，监听80端口，通过server_name进行匹配，将请求转发到对应的应用服务器。(这应该属于Nginx的反向代理功能，即为多个服务提供代理服务)</p>
+<h4 id="实际解决"><a href="#实际解决" class="headerlink" title="实际解决"></a>实际解决</h4></li>
+<li><p>编辑Nginx配置信息（Ubuntu）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置文件路径：/etc/nginx/conf.d/domain.conf，（没有的话需要创建）</span></span><br><span class="line"><span class="comment"># Nginx会自动include /etc/nginx/conf.d 目录下所有以.conf结尾的配置到主配置文件nginx.conf中.</span></span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">        listen 80;  <span class="comment"># 设置Nginx对外监听80端口</span></span><br><span class="line">        server_name *.domain.cn;  <span class="comment"># 绑定到该服务器的域名</span></span><br><span class="line">                <span class="keyword">if</span> ( <span class="variable">$http_host</span> ~* <span class="string">"^(.*?)\.domain\.cn"</span> ) &#123;  <span class="comment"># 对http_host进行正则匹配，解析domain</span></span><br><span class="line">                        <span class="built_in">set</span> <span class="variable">$domain</span> <span class="variable">$1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">        location / &#123;</span><br><span class="line">                proxy_set_header        X-Real-IP       <span class="variable">$remote_addr</span>;</span><br><span class="line">                proxy_set_header        Host            <span class="variable">$http_host</span>;</span><br><span class="line">                <span class="comment"># 分别处理各个domain</span></span><br><span class="line">                <span class="keyword">if</span> ( <span class="variable">$domain</span> ~* <span class="string">"www"</span> ) &#123;</span><br><span class="line">                        proxy_pass http://localhost:82;  <span class="comment"># 通过proxy_pass 进行代理转发</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> ( <span class="variable">$domain</span> ~* <span class="string">"gitlab"</span> ) &#123;</span><br><span class="line">                        proxy_pass http://localhost:82;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> ( <span class="variable">$domain</span> ~* <span class="string">"jenkins"</span> ) &#123;</span><br><span class="line">                        proxy_pass http://localhost:9090;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><ol>
-<li>编辑Nginx配置信息（Ubuntu）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置文件路径：/etc/nginx/conf.d/domain.conf，（没有的话需要创建）</span></span><br><span class="line"><span class="comment"># Nginx会自动include /etc/nginx/conf.d 目录下所有以.conf结尾的配置到主配置文件nginx.conf中.</span></span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">        listen 80;  <span class="comment"># 设置Nginx对外监听80端口</span></span><br><span class="line">        server_name *.domain.cn;  <span class="comment"># 绑定到该服务器的域名</span></span><br><span class="line">                <span class="keyword">if</span> ( <span class="variable">$http_host</span> ~* <span class="string">"^(.*?)\.domain\.cn"</span> ) &#123;  <span class="comment"># 对http_host进行正则匹配，解析domain</span></span><br><span class="line">                        <span class="built_in">set</span> <span class="variable">$domain</span> <span class="variable">$1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">        location / &#123;</span><br><span class="line">                proxy_set_header        X-Real-IP       <span class="variable">$remote_addr</span>;</span><br><span class="line">                proxy_set_header        Host            <span class="variable">$http_host</span>;</span><br><span class="line">                <span class="comment"># 分别处理各个domain</span></span><br><span class="line">                <span class="keyword">if</span> ( <span class="variable">$domain</span> ~* <span class="string">"www"</span> ) &#123;</span><br><span class="line">                        proxy_pass http://localhost:82;  <span class="comment"># 通过proxy_pass 进行代理转发</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> ( <span class="variable">$domain</span> ~* <span class="string">"gitlab"</span> ) &#123;</span><br><span class="line">                        proxy_pass http://localhost:82;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> ( <span class="variable">$domain</span> ~* <span class="string">"jenkins"</span> ) &#123;</span><br><span class="line">                        proxy_pass http://localhost:9090;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li><p>检查配置文件合法性</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 需要将nginx添加到环境变量中</span></span><br><span class="line">sudo nginx -t</span><br></pre></td></tr></table></figure>
 </li>
-</ol>
-</li>
-<li><ol start="2">
-<li>检查配置文件合法性<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 需要将nginx添加到环境变量中</span></span><br><span class="line">sudo nginx -t</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-<li><ol start="3">
-<li>更新Nginx配置<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nginx -s reload</span><br></pre></td></tr></table></figure>
+<li><p>更新Nginx配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nginx -s reload</span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
-</li>
-</ul>
 <h4 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h4><p>最开始的思路是在Nginx中配置多个server块，再每个块中再配置proxy_pass来实现，配置文件如下。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># jenkins.domain.cn.conf</span></span><br><span class="line">server &#123;</span><br><span class="line">        listen 80;  <span class="comment"># 设置Nginx对外监听80端口</span></span><br><span class="line">        server_name jenkins.domain.cn;  </span><br><span class="line">        proxy_pass http://localhost:9090;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -217,6 +207,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Nginx,</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -404,6 +405,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Nginx,</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
