@@ -6,24 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://zwboy.cn">
-  <title>搞定跨域资源共享CORS（笔记整理） | ZWboy的站点</title>
+  <title>前端JavaScript系统梳理 | ZWboy的站点</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="当从一个域向另一个不同的域或者端口请求资源的时候，会产生跨域请求。  一、什么是跨域 同源政策（same origin policy）：协议，主机名和端口号要相同，否则就会产生跨域请求。 通常的错误形式：Access to XMLHttpRequest at XXX has been blocked by CORS policy: No ‘Access-Control-Allow-Origin’">
-<meta name="keywords" content="HTTP">
+  <meta name="description" content="背景知识  本文依然按照以往的风格，更注重JavaScript技术的系统性梳理，不赘述技术细节，因为Google一下就好。   基础1. 基础知识 JavaScript：ES5/6 + DOM + BOM ECMAScript 5 2015（ES6） DOM: 针对HTML的编程接口 BOM：对浏览器进行操作的编程接口   浏览器内核 渲染引擎：Blink、Webkit（用于浏览器） JS引擎：">
+<meta name="keywords" content="前端,JavaScript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="搞定跨域资源共享CORS（笔记整理）">
-<meta property="og:url" content="http://zwboy.cn/技术/搞定跨域资源共享CORS（笔记整理）.html">
+<meta property="og:title" content="前端JavaScript系统梳理">
+<meta property="og:url" content="http://zwboy.cn/技术/前端JavaScript系统梳理.html">
 <meta property="og:site_name" content="ZWboy的站点">
-<meta property="og:description" content="当从一个域向另一个不同的域或者端口请求资源的时候，会产生跨域请求。  一、什么是跨域 同源政策（same origin policy）：协议，主机名和端口号要相同，否则就会产生跨域请求。 通常的错误形式：Access to XMLHttpRequest at XXX has been blocked by CORS policy: No ‘Access-Control-Allow-Origin’">
+<meta property="og:description" content="背景知识  本文依然按照以往的风格，更注重JavaScript技术的系统性梳理，不赘述技术细节，因为Google一下就好。   基础1. 基础知识 JavaScript：ES5/6 + DOM + BOM ECMAScript 5 2015（ES6） DOM: 针对HTML的编程接口 BOM：对浏览器进行操作的编程接口   浏览器内核 渲染引擎：Blink、Webkit（用于浏览器） JS引擎：">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/kuayu.png">
-<meta property="og:image" content="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/csrf.png">
-<meta property="og:image" content="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/cros-yujian.png">
-<meta property="og:updated_time" content="2019-09-28T05:39:34.678Z">
+<meta property="og:updated_time" content="2019-10-27T05:08:15.850Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="搞定跨域资源共享CORS（笔记整理）">
-<meta name="twitter:description" content="当从一个域向另一个不同的域或者端口请求资源的时候，会产生跨域请求。  一、什么是跨域 同源政策（same origin policy）：协议，主机名和端口号要相同，否则就会产生跨域请求。 通常的错误形式：Access to XMLHttpRequest at XXX has been blocked by CORS policy: No ‘Access-Control-Allow-Origin’">
-<meta name="twitter:image" content="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/kuayu.png">
+<meta name="twitter:title" content="前端JavaScript系统梳理">
+<meta name="twitter:description" content="背景知识  本文依然按照以往的风格，更注重JavaScript技术的系统性梳理，不赘述技术细节，因为Google一下就好。   基础1. 基础知识 JavaScript：ES5/6 + DOM + BOM ECMAScript 5 2015（ES6） DOM: 针对HTML的编程接口 BOM：对浏览器进行操作的编程接口   浏览器内核 渲染引擎：Blink、Webkit（用于浏览器） JS引擎：">
   
     <link rel="alternative" href="/atom.xml" title="ZWboy的站点" type="application/atom+xml">
   
@@ -155,20 +151,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-搞定跨域资源共享CORS（笔记整理）" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-前端JavaScript系统梳理" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      搞定跨域资源共享CORS（笔记整理）
+      前端JavaScript系统梳理
     </h1>
   
 
         
-        <a href="/技术/搞定跨域资源共享CORS（笔记整理）.html" class="archive-article-date">
-  	<time datetime="2019-09-23T03:24:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-23</time>
+        <a href="/技术/前端JavaScript系统梳理.html" class="archive-article-date">
+  	<time datetime="2019-10-14T11:28:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-14</time>
 </a>
         
       </header>
@@ -176,80 +172,348 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>当从一个域向另一个不同的域或者端口请求资源的时候，会产生跨域请求。<br><img src="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/kuayu.png" alt="跨域.png"></p>
-</blockquote>
-<h3 id="一、什么是跨域"><a href="#一、什么是跨域" class="headerlink" title="一、什么是跨域"></a>一、什么是跨域</h3><ol>
-<li>同源政策（same origin policy）：协议，主机名和端口号要相同，否则就会产生跨域请求。</li>
-<li>通常的错误形式：Access to XMLHttpRequest at XXX has been blocked by CORS policy: No ‘Access-Control-Allow-Origin’ header is present on the requested resource.</li>
-<li>整个CORS通信过程，都是浏览器自动完成，不需要用户参与。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。</li>
-<li>出于安全原因，浏览器限制从脚本内发起的跨源HTTP请求（或者跨域响应被拦截）。比如XMLHttpRequest和Fetch API都需要遵循同源策略。</li>
-<li>实现CORS必须要在服务器端实现CORS接口，即响应报文包含了正确CORS响应头。</li>
-</ol>
-<h3 id="二、为何要限制跨域"><a href="#二、为何要限制跨域" class="headerlink" title="二、为何要限制跨域"></a>二、为何要限制跨域</h3><blockquote>
-<p>跨站请求攻击CSRF<br><img src="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/csrf.png" alt="CSRF.png"></p>
-</blockquote>
-<ol>
-<li>攻击者引导用户去登录访问正常的网站，比如银行，session_id等认证会留在浏览器中。</li>
-<li>同时用户还在访问攻击者提供的网站，但是该网站会自动或者通过点击触发向之前正常的网站发起请求，当然用了之前已经认证过的session_id。</li>
-<li>这样就在用户不知道的情况下进行了一些诸如发送邮件，甚至转账、购买商品等操作。</li>
-<li>其利用的是Web用户身份验证的漏洞，即，简单的身份验证智能保证请求是来自该用户的浏览器（不是其他人在另一个浏览器伪造），但是并不能保证请求是用户本身自愿发出的。</li>
-<li>同源政策将会确保网站a拒绝来自网站b的请求。</li>
-</ol>
-<h3 id="三、为何又需要跨域呢"><a href="#三、为何又需要跨域呢" class="headerlink" title="三、为何又需要跨域呢"></a>三、为何又需要跨域呢</h3><blockquote>
-<p>前后端分离</p>
-</blockquote>
-<p>当前端框架兴起之后，前后端彻底分离的开发方式渐渐流行。前端和后端往往部署在不同的域名之上。前端通过访问后端的API获取数据，渲染前端界面，甚至进行路由跳转。这通常意味着前后端会出现不同源的问题。因为即使部署在同一台主机上，二者也属于不同的端口。那么我们就需要某种策略使得跨域请求能够通过。</p>
-<h3 id="四、跨域请求过程"><a href="#四、跨域请求过程" class="headerlink" title="四、跨域请求过程"></a>四、跨域请求过程</h3><blockquote>
-<p>浏览器将CORS请求分成两类：简单请求（simple request）和非简单请求（not-so-simple request）。</p>
-</blockquote>
-<h5 id="1-简单请求的跨域过程"><a href="#1-简单请求的跨域过程" class="headerlink" title="1. 简单请求的跨域过程"></a>1. 简单请求的跨域过程</h5><ul>
-<li>1.1. 简单请求是什么</li>
-</ul>
-<blockquote>
-<ol>
-<li>请求方法是以下三种方法之一（简单方法）：HEAD，GET，POST</li>
-<li>HTTP的头信息不超出以下几种字段（简单头）：Accept，Accept-Language，Content-Language，Last-Event-ID，Content-Type：只限于三个值application/x-www-form-urlencoded、multipart/form-data、text/plain</li>
-</ol>
-</blockquote>
+<p>背景知识</p>
 <ul>
-<li>1.2. 跨域过程</li>
+<li>本文依然按照以往的风格，更注重JavaScript技术的系统性梳理，不赘述技术细节，因为Google一下就好。</li>
 </ul>
-<blockquote>
-<ol>
-<li>浏览器检测到这是一个简单请求，会自动在Header中添加Origin字段，该字段描述了协议，域名以及端口的信息。</li>
-<li>服务器会检查Origin，如果不在许可范围内（allow-origin），就会返回一个正常的HTTP回应，浏览器会抛出异常。如果在，服务器会返回响应，响应Header中会怎加几个头信息字段。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Origin:* <span class="comment">//服务器接收的origin</span></span><br><span class="line">Access-Control-Allow-Credentials: <span class="literal">true</span> <span class="comment">// 服务器是否允许CORS请求中发送Cookie。</span></span><br><span class="line"><span class="comment">//如果想实现发送Cookie的话，还需要在浏览器端设置withCredentials = true;</span></span><br><span class="line">Access-Control-Expose-Headers: <span class="comment">// ResponsHeader中暴露的字段</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><h5 id="1-基础知识"><a href="#1-基础知识" class="headerlink" title="1. 基础知识"></a>1. 基础知识</h5><ul>
+<li>JavaScript：ES5/6 + DOM + BOM<ul>
+<li>ECMAScript 5 2015（ES6）</li>
+<li>DOM: 针对HTML的编程接口</li>
+<li>BOM：对浏览器进行操作的编程接口</li>
+</ul>
 </li>
-</ol>
-</blockquote>
-<h5 id="2-非简单请求的跨域过程"><a href="#2-非简单请求的跨域过程" class="headerlink" title="2. 非简单请求的跨域过程"></a>2. 非简单请求的跨域过程</h5><blockquote>
-<p>比如请求方法是PUT或DELETE，或者Content-Type字段的类型是application/json，含有自定义的请求头等。</p>
-</blockquote>
-<ul>
-<li>Step.1. 预检请求Preflight</li>
+<li>浏览器内核<ul>
+<li>渲染引擎：Blink、Webkit（用于浏览器）</li>
+<li>JS引擎：V8引擎</li>
 </ul>
-<blockquote>
-<p>旨在确保服务器对 CORS 标准知情，以保护不支持 CORS 的旧服务器</p>
-<ol>
-<li>浏览器发现是非简单请求，会在正式的通信之前，先向服务器询问当前网页所在的域名是否在服务器的许可名单中，以及可以使用哪些HTTP动词。</li>
-<li>预检请求是一个OPTION请求，会携带Access-Control-Request-Method（指明该跨域请求的Method），Access-Control-Request-Headers（该跨域请求额外会发送的头信息字段，比如认证字段）以及Origin信息。</li>
-<li>服务器检查以上三个字段，确认允许后就会做出回应。（服务器在设置跨域请求的时候不能忘记对预检请求的处理）。回应Header包括Access-Control-Allow-Methods，Access-Control-Allow-Headers，Access-Control-Allow-Credentials等。</li>
-</ol>
-</blockquote>
-<ul>
-<li>Step.2. 预检成功后再发起跨域请求</li>
+</li>
+<li>标识符</li>
+<li>strict mode<ul>
+<li>严格模式：添加“use strict”</li>
+<li>让代码变得更可靠</li>
+<li>使用方式：全局使用，局部使用（在方法中使用）</li>
+<li>推荐编写代码的时候使用严格模式</li>
 </ul>
-<blockquote>
-<p>预检通过之后，浏览器会像简单请求一样，再发送正式的CORS请求。<br><img src="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/cros-yujian.png" alt="d"></p>
-</blockquote>
-<h3 id="五、服务器配置CORS"><a href="#五、服务器配置CORS" class="headerlink" title="五、服务器配置CORS"></a>五、服务器配置CORS</h3><p>以nodejs koa为例，如下为koa corszho</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> URL = require(<span class="string">'url'</span>);</span><br><span class="line"><span class="comment"><span class="markdown">/**</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>关键点：</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>1、如果需要支持 cookies,</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> *    </span>Access-Control-Allow-Origin 不能设置为 *,</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> *    </span>并且 Access-Control-Allow-Credentials 需要设置为 true</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> *    </span>(注意前端请求需要设置 withCredentials = true)</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>2、当 method = OPTIONS 时, 属于预检(复杂请求), 当为预检时, 可以直接返回空响应体, 对应的 http 状态码为 204</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>3、通过 Access-Control-Max-Age 可以设置预检结果的缓存, 单位(秒)</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>4、通过 Access-Control-Allow-Headers 设置需要支持的跨域请求头</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>5、通过 Access-Control-Allow-Methods 设置需要支持的跨域请求方法</span></span></span><br><span class="line"><span class="comment"><span class="markdown"> */</span></span></span><br><span class="line">module.exports = <span class="keyword">async</span> function (ctx, next) &#123;</span><br><span class="line">    <span class="keyword">const</span> origin = URL.parse(ctx.<span class="keyword">get</span>(<span class="string">'origin'</span>) || ctx.<span class="keyword">get</span>(<span class="string">'referer'</span>) || <span class="string">''</span>);</span><br><span class="line">    <span class="keyword">if</span> (origin.protocol &amp;&amp; origin.host) &#123;</span><br><span class="line">        ctx.<span class="keyword">set</span>(<span class="string">'Access-Control-Allow-Origin'</span>, `$&#123;origin.protocol&#125;<span class="comment">//$&#123;origin.host&#125;`);</span></span><br><span class="line">        ctx.<span class="keyword">set</span>(<span class="string">'Access-Control-Allow-Methods'</span>, <span class="string">'POST, GET, OPTIONS, DELETE, PUT'</span>);</span><br><span class="line">        ctx.<span class="keyword">set</span>(<span class="string">'Access-Control-Allow-Headers'</span>, <span class="string">'X-Requested-With, User-Agent, Referer, Content-Type, Cache-Control,accesstoken'</span>);</span><br><span class="line">        ctx.<span class="keyword">set</span>(<span class="string">'Access-Control-Max-Age'</span>, <span class="string">'86400'</span>);</span><br><span class="line">        ctx.<span class="keyword">set</span>(<span class="string">'Access-Control-Allow-Credentials'</span>, <span class="string">'true'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (ctx.method !== <span class="string">'OPTIONS'</span>) &#123;</span><br><span class="line">        <span class="comment">// 如果请求类型为非预检请求，则进入下一个中间件（包括路由中间件等）</span></span><br><span class="line">        <span class="keyword">await</span> next();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 当为预检时，直接返回204,代表空响应体</span></span><br><span class="line">        ctx.body = <span class="string">''</span>;</span><br><span class="line">        ctx.status = <span class="number">204</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li>语句<ul>
+<li>表达式语句：习惯—最好以分号结尾</li>
+<li>流控制语句：for-in, with</li>
+<li>异常处理语句：</li>
+<li>返回值：</li>
+</ul>
+</li>
+<li>变量<ul>
+<li>局部变量：需要添加var，没有的话会升级为全局变量</li>
+<li>全局变量：</li>
+</ul>
+</li>
+<li>数据类型：<ul>
+<li>5种基础数据类型（undifend、null、Boolean、Number、String），以及Object。只限制这6种形式，不存在其他类型的类型</li>
+<li>typeof运算符：不是函数，返回值为字符串（undefined, boolean, string, number, object, function）</li>
+<li>undefined: 变量被声明但是未初始化</li>
+<li>null: 空对象指针。当我们声明一个变量是为了保存一个对象时，但是没法立即给他初始化时候，最好把它设置为null，这样就知道未来这个变量是变量。</li>
+<li>Number与String数据类型转换</li>
+<li>Object类型：创建</li>
+</ul>
+</li>
+<li>运算符<ul>
+<li>JS种的奇技淫巧都来自于对运算符的使用</li>
+<li>基础的运算符，和其他语言一样</li>
+<li>布尔运算（!!取bool值,&amp;&amp;短路操作,||默认值）</li>
+<li>相等运算符：相等（==，!=）,全等（===，!==）,他们的不同。</li>
+<li>条件运算符</li>
+</ul>
+</li>
+<li>函数<ul>
+<li>function 声明</li>
+<li>参数：arguments，参数都是值传递的（copy简单值，copy对象和函数指针），其实就是局部变量</li>
+<li>没有函数重载，（不过可以通过模拟函数实现：通过对arguments进行解析判断）</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-引用类型"><a href="#2-引用类型" class="headerlink" title="2.引用类型"></a>2.引用类型</h5><ul>
+<li>Object</li>
+</ul>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#125; 等价于 new Object()</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-class">.b</span> 等价于 <span class="selector-tag">a</span>[b]</span><br></pre></td></tr></table></figure>
 
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在开发前端的过程中CROS问题总是让自己很头痛，前期花费了大量时间解决CROS问题。再了解了CROS的原理和过程后，对跨域问题不再畏惧。</p>
-<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><ol>
-<li><a href="https://segmentfault.com/a/1190000015017666" target="_blank" rel="noopener">https://segmentfault.com/a/1190000015017666</a></li>
-<li><a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="noopener">跨域资源共享 CORS 详解</a></li>
-<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS" target="_blank" rel="noopener">HTTP访问控制（CORS）</a></li>
-</ol>
+<ul>
+<li>Array</li>
+</ul>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[] 等价于 <span class="keyword">new</span> <span class="keyword">Array</span>()</span><br><span class="line"><span class="keyword">array</span>.length</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>判断是否是Array的两种方法：instanceof，isArray</li>
+<li>typeof VS instanceof<ul>
+<li>Date：+ new Date() 得到时间戳</li>
+<li>RegExp: 正则表达式</li>
+<li>Function</li>
+<li>单例内置对象</li>
+</ul>
+</li>
+<li>window</li>
+<li>Math</li>
+</ul>
+<h5 id="3-作用域"><a href="#3-作用域" class="headerlink" title="3. 作用域"></a>3. 作用域</h5><ul>
+<li>作用域链<ul>
+<li>从外向内部的链条，内部可以访问外部，外部无法访问内部。内部没查找到，则向上外层继续查找</li>
+</ul>
+</li>
+<li>this作用域：永远指向最后调用它的对象，具有一定的作用域。</li>
+<li>bind():可以为函数调用绑定一个作用域（实际是一个对象）</li>
+<li>没有块级作用域！！！，花括号无法延长作用域，只可以通过函数的方式来增加作用域</li>
+<li>闭包：有权访问另一个函数作用域中的变量的函数</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">applyArr</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> arr = [];</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i &lt; <span class="number">10</span>; i++)&#123;  <span class="comment">// 不存在块作用域，不会新增作用域</span></span><br><span class="line">    <span class="comment">// 不使用闭包</span></span><br><span class="line">    arr.push(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;  <span class="comment">//使用的i是applyArr的作用域，</span></span><br><span class="line">      <span class="keyword">return</span> i;           <span class="comment">// 最终在外部执行的时候，i取值一直都是10</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="comment">// 使用闭包</span></span><br><span class="line">    (<span class="function"><span class="keyword">function</span>(<span class="params">index</span>)</span>&#123;     <span class="comment">// 通过函数构造一个新的作用域,并将i作为参数传入</span></span><br><span class="line">      arr.push(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> index;     <span class="comment">// 这样return返回的时候，取得是新创建作用域中的值</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)(i);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> arr = applyArr();</span><br><span class="line"><span class="keyword">var</span> b = arr[<span class="number">1</span>]();</span><br><span class="line"><span class="comment">// 如果不使用闭包，那么b最终的值为10</span></span><br><span class="line"><span class="comment">// 使用闭包后，b的值为1</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="4-面向对象的JavaScript"><a href="#4-面向对象的JavaScript" class="headerlink" title="4. 面向对象的JavaScript"></a>4. 面向对象的JavaScript</h5><ul>
+<li>对象属性<ul>
+<li>一般方法：直接赋值新增属性</li>
+<li>数据属性：Object.defineProperty(obj,”name”,{configurable,enumerable,writable,value});</li>
+<li>访问器属性：get，set</li>
+</ul>
+</li>
+<li>创建对象<ul>
+<li>工厂模式</li>
+<li>构造函数模式</li>
+<li>原型模式：prototype</li>
+<li>构造函数与原型组合构造：属性放在构造函数中，方法放在原型中</li>
+</ul>
+</li>
+<li>实例属性和原型属性<ul>
+<li>in：“name” in obj， 用来判断实例obj是否有name属性</li>
+<li>obj.hasOwnProperty(“name”): 用来判断在实例化之后的对象上，目标的属性是否是实例属性or实例方法。</li>
+</ul>
+</li>
+<li>对象继承<ul>
+<li>基于原型链的继承：缺点，属性也被继承了，继承的属性在子类中是原型属性</li>
+<li>基于构造函数的继承：父类方法在子类中拷贝，资源浪费。</li>
+<li>组合继承：</li>
+</ul>
+</li>
+</ul>
+<h5 id="5-DOM编程"><a href="#5-DOM编程" class="headerlink" title="5. DOM编程"></a>5. DOM编程</h5><ul>
+<li>DOM节点<ul>
+<li>节点间的关系：父子，兄弟</li>
+<li>节点特征：nodeType,nodeName,nodeValue,parentNode…</li>
+</ul>
+</li>
+<li>document节点的属性<ul>
+<li>document.title：页面标题</li>
+<li>document.referrer：来自于那个页面，用于安全性判断，防盗链</li>
+<li>document.domain：解决域不同的问题</li>
+</ul>
+</li>
+<li>DOM元素节点的默认属性<ul>
+<li>.id</li>
+<li>.className</li>
+<li>.title</li>
+<li>.lang：文本</li>
+<li>.dir</li>
+<li>.getAttribute(‘id’)</li>
+</ul>
+</li>
+<li>DOM操作<ul>
+<li>创建：document.createElement(“div”);</li>
+<li>添加：someNode.appendChild(newNode);</li>
+<li>插入：someNode.insertBefore(newNode,beforeChildNode);</li>
+<li>替换：someNode.replaceChild(newNode,firstChild)</li>
+<li>删除：someNode.remove(someNode.firstNode);</li>
+<li>查找：document.getElementById(‘id’); document.getElementsByTagName()</li>
+</ul>
+</li>
+</ul>
+<h5 id="6-事件"><a href="#6-事件" class="headerlink" title="6. 事件"></a>6. 事件</h5><ul>
+<li>事件流<ul>
+<li>用来判断页面的哪一个部分会拥有某个特定的事件，即事件的定位</li>
+<li>事件流：冒泡<ul>
+<li>逐级向上级传递，接收和处理</li>
+</ul>
+</li>
+<li>事件流：捕获<ul>
+<li>从顶层节点向下传递，接收和处理</li>
+</ul>
+</li>
+<li>DOM事件流：组合了冒泡<ul>
+<li>先是捕获阶段，然后冒泡阶段，每个几点有两次处理事件的机会。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>事件处理<ul>
+<li>HTML标签中：比如onclick</li>
+<li>DOM0事件处理：domElement.onclick = function…</li>
+<li>DOM2事件处理：element.addEventListener(“click”,function()…, true/false),第三个参数指明是在捕获阶段true还是冒泡阶段处理事件。先绑定的事件先处理。</li>
+</ul>
+</li>
+<li>事件处理跨浏览器<ul>
+<li>封装跨浏览器的事件处理方法，比如安卓控制网页中的事件。</li>
+</ul>
+</li>
+<li>event属性方法<ul>
+<li>e.stopPropagation()：阻止事件冒泡</li>
+<li>e.preventDefault(); 阻止一些默认事件</li>
+</ul>
+</li>
+<li>事件类型<ul>
+<li>各种事件，用的时候查</li>
+<li>PC事件和移动端事件</li>
+</ul>
+</li>
+</ul>
+<h5 id="7-JSON数据通信"><a href="#7-JSON数据通信" class="headerlink" title="7. JSON数据通信"></a>7. JSON数据通信</h5><ul>
+<li><p>JSON</p>
+<ul>
+<li>JSON是一种数据格式，和XML是编程语言</li>
+<li>JSON更高效</li>
+<li>JSON无法表示undifend类型</li>
+<li>JSON字符串是双引号</li>
+<li>JSON中的对象的属性也必须是字符串</li>
+<li>JSON.stringify(obj)：将js对象序列化成json字符串</li>
+<li>JSON.parse(jsonText,function(key,value))：解析JSON，第二个参数为解析函数</li>
+</ul>
+</li>
+<li><p>AJAX</p>
+<ul>
+<li>异步加载</li>
+<li>无需前端界面刷新</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.open(<span class="string">"get"</span>,<span class="string">"url"</span>,<span class="literal">false</span>); <span class="comment">// 请求是否异步【异步：请求期间可以执行后续js，同步：不允许请求期间执行后续js】</span></span><br><span class="line">xhr.send(<span class="string">""</span>);</span><br><span class="line"><span class="comment">// 同步的话</span></span><br><span class="line">xhr.status</span><br><span class="line">xhr.responseText</span><br><span class="line"><span class="comment">// 异步的话</span></span><br><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;  <span class="comment">//在执行的过程中会不断执行onreadystatechange</span></span><br><span class="line">  <span class="keyword">if</span>(xhr.readyState === <span class="number">4</span>)&#123; <span class="comment">//0.未初始化，1.启动，2.发送，3.接收，4.完成</span></span><br><span class="line">    xhr.status</span><br><span class="line">    xhr.responseText</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="三、ES6"><a href="#三、ES6" class="headerlink" title="三、ES6"></a>三、ES6</h3><h5 id="1-历史"><a href="#1-历史" class="headerlink" title="1. 历史"></a>1. 历史</h5><ul>
+<li>ES发展<ul>
+<li>ES5</li>
+<li>ES6 = ES2015</li>
+<li>ES2015… 一年一更</li>
+</ul>
+</li>
+<li>Evergreen浏览器<ul>
+<li>IE，chrome，firefox，opera…</li>
+</ul>
+</li>
+<li>环境<ul>
+<li>Node：执行环境</li>
+<li>NPM： 依赖以及包管理工具</li>
+<li>Babel：ECMASCRIPT的转译器，将先进的标准转化为已经支持的标准</li>
+</ul>
+</li>
+<li>如何支持新标准<ul>
+<li>原生支持：开发者查看浏览器的支持情况</li>
+<li>Polyfill：以贴近新标准的方式封装API的效果</li>
+<li>转译器：babel</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-ES6的模块"><a href="#2-ES6的模块" class="headerlink" title="2. ES6的模块"></a>2. ES6的模块</h5><ul>
+<li>模块<ul>
+<li>易于拆分，模块加载</li>
+<li>模块化</li>
+</ul>
+</li>
+<li>模块加载规范<ul>
+<li>UMD <ul>
+<li>CommonJS</li>
+<li>AMD</li>
+</ul>
+</li>
+<li>CMD</li>
+</ul>
+</li>
+<li>ES6中的模块加载</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// module1.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">methodA</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">methodB</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">methodC</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="comment">// module2.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; methodA &#125;<span class="keyword">from</span> <span class="string">'./module1.js'</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>打包工具<ul>
+<li>browserify、webpack等：</li>
+<li>将多个js模块进行整体打包成一个js文件</li>
+<li>在打包之前需要先使用babel将ES6转化为ES5</li>
+</ul>
+</li>
+</ul>
+<h5 id="3-ES6的Class"><a href="#3-ES6的Class" class="headerlink" title="3. ES6的Class"></a>3. ES6的Class</h5><ul>
+<li>不需要像ES5那样用原型取声明各种方法</li>
+<li>class的typeof值其实也为function</li>
+<li>class内部声明的是实例属性</li>
+<li>ES6实际上是提供了一些语法糖</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ClassName</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>()&#123;&#125;</span><br><span class="line">  getName()&#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> hh = <span class="keyword">new</span> ClassName();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>继承<ul>
+<li>ES5特别麻烦，ES6就一个extends就可以了</li>
+</ul>
+</li>
+</ul>
+<h5 id="4-ES6常用特性"><a href="#4-ES6常用特性" class="headerlink" title="4. ES6常用特性"></a>4. ES6常用特性</h5><ul>
+<li>解构赋值</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从data</span></span><br><span class="line"><span class="keyword">const</span> &#123;id = <span class="number">1</span>&#125; = data;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>展开操作符</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//数组展开</span></span><br><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,...x]</span><br><span class="line"><span class="comment">//属性展开</span></span><br><span class="line">&#123;<span class="attr">a</span>:<span class="number">3</span>,<span class="attr">b</span>:<span class="number">4</span>,...c&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>取余</li>
+</ul>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[a,b,...rest] = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]</span><br><span class="line"><span class="comment">// a = 1</span></span><br><span class="line"><span class="comment">// b = 2</span></span><br><span class="line"><span class="comment">// rest = [3,4,5,6]</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>模板</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">`my name is <span class="subst">$&#123;name&#125;</span>`</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Set 和 Map<ul>
+<li>类似ES5中的数组和对象</li>
+<li>但是不允许出现元素的重复</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="keyword">set</span> = new Set([1,2,3,4,4]);</span><br><span class="line"><span class="keyword">set</span>.add(5)</span><br><span class="line"></span><br><span class="line">var map = new Map([</span><br><span class="line">  ['a',1],</span><br><span class="line">  ['b',2]]);</span><br><span class="line">map.put('c',3);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Generator函数和Iterator函数<ul>
+<li>Generator用来实现状态机</li>
+<li>Iterator用来实现迭代和遍历</li>
+</ul>
+</li>
+</ul>
+<h5 id="5-ES6的异步编程"><a href="#5-ES6的异步编程" class="headerlink" title="5.ES6的异步编程"></a>5.ES6的异步编程</h5><ul>
+<li><p>回调函数/事件</p>
+<ul>
+<li>遇到多种回调嵌套的时候写起来会很不友好</li>
+</ul>
+</li>
+<li><p>Promise</p>
+<ul>
+<li>是异步编程的一种解决方案，比传统的基于回调函数和事件的方式更合理和强大</li>
+<li>Promise对象代表一个异步操作，有三种状态<ul>
+<li>Pending：进行中</li>
+<li>Resolved：已完成</li>
+<li>Rejected：已失效</li>
+</ul>
+</li>
+<li>Promise.then()<ul>
+<li>可以接受两个回调函数为参数: then（（resolved, rejected）=&gt;{}）</li>
+<li>then的返回值可以还是一个Promise对象，即仍是一个异步操作。<ul>
+<li>可以采用链式写法，即then方法后再调用另一个then</li>
+<li>后续的回调函数会等到该Promise对象处理完成之后才会被调用</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 第一个异步操作</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">p1</span> (<span class="params">value</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">    someoperation(value,...)=&gt;&#123;</span><br><span class="line">      <span class="keyword">if</span>(...)&#123;</span><br><span class="line">        reject();</span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        resolve(value)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//第二个异步操作</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">p2</span> (<span class="params">value</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">    someoperation(value,...)=&gt;&#123;</span><br><span class="line">      <span class="keyword">if</span>(...)&#123;</span><br><span class="line">        reject();</span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        resolve(value)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 按照先1-&gt;2-&gt;1的顺序执行</span></span><br><span class="line">p1(<span class="number">10</span>)</span><br><span class="line">.then(<span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">  p2(value)</span><br><span class="line">&#125;, rej =&gt; &#123;&#125;)</span><br><span class="line">.then(<span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">  p1(value)</span><br><span class="line">&#125;, rej =&gt; &#123;&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>asyncy异步编程</p>
+<h3 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h3></li>
+</ul>
 
       
 
@@ -284,7 +548,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HTTP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
         		</li>
       		
 		</ul>
@@ -351,7 +619,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://zwboy.cn/技术/搞定跨域资源共享CORS（笔记整理）.html" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://zwboy.cn/技术/前端JavaScript系统梳理.html" alt="微信分享二维码">
     </div>
 </div>
 
@@ -365,18 +633,18 @@
   
 <nav id="article-nav">
   
-    <a href="/技术/BroswerRouter以及HashRouter的React前端项目在Nginx上部署.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/技术/React前端项目的Docker化.html" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          BroswerRouter以及HashRouter的React前端项目在Nginx上部署
+          React前端项目的Docker化
         
       </div>
     </a>
   
   
-    <a href="/技术/在一台服务器上通过Nginx配置多个二级域名映射多个不同端口的应用.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">在一台服务器上通过Nginx配置多个二级域名映射多个不同端口的应用</div>
+    <a href="/技术/CSS技术系统梳理.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">系统地梳理下CSS3技术吧</div>
       <i class="icon-circle-right"></i>
     </a>
   

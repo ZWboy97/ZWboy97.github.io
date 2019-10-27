@@ -6,24 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://zwboy.cn">
-  <title>搞定跨域资源共享CORS（笔记整理） | ZWboy的站点</title>
+  <title>React前端项目的Docker化 | ZWboy的站点</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="当从一个域向另一个不同的域或者端口请求资源的时候，会产生跨域请求。  一、什么是跨域 同源政策（same origin policy）：协议，主机名和端口号要相同，否则就会产生跨域请求。 通常的错误形式：Access to XMLHttpRequest at XXX has been blocked by CORS policy: No ‘Access-Control-Allow-Origin’">
-<meta name="keywords" content="HTTP">
+  <meta name="description" content="背景之前的整个视频云项目都是直接部署在实验室的服务器上，前端直接通过Nginx进行部署（运用反向代理）。现在需要将开发完成的项目整体迁移到阿里云上进行部署，能够通过外网IP和域名进行访问。 为什么要前端Docker化在进行选型的时候，选择了阿里云提供的Kubernetes容器计算服务，因为相比直接购买ECS云主机或者轻量云服务器，更适合我们项目前期的低使用率以及后期的可扩展性需求，不必花费几千元仅">
+<meta name="keywords" content="React,Docker,前端">
 <meta property="og:type" content="article">
-<meta property="og:title" content="搞定跨域资源共享CORS（笔记整理）">
-<meta property="og:url" content="http://zwboy.cn/技术/搞定跨域资源共享CORS（笔记整理）.html">
+<meta property="og:title" content="React前端项目的Docker化">
+<meta property="og:url" content="http://zwboy.cn/技术/React前端项目的Docker化.html">
 <meta property="og:site_name" content="ZWboy的站点">
-<meta property="og:description" content="当从一个域向另一个不同的域或者端口请求资源的时候，会产生跨域请求。  一、什么是跨域 同源政策（same origin policy）：协议，主机名和端口号要相同，否则就会产生跨域请求。 通常的错误形式：Access to XMLHttpRequest at XXX has been blocked by CORS policy: No ‘Access-Control-Allow-Origin’">
+<meta property="og:description" content="背景之前的整个视频云项目都是直接部署在实验室的服务器上，前端直接通过Nginx进行部署（运用反向代理）。现在需要将开发完成的项目整体迁移到阿里云上进行部署，能够通过外网IP和域名进行访问。 为什么要前端Docker化在进行选型的时候，选择了阿里云提供的Kubernetes容器计算服务，因为相比直接购买ECS云主机或者轻量云服务器，更适合我们项目前期的低使用率以及后期的可扩展性需求，不必花费几千元仅">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/kuayu.png">
-<meta property="og:image" content="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/csrf.png">
-<meta property="og:image" content="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/cros-yujian.png">
-<meta property="og:updated_time" content="2019-09-28T05:39:34.678Z">
+<meta property="og:updated_time" content="2019-10-27T05:30:46.835Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="搞定跨域资源共享CORS（笔记整理）">
-<meta name="twitter:description" content="当从一个域向另一个不同的域或者端口请求资源的时候，会产生跨域请求。  一、什么是跨域 同源政策（same origin policy）：协议，主机名和端口号要相同，否则就会产生跨域请求。 通常的错误形式：Access to XMLHttpRequest at XXX has been blocked by CORS policy: No ‘Access-Control-Allow-Origin’">
-<meta name="twitter:image" content="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/kuayu.png">
+<meta name="twitter:title" content="React前端项目的Docker化">
+<meta name="twitter:description" content="背景之前的整个视频云项目都是直接部署在实验室的服务器上，前端直接通过Nginx进行部署（运用反向代理）。现在需要将开发完成的项目整体迁移到阿里云上进行部署，能够通过外网IP和域名进行访问。 为什么要前端Docker化在进行选型的时候，选择了阿里云提供的Kubernetes容器计算服务，因为相比直接购买ECS云主机或者轻量云服务器，更适合我们项目前期的低使用率以及后期的可扩展性需求，不必花费几千元仅">
   
     <link rel="alternative" href="/atom.xml" title="ZWboy的站点" type="application/atom+xml">
   
@@ -155,101 +151,55 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-搞定跨域资源共享CORS（笔记整理）" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-React前端项目的Docker化" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      搞定跨域资源共享CORS（笔记整理）
+      React前端项目的Docker化
     </h1>
   
 
         
-        <a href="/技术/搞定跨域资源共享CORS（笔记整理）.html" class="archive-article-date">
-  	<time datetime="2019-09-23T03:24:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-23</time>
+        <a href="/技术/React前端项目的Docker化.html" class="archive-article-date">
+  	<time datetime="2019-10-26T15:09:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-26</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>当从一个域向另一个不同的域或者端口请求资源的时候，会产生跨域请求。<br><img src="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/kuayu.png" alt="跨域.png"></p>
-</blockquote>
-<h3 id="一、什么是跨域"><a href="#一、什么是跨域" class="headerlink" title="一、什么是跨域"></a>一、什么是跨域</h3><ol>
-<li>同源政策（same origin policy）：协议，主机名和端口号要相同，否则就会产生跨域请求。</li>
-<li>通常的错误形式：Access to XMLHttpRequest at XXX has been blocked by CORS policy: No ‘Access-Control-Allow-Origin’ header is present on the requested resource.</li>
-<li>整个CORS通信过程，都是浏览器自动完成，不需要用户参与。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。</li>
-<li>出于安全原因，浏览器限制从脚本内发起的跨源HTTP请求（或者跨域响应被拦截）。比如XMLHttpRequest和Fetch API都需要遵循同源策略。</li>
-<li>实现CORS必须要在服务器端实现CORS接口，即响应报文包含了正确CORS响应头。</li>
-</ol>
-<h3 id="二、为何要限制跨域"><a href="#二、为何要限制跨域" class="headerlink" title="二、为何要限制跨域"></a>二、为何要限制跨域</h3><blockquote>
-<p>跨站请求攻击CSRF<br><img src="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/csrf.png" alt="CSRF.png"></p>
-</blockquote>
-<ol>
-<li>攻击者引导用户去登录访问正常的网站，比如银行，session_id等认证会留在浏览器中。</li>
-<li>同时用户还在访问攻击者提供的网站，但是该网站会自动或者通过点击触发向之前正常的网站发起请求，当然用了之前已经认证过的session_id。</li>
-<li>这样就在用户不知道的情况下进行了一些诸如发送邮件，甚至转账、购买商品等操作。</li>
-<li>其利用的是Web用户身份验证的漏洞，即，简单的身份验证智能保证请求是来自该用户的浏览器（不是其他人在另一个浏览器伪造），但是并不能保证请求是用户本身自愿发出的。</li>
-<li>同源政策将会确保网站a拒绝来自网站b的请求。</li>
-</ol>
-<h3 id="三、为何又需要跨域呢"><a href="#三、为何又需要跨域呢" class="headerlink" title="三、为何又需要跨域呢"></a>三、为何又需要跨域呢</h3><blockquote>
-<p>前后端分离</p>
-</blockquote>
-<p>当前端框架兴起之后，前后端彻底分离的开发方式渐渐流行。前端和后端往往部署在不同的域名之上。前端通过访问后端的API获取数据，渲染前端界面，甚至进行路由跳转。这通常意味着前后端会出现不同源的问题。因为即使部署在同一台主机上，二者也属于不同的端口。那么我们就需要某种策略使得跨域请求能够通过。</p>
-<h3 id="四、跨域请求过程"><a href="#四、跨域请求过程" class="headerlink" title="四、跨域请求过程"></a>四、跨域请求过程</h3><blockquote>
-<p>浏览器将CORS请求分成两类：简单请求（simple request）和非简单请求（not-so-simple request）。</p>
-</blockquote>
-<h5 id="1-简单请求的跨域过程"><a href="#1-简单请求的跨域过程" class="headerlink" title="1. 简单请求的跨域过程"></a>1. 简单请求的跨域过程</h5><ul>
-<li>1.1. 简单请求是什么</li>
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>之前的整个视频云项目都是直接部署在实验室的服务器上，前端直接通过Nginx进行部署（运用反向代理）。现在需要将开发完成的项目整体迁移到阿里云上进行部署，能够通过外网IP和域名进行访问。</p>
+<h3 id="为什么要前端Docker化"><a href="#为什么要前端Docker化" class="headerlink" title="为什么要前端Docker化"></a>为什么要前端Docker化</h3><p>在进行选型的时候，选择了阿里云提供的Kubernetes容器计算服务，因为相比直接购买ECS云主机或者轻量云服务器，更适合我们项目前期的低使用率以及后期的可扩展性需求，不必花费几千元仅购买了个性能较强的云主机。并且将服务拆分为一个个小小的Docker中也更便于项目的运维和部署。</p>
+<h3 id="前端Docker化思路"><a href="#前端Docker化思路" class="headerlink" title="前端Docker化思路"></a>前端Docker化思路</h3><h5 id="1-前端镜像形式"><a href="#1-前端镜像形式" class="headerlink" title="1. 前端镜像形式"></a>1. 前端镜像形式</h5><ul>
+<li>以Nginx为基础镜像</li>
+<li>将前端打包完成后的build内容copy到镜像中</li>
+<li>将Nginx的配置文件Copy到镜像中的对应位置</li>
+<li>启动nginx服务，对外暴露80端口</li>
 </ul>
-<blockquote>
-<ol>
-<li>请求方法是以下三种方法之一（简单方法）：HEAD，GET，POST</li>
-<li>HTTP的头信息不超出以下几种字段（简单头）：Accept，Accept-Language，Content-Language，Last-Event-ID，Content-Type：只限于三个值application/x-www-form-urlencoded、multipart/form-data、text/plain</li>
-</ol>
-</blockquote>
-<ul>
-<li>1.2. 跨域过程</li>
+<h5 id="2-前端打包过程也要在构建中进行"><a href="#2-前端打包过程也要在构建中进行" class="headerlink" title="2. 前端打包过程也要在构建中进行"></a>2. 前端打包过程也要在构建中进行</h5><ul>
+<li>直接将打包完成的build文件Copy进镜像是可行的，但是如果想使用阿里云提供的容器镜像仓库的自动构建服务，需要将前端的打包过程也在镜像构建的过程中进行。</li>
+<li>我们知道，最终的前端镜像中不需要那些用于打包的各种依赖，并且实际上我们的代码仓库中，node_modules等依赖并没有添加到git仓库中。</li>
+<li>Docker构建可以分阶段进行：也就是构建过程分为build环境和最终的production环境。</li>
+<li>而通过Dockerfile正好支持这样的构建方式</li>
 </ul>
-<blockquote>
-<ol>
-<li>浏览器检测到这是一个简单请求，会自动在Header中添加Origin字段，该字段描述了协议，域名以及端口的信息。</li>
-<li>服务器会检查Origin，如果不在许可范围内（allow-origin），就会返回一个正常的HTTP回应，浏览器会抛出异常。如果在，服务器会返回响应，响应Header中会怎加几个头信息字段。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Origin:* <span class="comment">//服务器接收的origin</span></span><br><span class="line">Access-Control-Allow-Credentials: <span class="literal">true</span> <span class="comment">// 服务器是否允许CORS请求中发送Cookie。</span></span><br><span class="line"><span class="comment">//如果想实现发送Cookie的话，还需要在浏览器端设置withCredentials = true;</span></span><br><span class="line">Access-Control-Expose-Headers: <span class="comment">// ResponsHeader中暴露的字段</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</blockquote>
-<h5 id="2-非简单请求的跨域过程"><a href="#2-非简单请求的跨域过程" class="headerlink" title="2. 非简单请求的跨域过程"></a>2. 非简单请求的跨域过程</h5><blockquote>
-<p>比如请求方法是PUT或DELETE，或者Content-Type字段的类型是application/json，含有自定义的请求头等。</p>
-</blockquote>
-<ul>
-<li>Step.1. 预检请求Preflight</li>
-</ul>
-<blockquote>
-<p>旨在确保服务器对 CORS 标准知情，以保护不支持 CORS 的旧服务器</p>
-<ol>
-<li>浏览器发现是非简单请求，会在正式的通信之前，先向服务器询问当前网页所在的域名是否在服务器的许可名单中，以及可以使用哪些HTTP动词。</li>
-<li>预检请求是一个OPTION请求，会携带Access-Control-Request-Method（指明该跨域请求的Method），Access-Control-Request-Headers（该跨域请求额外会发送的头信息字段，比如认证字段）以及Origin信息。</li>
-<li>服务器检查以上三个字段，确认允许后就会做出回应。（服务器在设置跨域请求的时候不能忘记对预检请求的处理）。回应Header包括Access-Control-Allow-Methods，Access-Control-Allow-Headers，Access-Control-Allow-Credentials等。</li>
-</ol>
-</blockquote>
-<ul>
-<li>Step.2. 预检成功后再发起跨域请求</li>
-</ul>
-<blockquote>
-<p>预检通过之后，浏览器会像简单请求一样，再发送正式的CORS请求。<br><img src="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/cros-yujian.png" alt="d"></p>
-</blockquote>
-<h3 id="五、服务器配置CORS"><a href="#五、服务器配置CORS" class="headerlink" title="五、服务器配置CORS"></a>五、服务器配置CORS</h3><p>以nodejs koa为例，如下为koa corszho</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> URL = require(<span class="string">'url'</span>);</span><br><span class="line"><span class="comment"><span class="markdown">/**</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>关键点：</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>1、如果需要支持 cookies,</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> *    </span>Access-Control-Allow-Origin 不能设置为 *,</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> *    </span>并且 Access-Control-Allow-Credentials 需要设置为 true</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> *    </span>(注意前端请求需要设置 withCredentials = true)</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>2、当 method = OPTIONS 时, 属于预检(复杂请求), 当为预检时, 可以直接返回空响应体, 对应的 http 状态码为 204</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>3、通过 Access-Control-Max-Age 可以设置预检结果的缓存, 单位(秒)</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>4、通过 Access-Control-Allow-Headers 设置需要支持的跨域请求头</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>5、通过 Access-Control-Allow-Methods 设置需要支持的跨域请求方法</span></span></span><br><span class="line"><span class="comment"><span class="markdown"> */</span></span></span><br><span class="line">module.exports = <span class="keyword">async</span> function (ctx, next) &#123;</span><br><span class="line">    <span class="keyword">const</span> origin = URL.parse(ctx.<span class="keyword">get</span>(<span class="string">'origin'</span>) || ctx.<span class="keyword">get</span>(<span class="string">'referer'</span>) || <span class="string">''</span>);</span><br><span class="line">    <span class="keyword">if</span> (origin.protocol &amp;&amp; origin.host) &#123;</span><br><span class="line">        ctx.<span class="keyword">set</span>(<span class="string">'Access-Control-Allow-Origin'</span>, `$&#123;origin.protocol&#125;<span class="comment">//$&#123;origin.host&#125;`);</span></span><br><span class="line">        ctx.<span class="keyword">set</span>(<span class="string">'Access-Control-Allow-Methods'</span>, <span class="string">'POST, GET, OPTIONS, DELETE, PUT'</span>);</span><br><span class="line">        ctx.<span class="keyword">set</span>(<span class="string">'Access-Control-Allow-Headers'</span>, <span class="string">'X-Requested-With, User-Agent, Referer, Content-Type, Cache-Control,accesstoken'</span>);</span><br><span class="line">        ctx.<span class="keyword">set</span>(<span class="string">'Access-Control-Max-Age'</span>, <span class="string">'86400'</span>);</span><br><span class="line">        ctx.<span class="keyword">set</span>(<span class="string">'Access-Control-Allow-Credentials'</span>, <span class="string">'true'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (ctx.method !== <span class="string">'OPTIONS'</span>) &#123;</span><br><span class="line">        <span class="comment">// 如果请求类型为非预检请求，则进入下一个中间件（包括路由中间件等）</span></span><br><span class="line">        <span class="keyword">await</span> next();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 当为预检时，直接返回204,代表空响应体</span></span><br><span class="line">        ctx.body = <span class="string">''</span>;</span><br><span class="line">        ctx.status = <span class="number">204</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="所使用的Dockerfile文件"><a href="#所使用的Dockerfile文件" class="headerlink" title="所使用的Dockerfile文件"></a>所使用的Dockerfile文件</h3><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># build environment</span></span><br><span class="line"><span class="keyword">FROM</span> 	  node as build</span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash">	/app</span></span><br><span class="line"><span class="keyword">ENV</span>	    PATH /app/node_modules/.bin:$PATH</span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> 	  . /app</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash">	    yarn</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> 	  yarn build</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># production environment</span></span><br><span class="line"><span class="keyword">FROM</span> 	  nginx</span><br><span class="line"><span class="keyword">COPY</span><span class="bash">	  --from=build /app/build /usr/share/nginx/html</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> 	  rm /etc/nginx/conf.d/default.conf</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> 	  deploy/nginx.conf /etc/nginx/conf.d</span></span><br><span class="line"><span class="keyword">EXPOSE</span> 	<span class="number">80</span></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> 	  [<span class="string">"nginx"</span>, <span class="string">"-g"</span>, <span class="string">"daemon off;"</span> ]</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在开发前端的过程中CROS问题总是让自己很头痛，前期花费了大量时间解决CROS问题。再了解了CROS的原理和过程后，对跨域问题不再畏惧。</p>
-<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><ol>
-<li><a href="https://segmentfault.com/a/1190000015017666" target="_blank" rel="noopener">https://segmentfault.com/a/1190000015017666</a></li>
-<li><a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="noopener">跨域资源共享 CORS 详解</a></li>
-<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS" target="_blank" rel="noopener">HTTP访问控制（CORS）</a></li>
-</ol>
+<h3 id="所使用的Nginx配置文件"><a href="#所使用的Nginx配置文件" class="headerlink" title="所使用的Nginx配置文件"></a>所使用的Nginx配置文件</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># deploy/nginx.conf</span></span><br><span class="line">server &#123;</span><br><span class="line">	listen 80;</span><br><span class="line">	</span><br><span class="line">	location / &#123;</span><br><span class="line">		root	/usr/share/nginx/html;</span><br><span class="line">		index 	index.html	index.htm;</span><br><span class="line">		try_files <span class="variable">$uri</span> <span class="variable">$uri</span>/	/index.html;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	error_page 500 502 503 504	/50x.html;</span><br><span class="line"></span><br><span class="line">	location = /50x.html &#123;</span><br><span class="line">		root	/usr/share/nginx/html;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="问题与思考"><a href="#问题与思考" class="headerlink" title="问题与思考"></a>问题与思考</h3><h5 id="1-镜像的构建过程太漫长了"><a href="#1-镜像的构建过程太漫长了" class="headerlink" title="1. 镜像的构建过程太漫长了"></a>1. 镜像的构建过程太漫长了</h5><ul>
+<li>主要时间大部分都用在了build环节，并且是依赖安装环节</li>
+<li>缩减构建时间很重要</li>
+<li>优化思路<ul>
+<li>项目中有很多多余的依赖，去除这些未使用的依赖</li>
+<li>更换yarn依赖安装的源（阿里似乎已经帮我们更换了）</li>
+<li>区分依赖区分开发环境和生产环境，比如类似eslint这样的依赖，在生产打包中就不需要了。</li>
+</ul>
+</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>最后，由衷感受，Docker真是个好东西，搞技术的都应该学一下。</p>
 
       
 
@@ -284,7 +234,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HTTP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">React</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
         		</li>
       		
 		</ul>
@@ -351,7 +309,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://zwboy.cn/技术/搞定跨域资源共享CORS（笔记整理）.html" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://zwboy.cn/技术/React前端项目的Docker化.html" alt="微信分享二维码">
     </div>
 </div>
 
@@ -365,18 +323,9 @@
   
 <nav id="article-nav">
   
-    <a href="/技术/BroswerRouter以及HashRouter的React前端项目在Nginx上部署.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          BroswerRouter以及HashRouter的React前端项目在Nginx上部署
-        
-      </div>
-    </a>
   
-  
-    <a href="/技术/在一台服务器上通过Nginx配置多个二级域名映射多个不同端口的应用.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">在一台服务器上通过Nginx配置多个二级域名映射多个不同端口的应用</div>
+    <a href="/技术/前端JavaScript系统梳理.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">前端JavaScript系统梳理</div>
       <i class="icon-circle-right"></i>
     </a>
   

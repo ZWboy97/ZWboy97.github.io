@@ -6,24 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://zwboy.cn">
-  <title>搞定跨域资源共享CORS（笔记整理） | ZWboy的站点</title>
+  <title>BroswerRouter以及HashRouter的React前端项目在Nginx上部署 | ZWboy的站点</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="当从一个域向另一个不同的域或者端口请求资源的时候，会产生跨域请求。  一、什么是跨域 同源政策（same origin policy）：协议，主机名和端口号要相同，否则就会产生跨域请求。 通常的错误形式：Access to XMLHttpRequest at XXX has been blocked by CORS policy: No ‘Access-Control-Allow-Origin’">
-<meta name="keywords" content="HTTP">
+  <meta name="description" content="背景：视频云的前端项目使用了React框架，并通过React-Router实现了SPA单页应用。前端包括管理端和观看端，而React-Router有两种常用类型的Router，分别是HashRouter以及BrowserRouter，为了体验二者的不同，在管理端使用了HashRouter，而在观看端使用了HashRouter。  两种React-Router1. HashRouter histo">
+<meta name="keywords" content="React,Nginx">
 <meta property="og:type" content="article">
-<meta property="og:title" content="搞定跨域资源共享CORS（笔记整理）">
-<meta property="og:url" content="http://zwboy.cn/技术/搞定跨域资源共享CORS（笔记整理）.html">
+<meta property="og:title" content="BroswerRouter以及HashRouter的React前端项目在Nginx上部署">
+<meta property="og:url" content="http://zwboy.cn/技术/BroswerRouter以及HashRouter的React前端项目在Nginx上部署.html">
 <meta property="og:site_name" content="ZWboy的站点">
-<meta property="og:description" content="当从一个域向另一个不同的域或者端口请求资源的时候，会产生跨域请求。  一、什么是跨域 同源政策（same origin policy）：协议，主机名和端口号要相同，否则就会产生跨域请求。 通常的错误形式：Access to XMLHttpRequest at XXX has been blocked by CORS policy: No ‘Access-Control-Allow-Origin’">
+<meta property="og:description" content="背景：视频云的前端项目使用了React框架，并通过React-Router实现了SPA单页应用。前端包括管理端和观看端，而React-Router有两种常用类型的Router，分别是HashRouter以及BrowserRouter，为了体验二者的不同，在管理端使用了HashRouter，而在观看端使用了HashRouter。  两种React-Router1. HashRouter histo">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/kuayu.png">
-<meta property="og:image" content="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/csrf.png">
-<meta property="og:image" content="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/cros-yujian.png">
-<meta property="og:updated_time" content="2019-09-28T05:39:34.678Z">
+<meta property="og:updated_time" content="2019-10-27T05:08:12.521Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="搞定跨域资源共享CORS（笔记整理）">
-<meta name="twitter:description" content="当从一个域向另一个不同的域或者端口请求资源的时候，会产生跨域请求。  一、什么是跨域 同源政策（same origin policy）：协议，主机名和端口号要相同，否则就会产生跨域请求。 通常的错误形式：Access to XMLHttpRequest at XXX has been blocked by CORS policy: No ‘Access-Control-Allow-Origin’">
-<meta name="twitter:image" content="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/kuayu.png">
+<meta name="twitter:title" content="BroswerRouter以及HashRouter的React前端项目在Nginx上部署">
+<meta name="twitter:description" content="背景：视频云的前端项目使用了React框架，并通过React-Router实现了SPA单页应用。前端包括管理端和观看端，而React-Router有两种常用类型的Router，分别是HashRouter以及BrowserRouter，为了体验二者的不同，在管理端使用了HashRouter，而在观看端使用了HashRouter。  两种React-Router1. HashRouter histo">
   
     <link rel="alternative" href="/atom.xml" title="ZWboy的站点" type="application/atom+xml">
   
@@ -155,20 +151,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-搞定跨域资源共享CORS（笔记整理）" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-BroswerRouter以及HashRouter的React前端项目在Nginx上部署" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      搞定跨域资源共享CORS（笔记整理）
+      BroswerRouter以及HashRouter的React前端项目在Nginx上部署
     </h1>
   
 
         
-        <a href="/技术/搞定跨域资源共享CORS（笔记整理）.html" class="archive-article-date">
-  	<time datetime="2019-09-23T03:24:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-23</time>
+        <a href="/技术/BroswerRouter以及HashRouter的React前端项目在Nginx上部署.html" class="archive-article-date">
+  	<time datetime="2019-09-28T05:43:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-28</time>
 </a>
         
       </header>
@@ -176,80 +172,39 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>当从一个域向另一个不同的域或者端口请求资源的时候，会产生跨域请求。<br><img src="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/kuayu.png" alt="跨域.png"></p>
+<p>背景：视频云的前端项目使用了React框架，并通过React-Router实现了SPA单页应用。前端包括管理端和观看端，而React-Router有两种常用类型的Router，分别是HashRouter以及BrowserRouter，为了体验二者的不同，在管理端使用了HashRouter，而在观看端使用了HashRouter。</p>
 </blockquote>
-<h3 id="一、什么是跨域"><a href="#一、什么是跨域" class="headerlink" title="一、什么是跨域"></a>一、什么是跨域</h3><ol>
-<li>同源政策（same origin policy）：协议，主机名和端口号要相同，否则就会产生跨域请求。</li>
-<li>通常的错误形式：Access to XMLHttpRequest at XXX has been blocked by CORS policy: No ‘Access-Control-Allow-Origin’ header is present on the requested resource.</li>
-<li>整个CORS通信过程，都是浏览器自动完成，不需要用户参与。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。</li>
-<li>出于安全原因，浏览器限制从脚本内发起的跨源HTTP请求（或者跨域响应被拦截）。比如XMLHttpRequest和Fetch API都需要遵循同源策略。</li>
-<li>实现CORS必须要在服务器端实现CORS接口，即响应报文包含了正确CORS响应头。</li>
-</ol>
-<h3 id="二、为何要限制跨域"><a href="#二、为何要限制跨域" class="headerlink" title="二、为何要限制跨域"></a>二、为何要限制跨域</h3><blockquote>
-<p>跨站请求攻击CSRF<br><img src="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/csrf.png" alt="CSRF.png"></p>
-</blockquote>
-<ol>
-<li>攻击者引导用户去登录访问正常的网站，比如银行，session_id等认证会留在浏览器中。</li>
-<li>同时用户还在访问攻击者提供的网站，但是该网站会自动或者通过点击触发向之前正常的网站发起请求，当然用了之前已经认证过的session_id。</li>
-<li>这样就在用户不知道的情况下进行了一些诸如发送邮件，甚至转账、购买商品等操作。</li>
-<li>其利用的是Web用户身份验证的漏洞，即，简单的身份验证智能保证请求是来自该用户的浏览器（不是其他人在另一个浏览器伪造），但是并不能保证请求是用户本身自愿发出的。</li>
-<li>同源政策将会确保网站a拒绝来自网站b的请求。</li>
-</ol>
-<h3 id="三、为何又需要跨域呢"><a href="#三、为何又需要跨域呢" class="headerlink" title="三、为何又需要跨域呢"></a>三、为何又需要跨域呢</h3><blockquote>
-<p>前后端分离</p>
-</blockquote>
-<p>当前端框架兴起之后，前后端彻底分离的开发方式渐渐流行。前端和后端往往部署在不同的域名之上。前端通过访问后端的API获取数据，渲染前端界面，甚至进行路由跳转。这通常意味着前后端会出现不同源的问题。因为即使部署在同一台主机上，二者也属于不同的端口。那么我们就需要某种策略使得跨域请求能够通过。</p>
-<h3 id="四、跨域请求过程"><a href="#四、跨域请求过程" class="headerlink" title="四、跨域请求过程"></a>四、跨域请求过程</h3><blockquote>
-<p>浏览器将CORS请求分成两类：简单请求（simple request）和非简单请求（not-so-simple request）。</p>
-</blockquote>
-<h5 id="1-简单请求的跨域过程"><a href="#1-简单请求的跨域过程" class="headerlink" title="1. 简单请求的跨域过程"></a>1. 简单请求的跨域过程</h5><ul>
-<li>1.1. 简单请求是什么</li>
+<h3 id="两种React-Router"><a href="#两种React-Router" class="headerlink" title="两种React-Router"></a>两种React-Router</h3><h5 id="1-HashRouter"><a href="#1-HashRouter" class="headerlink" title="1. HashRouter"></a>1. HashRouter</h5><ul>
+<li>history: 使用 hash history</li>
+<li>通过Hash部分来表示路由，属于浏览器端路由，Hash部分在请求的时候并不会提交到服务器，也就是说不管是请求 #foo 还是 #bar ，服务只知道请求了 index.html 并不知道 hash 部分的细节。</li>
+<li>url样例：/#/user</li>
+<li>不需要服务器支持，由浏览器负责路由。</li>
 </ul>
-<blockquote>
-<ol>
-<li>请求方法是以下三种方法之一（简单方法）：HEAD，GET，POST</li>
-<li>HTTP的头信息不超出以下几种字段（简单头）：Accept，Accept-Language，Content-Language，Last-Event-ID，Content-Type：只限于三个值application/x-www-form-urlencoded、multipart/form-data、text/plain</li>
-</ol>
-</blockquote>
-<ul>
-<li>1.2. 跨域过程</li>
+<h5 id="2-BrowserRouter"><a href="#2-BrowserRouter" class="headerlink" title="2. BrowserRouter"></a>2. BrowserRouter</h5><ul>
+<li>使用的是 HTML5 的 History API，浏览器提供相应的接口来修改浏览器的历史记录</li>
+<li>需要服务器支持，属于服务器路由</li>
+<li>url样例：/user/lives</li>
+<li>路由直接在URL中，原则上每次URL切换的时候，都会像服务器请求页面</li>
+<li>但借助html5里面history的新的api，可以使用js改变url的值，而不会向服务端发请求。(刷新界面的时候还是会请求页面)</li>
+<li>是react-router官方推荐的</li>
 </ul>
-<blockquote>
-<ol>
-<li>浏览器检测到这是一个简单请求，会自动在Header中添加Origin字段，该字段描述了协议，域名以及端口的信息。</li>
-<li>服务器会检查Origin，如果不在许可范围内（allow-origin），就会返回一个正常的HTTP回应，浏览器会抛出异常。如果在，服务器会返回响应，响应Header中会怎加几个头信息字段。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Origin:* <span class="comment">//服务器接收的origin</span></span><br><span class="line">Access-Control-Allow-Credentials: <span class="literal">true</span> <span class="comment">// 服务器是否允许CORS请求中发送Cookie。</span></span><br><span class="line"><span class="comment">//如果想实现发送Cookie的话，还需要在浏览器端设置withCredentials = true;</span></span><br><span class="line">Access-Control-Expose-Headers: <span class="comment">// ResponsHeader中暴露的字段</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</blockquote>
-<h5 id="2-非简单请求的跨域过程"><a href="#2-非简单请求的跨域过程" class="headerlink" title="2. 非简单请求的跨域过程"></a>2. 非简单请求的跨域过程</h5><blockquote>
-<p>比如请求方法是PUT或DELETE，或者Content-Type字段的类型是application/json，含有自定义的请求头等。</p>
-</blockquote>
-<ul>
-<li>Step.1. 预检请求Preflight</li>
+<h3 id="使用Nginx部署的时候需要特殊的配置"><a href="#使用Nginx部署的时候需要特殊的配置" class="headerlink" title="使用Nginx部署的时候需要特殊的配置"></a>使用Nginx部署的时候需要特殊的配置</h3><ul>
+<li>传统的前端部署之后，浏览器都是直接通过浏览器地址栏中的uri去请求服务器对应位置的文件，而在使用React-Router进行路由管理来实现SPA之后，依然采用这样的配置的话，初次加载首页是正常的，但当浏览器URI被改变之后，再点击刷新，则页面不显示或者404错误。</li>
+<li>原因在于，使用React-Router之后，页面内的路由是由前端自行渲染的，未通过后端，而是js动态更改了location。而当我们刷新界面时，首先访问的是后台地址，然后在返回的页面中再去加载React代码并执行。</li>
+<li>问题在于，React应用在运行的时候可能会去更改浏览器的URL，而实际服务器上可能并不存在与URI对应的资源（因为资源的定位已经交给React来做了），所以刷新页面的时候，浏览器直接用URI去寻找资源，可想而知会产生异常（404或者不显示）。</li>
+<li>而我们使用Webpack来打包React之后，最终的输出就是一个index.html附加一些文件，当然文件的定位逻辑也存在这些文件中。所以，默认的由Nginx服务器来定位这些资源的方式是行不通的，需要将该任务交给React本身来做。</li>
+<li>所以，思路是，浏览器在使用React应用期间，无论URI是否更改，服务器都直接无脑返回index.html这个页面就可以，浏览器得到index.html，加载React，剩下的任务都交给React本身去做就好了。</li>
+<li>使用Nginx的try_files，来将前端的请求都映射到index.html。</li>
 </ul>
-<blockquote>
-<p>旨在确保服务器对 CORS 标准知情，以保护不支持 CORS 的旧服务器</p>
-<ol>
-<li>浏览器发现是非简单请求，会在正式的通信之前，先向服务器询问当前网页所在的域名是否在服务器的许可名单中，以及可以使用哪些HTTP动词。</li>
-<li>预检请求是一个OPTION请求，会携带Access-Control-Request-Method（指明该跨域请求的Method），Access-Control-Request-Headers（该跨域请求额外会发送的头信息字段，比如认证字段）以及Origin信息。</li>
-<li>服务器检查以上三个字段，确认允许后就会做出回应。（服务器在设置跨域请求的时候不能忘记对预检请求的处理）。回应Header包括Access-Control-Allow-Methods，Access-Control-Allow-Headers，Access-Control-Allow-Credentials等。</li>
-</ol>
-</blockquote>
-<ul>
-<li>Step.2. 预检成功后再发起跨域请求</li>
+<h3 id="部署HashRouter的Nginx配置"><a href="#部署HashRouter的Nginx配置" class="headerlink" title="部署HashRouter的Nginx配置"></a>部署HashRouter的Nginx配置</h3><ul>
+<li>在Nginx中配置一个vhost</li>
 </ul>
-<blockquote>
-<p>预检通过之后，浏览器会像简单请求一样，再发送正式的CORS请求。<br><img src="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/cros-yujian.png" alt="d"></p>
-</blockquote>
-<h3 id="五、服务器配置CORS"><a href="#五、服务器配置CORS" class="headerlink" title="五、服务器配置CORS"></a>五、服务器配置CORS</h3><p>以nodejs koa为例，如下为koa corszho</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> URL = require(<span class="string">'url'</span>);</span><br><span class="line"><span class="comment"><span class="markdown">/**</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>关键点：</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>1、如果需要支持 cookies,</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> *    </span>Access-Control-Allow-Origin 不能设置为 *,</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> *    </span>并且 Access-Control-Allow-Credentials 需要设置为 true</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> *    </span>(注意前端请求需要设置 withCredentials = true)</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>2、当 method = OPTIONS 时, 属于预检(复杂请求), 当为预检时, 可以直接返回空响应体, 对应的 http 状态码为 204</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>3、通过 Access-Control-Max-Age 可以设置预检结果的缓存, 单位(秒)</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>4、通过 Access-Control-Allow-Headers 设置需要支持的跨域请求头</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>5、通过 Access-Control-Allow-Methods 设置需要支持的跨域请求方法</span></span></span><br><span class="line"><span class="comment"><span class="markdown"> */</span></span></span><br><span class="line">module.exports = <span class="keyword">async</span> function (ctx, next) &#123;</span><br><span class="line">    <span class="keyword">const</span> origin = URL.parse(ctx.<span class="keyword">get</span>(<span class="string">'origin'</span>) || ctx.<span class="keyword">get</span>(<span class="string">'referer'</span>) || <span class="string">''</span>);</span><br><span class="line">    <span class="keyword">if</span> (origin.protocol &amp;&amp; origin.host) &#123;</span><br><span class="line">        ctx.<span class="keyword">set</span>(<span class="string">'Access-Control-Allow-Origin'</span>, `$&#123;origin.protocol&#125;<span class="comment">//$&#123;origin.host&#125;`);</span></span><br><span class="line">        ctx.<span class="keyword">set</span>(<span class="string">'Access-Control-Allow-Methods'</span>, <span class="string">'POST, GET, OPTIONS, DELETE, PUT'</span>);</span><br><span class="line">        ctx.<span class="keyword">set</span>(<span class="string">'Access-Control-Allow-Headers'</span>, <span class="string">'X-Requested-With, User-Agent, Referer, Content-Type, Cache-Control,accesstoken'</span>);</span><br><span class="line">        ctx.<span class="keyword">set</span>(<span class="string">'Access-Control-Max-Age'</span>, <span class="string">'86400'</span>);</span><br><span class="line">        ctx.<span class="keyword">set</span>(<span class="string">'Access-Control-Allow-Credentials'</span>, <span class="string">'true'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (ctx.method !== <span class="string">'OPTIONS'</span>) &#123;</span><br><span class="line">        <span class="comment">// 如果请求类型为非预检请求，则进入下一个中间件（包括路由中间件等）</span></span><br><span class="line">        <span class="keyword">await</span> next();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 当为预检时，直接返回204,代表空响应体</span></span><br><span class="line">        ctx.body = <span class="string">''</span>;</span><br><span class="line">        ctx.status = <span class="number">204</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nginx.conf整体配置大概如下：</span></span><br><span class="line">server &#123;</span><br><span class="line">    listen 8083;</span><br><span class="line">    root /home/name/..../build; <span class="comment"># 前端build完成之后的静态资源路径</span></span><br><span class="line">    index index.html index.htm;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        try_file <span class="variable">$uri</span> <span class="variable">$uri</span>/ /index.html;  <span class="comment"># url 切换时始终返回index.html</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 其他配置</span></span><br><span class="line">    <span class="comment"># 图片样式缓存1年</span></span><br><span class="line">    location ~* /app.*\.(js|css|png|jpg)$ &#123;</span><br><span class="line">       access_log off;</span><br><span class="line">        expires    365d;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment"># html/xml/json 文件不缓存</span></span><br><span class="line">    location ~* /app.*\.(?:manifest|appcache|html?|xml|json)$ &#123;</span><br><span class="line">        expires    -1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在开发前端的过程中CROS问题总是让自己很头痛，前期花费了大量时间解决CROS问题。再了解了CROS的原理和过程后，对跨域问题不再畏惧。</p>
-<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><ol>
-<li><a href="https://segmentfault.com/a/1190000015017666" target="_blank" rel="noopener">https://segmentfault.com/a/1190000015017666</a></li>
-<li><a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="noopener">跨域资源共享 CORS 详解</a></li>
-<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS" target="_blank" rel="noopener">HTTP访问控制（CORS）</a></li>
-</ol>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>部署项目的时候搞得很头痛和低效，深入搞明白之后，再也不怕React前端的部署了。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li>1.<a href="https://www.cnblogs.com/soyxiaobi/p/11096940.html" target="_blank" rel="noopener">react-router-dom下的BrowserRouter和HashRouter</a></li>
+</ul>
 
       
 
@@ -284,7 +239,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HTTP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">React</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Nginx</a>
         		</li>
       		
 		</ul>
@@ -351,7 +310,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://zwboy.cn/技术/搞定跨域资源共享CORS（笔记整理）.html" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://zwboy.cn/技术/BroswerRouter以及HashRouter的React前端项目在Nginx上部署.html" alt="微信分享二维码">
     </div>
 </div>
 
@@ -365,18 +324,18 @@
   
 <nav id="article-nav">
   
-    <a href="/技术/BroswerRouter以及HashRouter的React前端项目在Nginx上部署.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/技术/CSS技术系统梳理.html" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          BroswerRouter以及HashRouter的React前端项目在Nginx上部署
+          系统地梳理下CSS3技术吧
         
       </div>
     </a>
   
   
-    <a href="/技术/在一台服务器上通过Nginx配置多个二级域名映射多个不同端口的应用.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">在一台服务器上通过Nginx配置多个二级域名映射多个不同端口的应用</div>
+    <a href="/技术/搞定跨域资源共享CORS（笔记整理）.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">搞定跨域资源共享CORS（笔记整理）</div>
       <i class="icon-circle-right"></i>
     </a>
   
