@@ -152,19 +152,1139 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-React前端项目的Docker化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-一次基于OAuth-2-0的第三方登录实践-2019-11-01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/技术/React前端项目的Docker化.html">React前端项目的Docker化</a>
+      <a class="article-title" href="/技术/一次基于OAuth-2-0的第三方登录实践-2019-11-01.html">一次基于OAuth 2.0的第三方登录实践总结</a>
     </h1>
   
 
         
-        <a href="/技术/React前端项目的Docker化.html" class="archive-article-date">
+        <a href="/技术/一次基于OAuth-2-0的第三方登录实践-2019-11-01.html" class="archive-article-date">
+  	<time datetime="2019-11-01T08:56:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>OAuth 2.0 是目前最流行的授权机制，用来授权第三方应用，获取用户数据。</p>
+</blockquote>
+<h3 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h3><ul>
+<li>最近在视频云项目的ToC观看端想引入用户登录功能。从用户需求的角度考虑，用户不喜欢仅为了发送一个弹幕或者评论而需要进行复杂的注册流程。目前很多网站都引入了第三方登录的方式，这样即解决了用户会忘记密码的问题，也简化了用户的登录流程，提高参与度。</li>
+<li>OAuth是目前主流的授权方式，值得系统学习下。</li>
+</ul>
+<h3 id="二、OAuth-2-0"><a href="#二、OAuth-2-0" class="headerlink" title="二、OAuth 2.0"></a>二、OAuth 2.0</h3><h5 id="1-令牌"><a href="#1-令牌" class="headerlink" title="1. 令牌"></a>1. 令牌</h5><ul>
+<li>OAuth中授权使用的是token，而不是密码。<ul>
+<li>token具有时效性，可以随时被撤销，且权限范围受限</li>
+<li>相比于密码的方式，在实现授权给第三方的同时，具有较好的可控性。</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-角色"><a href="#2-角色" class="headerlink" title="2. 角色"></a>2. 角色</h5><ul>
+<li>客户端：想要通过第三方登录的软件系统</li>
+<li>资源所有者：授权方</li>
+</ul>
+<h5 id="3-授权层"><a href="#3-授权层" class="headerlink" title="3. 授权层"></a>3. 授权层</h5><ul>
+<li>OAuth引入了授权层，来隔离这两个用户</li>
+</ul>
+<h3 id="三、OAuth的四种授权方式"><a href="#三、OAuth的四种授权方式" class="headerlink" title="三、OAuth的四种授权方式"></a>三、OAuth的四种授权方式</h3><ul>
+<li>为了适应互联网各种不同的场景，OAuth提供了四种授权方式。</li>
+<li>在授权之前，第三方系统需要到授权系统注册，说明自己的身份<ul>
+<li>然后获得应用ID（app_id）以及应用密钥（app_secret)</li>
+</ul>
+</li>
+<li>下文中A系统为授权系统，比如微信、微博，B系统为第三方应用，比如我们的视频云系统。</li>
+</ul>
+<h5 id="1-授权码式（authorization-code）"><a href="#1-授权码式（authorization-code）" class="headerlink" title="1. 授权码式（authorization-code）"></a>1. 授权码式（authorization-code）</h5><ul>
+<li><p>最常用的方式，安全性也最高</p>
+</li>
+<li><p>需要应用后端支持，授权码由前端获取，令牌以及资源请求由后端进行，安全性高，能防止令牌泄露。</p>
+</li>
+<li><p>标志：response_type=code</p>
+</li>
+<li><p>主要流程：</p>
+<ul>
+<li><p>1、注册与登记</p>
+<ul>
+<li>B系统到A系统的OAuth开放平台注册，获得app_id以及app_secret，A授权系统会提供一个用户授权的网页链接。</li>
+<li>注册时需要在开放平台配置redirect_uri等授权回调页以及取消授权回调页参数</li>
+</ul>
+</li>
+<li><p>2、前端跳转到授权界面</p>
+<ul>
+<li>B系统将A系统提供的授权链接放在前端登录位置，用户点击后，将带上app_id等参数跳转到A系统的授权界面。</li>
+<li>state参数可以用来保持B系统当前的应用状态，在授权成功之后，会原封不动的返回。state需要存多个参数的时候，可以使用urlencode编码一下。</li>
+</ul>
+</li>
+<li><p>3、用户登录A系统并授权</p>
+<ul>
+<li>用户通过密码登录A系统，如果A系统已经是登录状态，则直接进入授权界面。授权界面会展示B系统所请求的权限以及资源，用户检查后点击授权。</li>
+</ul>
+</li>
+<li><p>4、B系统前端获取授权码</p>
+<ul>
+<li>授权成功，前端自动跳转到redirect_uri指定的网页，同时带上code以及state等query参数。</li>
+<li>其中code便是授权码，而state是之前传入的应用状态参数，用户恢复跳转前的应用状态。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// a系统提供的跳转授权链接例子</span></span><br><span class="line">https:<span class="comment">//a.com/oauth/authrize?response_type=code&amp;client_id=CLIENT_ID&amp;redirect_uri=CALLBACK_RUL&amp;scope=read</span></span><br><span class="line"><span class="comment">// 参数</span></span><br><span class="line">response_type   <span class="comment">// 对于授权码方式为code，指定为授权码方式</span></span><br><span class="line">redirect_uri    <span class="comment">// 授权成功之后，将跳转到该页面</span></span><br><span class="line">scope           <span class="comment">// 指定授权的方位，这里为只读权限</span></span><br><span class="line">state           <span class="comment">// 可以传入随意的字符串参数，可用户保持B应用当前状态</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>5、B后端向A系统请求令牌token</p>
+<ul>
+<li>B前端从url中解析出code，将该code提交给B后端</li>
+<li>B后端根据拿到的code、app_id以及app_secret向A系统提供的接口请求令牌token。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// B后端请求Token例子  </span></span><br><span class="line">https:<span class="comment">//b.com/oauth/token?client_id=CLIENT_ID&amp;client_secret=CLIENT_SECRET</span></span><br><span class="line">&amp;grant_type=authorization_code&amp;code=AUTHORIZATION_CODE&amp;redirect_uri=CALLBACK_URL</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>6、B后端向A系统请求资源</p>
+<ul>
+<li>B后端获取到token后，使用该token获取用户在A系统中的资源，比如用户名，头像等。</li>
+</ul>
+</li>
+<li><p>7、B后端将结果返回给B前端,前端恢复应用状态。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-隐藏式（implicit）"><a href="#2-隐藏式（implicit）" class="headerlink" title="2. 隐藏式（implicit）"></a>2. 隐藏式（implicit）</h5><ul>
+<li>不需要应用后端支持，前端直接请求令牌token，token存储在前端</li>
+<li>适用于那些没有后端的纯前端应用，对安全性要求不高的场景，比如本博客。</li>
+<li>token的有效期不能太长。</li>
+<li>标志：response_type=token</li>
+<li>主要流程<ul>
+<li>1、注册与登记，与授权码方式相同</li>
+<li>2、B前端跳转到A提供的授权界面<ul>
+<li>与授权码方式不同的是，参数response_type为token，A系统将直接返回token令牌</li>
+</ul>
+</li>
+<li>3、B前端获取令牌token<ul>
+<li>授权成功之后，跳转到redirect_uri指定的网站，同时带上token</li>
+<li>与授权码式通过query参数返回不同，token以URL锚点（fragement）的方式返回给B前端</li>
+<li>以锚点方式返回能够避免中间人攻击问题，因为浏览器跳转时，锚点部分不会提交到服务器。</li>
+<li><code>https://a.com/callback#token=ACCESS_TOKEN</code></li>
+</ul>
+</li>
+<li>4、B前端拿到token后，向A后端请求资源。</li>
+</ul>
+</li>
+</ul>
+<h5 id="3-密码式（password）"><a href="#3-密码式（password）" class="headerlink" title="3. 密码式（password）"></a>3. 密码式（password）</h5><ul>
+<li>B网站直接在前端要求用户输入其在A系统的用户名和密码，然后直接通过用户名和密码获取A系统颁发的token</li>
+<li>只适用于那些你高度信任的网站，或者其他方式没法使用的情况下，比如内部系统。</li>
+<li>标志：grant_type=password</li>
+<li>授权链接：<code>https://oauth.b.com/token?grant_type=password&amp;username=USERNAME&amp;password=PASSWORD&amp;client_id=CLIENT_ID</code></li>
+</ul>
+<h5 id="4-客户端凭证式（client-credentials）"><a href="#4-客户端凭证式（client-credentials）" class="headerlink" title="4. 客户端凭证式（client credentials）"></a>4. 客户端凭证式（client credentials）</h5><ul>
+<li>适用于没有前端的命令行应用，即在命令行下请求令牌</li>
+<li>标志：grant_type=client_credentials</li>
+</ul>
+<h3 id="三、使用与更新"><a href="#三、使用与更新" class="headerlink" title="三、使用与更新"></a>三、使用与更新</h3><h5 id="1-令牌的使用"><a href="#1-令牌的使用" class="headerlink" title="1. 令牌的使用"></a>1. 令牌的使用</h5><ul>
+<li>每个发到 API 的请求，都必须带有令牌。具体做法是在请求的头信息，加上一个Authorization字段，令牌就放在这个字段里面</li>
+</ul>
+<h5 id="2-令牌的更新"><a href="#2-令牌的更新" class="headerlink" title="2. 令牌的更新"></a>2. 令牌的更新</h5><ul>
+<li>令牌有效期到期后，再来一次完整流程比较麻烦，OAuth提供了令牌更新的机制。</li>
+<li>标志：grant_type=refresh_token</li>
+</ul>
+<h3 id="四、在使用OAuth时候需要注意的安全问题"><a href="#四、在使用OAuth时候需要注意的安全问题" class="headerlink" title="四、在使用OAuth时候需要注意的安全问题"></a>四、在使用OAuth时候需要注意的安全问题</h3><h5 id="1-CSRF劫持第三方账号"><a href="#1-CSRF劫持第三方账号" class="headerlink" title="1. CSRF劫持第三方账号"></a>1. CSRF劫持第三方账号</h5><ul>
+<li>跨站请求伪造攻击<ul>
+<li>攻击者利用自己获取到的授权码，在钓鱼网站上使用，该钓鱼网站会伪造用户请求，自动触发第三方授权过程。</li>
+<li>使用钓鱼网站的用户，自动触发第三方授权过程，若该用户当前登录了正常系统，且未与该第三方登录绑定。</li>
+<li>最终，正常网站将把该用户账号与攻击者第三方系统登录账号绑定，这样攻击者就可以通过第三方系统登录被攻击者的账号了。</li>
+</ul>
+</li>
+<li>根本原因：redirect_uri中的code参数没有和当前客户端的状态绑定，攻击者可以通过发送预先获取好的code参数到受害者电脑，导致导致受害者当前登录的应用方账号被绑定到攻击者指定的平台方（如微博）帐号上。</li>
+</ul>
+<h5 id="2-预防措施"><a href="#2-预防措施" class="headerlink" title="2. 预防措施"></a>2. 预防措施</h5><ul>
+<li>引入第三方登陆的开发者，在OAuth认证过程中，加入state参数，验证它的参数便可以。</li>
+<li>使用state参数的流程<ul>
+<li>在将用户重定向到资源认证服务器授权界面的时候，为当前用户生成一个随机的字符串，并作为state参数加入到URL中，同时存储一份到 session 中。</li>
+<li>当第三方应用收到资源服务提供者返回的Authorization Code请求的时候，验证接收到的state参数值。</li>
+</ul>
+</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>OAuth 在目前的互联网应用中使用的太多了，系统性了解它的原理很有用。有空可以给本博客集成下登录和评论系统了。</li>
+<li>再一个体会，对于一些使用了OAuth第三方登陆的不是特别出名的小网站，真不敢再随便用自己的第三方账号随便登录了。</li>
+</ul>
+<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><ul>
+<li><a href="http://www.ruanyifeng.com/blog/2019/04/oauth_design.html" target="_blank" rel="noopener">[1]大神学长阮一峰的理解OAuth2.0</a></li>
+<li><a href="https://juejin.im/post/5cc81d5451882524f72cd32c" target="_blank" rel="noopener">[2]掘金上的一个博客</a></li>
+<li>微博、微信、QQ、github的授权认证接入文档</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">OAuth</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/技术/一次基于OAuth-2-0的第三方登录实践-2019-11-01.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Linux的一些进阶技能-2019-11-01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/技术/Linux的一些进阶技能-2019-11-01.html">Linux的一些进阶技能</a>
+    </h1>
+  
+
+        
+        <a href="/技术/Linux的一些进阶技能-2019-11-01.html" class="archive-article-date">
+  	<time datetime="2019-11-01T06:26:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>好好学学Linux，以后用得到 </p>
+</blockquote>
+<h3 id="一些关于Linxu想知道的疑问解决"><a href="#一些关于Linxu想知道的疑问解决" class="headerlink" title="一些关于Linxu想知道的疑问解决"></a>一些关于Linxu想知道的疑问解决</h3><h5 id="1-服务Service与Demand的区别"><a href="#1-服务Service与Demand的区别" class="headerlink" title="1. 服务Service与Demand的区别"></a>1. 服务Service与Demand的区别</h5><p>我的理解，服务是能够常驻在系统后台并提供一些系统的或者网络功能。服务其实是能够提供某个功能的意思，但是既然是一个功能，那一定需要有个程序去执行吧。Demand意思是守护的意思，它便是达成这个service的程序，Demand其实和Service也不需要完全区分。</p>
+<h5 id="2-进程、线程以及协程的区别"><a href="#2-进程、线程以及协程的区别" class="headerlink" title="2. 进程、线程以及协程的区别"></a>2. 进程、线程以及协程的区别</h5><ul>
+<li>进程<ul>
+<li>是系统资源分配的最小单位, 系统由一个个进程(程序)组成。</li>
+<li>进程的创建和销毁都是相对于系统资源,所以是一种比较昂贵的操作。</li>
+<li>进程是抢占式的争夺CPU运行自身,而CPU单核的情况下同一时间只能执行一个进程的代码,但是多进程的实现则是通过CPU飞快的切换不同进程,因此使得看上去就像是多个进程在同时进行.</li>
+<li>进程间的通信：不同进程之间的通信主要通过进程间调用IPC来实</li>
+<li>进程是系统分配资源的最小单位</li>
+</ul>
+</li>
+<li>线程<ul>
+<li>线程属于进程，一个进程可以创建多个线程。</li>
+<li>线程共享进程的内存地址空间，多个线程之间也可共享内存。</li>
+<li>线程间的通信：进程相当于一个容器，其中的线程都可以访问容器中的东西。所以线程间的通信可以直接通过全局变量来通信。</li>
+<li>引入锁机制：解决多个线程同时读写一个地址变量带来的不可预期的后果。</li>
+<li>线程是CPU调度的最小单位。</li>
+</ul>
+</li>
+<li>协程<ul>
+<li>协程是属于线程的，协程程序在线程中运行，也叫微线程。</li>
+<li>协程没有线程的上下文切换消耗。协程的调度切换是用户(程序员)手动切换的,因此更加灵活,因此又叫用户空间线程.</li>
+<li>原子操作性。由于协程是用户调度的，所以不会出现执行一半的代码片段被强制中断了，因此无需原子操作锁。</li>
+<li>线程进程都是同步机制，而协程则是异步</li>
+</ul>
+</li>
+</ul>
+<h3 id="Linux服务"><a href="#Linux服务" class="headerlink" title="Linux服务"></a>Linux服务</h3><h5 id="1-定时任务服务-crontab"><a href="#1-定时任务服务-crontab" class="headerlink" title="1. 定时任务服务 crontab"></a>1. 定时任务服务 crontab</h5><ul>
+<li>比如在下订单之后，会有30分钟的支付时间，过期之后，取消订单。</li>
+</ul>
+<h5 id="2-日期同步服务-Ntpdate"><a href="#2-日期同步服务-Ntpdate" class="headerlink" title="2. 日期同步服务 Ntpdate"></a>2. 日期同步服务 Ntpdate</h5><p>-</p>
+<h5 id="3-日志切割服务-Logrotate"><a href="#3-日志切割服务-Logrotate" class="headerlink" title="3. 日志切割服务 Logrotate"></a>3. 日志切割服务 Logrotate</h5><p>-</p>
+<h5 id="4-进程管理-supervisor"><a href="#4-进程管理-supervisor" class="headerlink" title="4. 进程管理 supervisor"></a>4. 进程管理 supervisor</h5><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>好好学学Linux，以后用得到</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/技术/Linux的一些进阶技能-2019-11-01.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-linux-解压命令汇总-2019-11-01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/技术/linux-解压命令汇总-2019-11-01.html">linux 解压命令汇总</a>
+    </h1>
+  
+
+        
+        <a href="/技术/linux-解压命令汇总-2019-11-01.html" class="archive-article-date">
+  	<time datetime="2019-11-01T01:24:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>搞定Linux文件打包、解压、压缩</p>
+</blockquote>
+<h3 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h3><ul>
+<li>解包：tar xvf FileName.tar</li>
+<li>打包：tar cvf FileName.tar DirName</li>
+<li>（注：tar是打包，不是压缩！）</li>
+</ul>
+<h3 id="gz"><a href="#gz" class="headerlink" title=".gz"></a>.gz</h3><ul>
+<li>解压1：gunzip FileName.gz</li>
+<li>解压2：gzip -d FileName.gz</li>
+<li>压缩：gzip FileName</li>
+</ul>
+<h3 id="tar-gz-和-tgz"><a href="#tar-gz-和-tgz" class="headerlink" title=".tar.gz 和 .tgz"></a>.tar.gz 和 .tgz</h3><ul>
+<li>解压：tar zxvf FileName.tar.gz</li>
+<li>压缩：tar zcvf FileName.tar.gz DirName</li>
+</ul>
+<h3 id="bz2"><a href="#bz2" class="headerlink" title=".bz2"></a>.bz2</h3><ul>
+<li>解压1：bzip2 -d FileName.bz2</li>
+<li>解压2：bunzip2 FileName.bz2</li>
+<li>压缩： bzip2 -z FileName</li>
+</ul>
+<h3 id="tar-bz2"><a href="#tar-bz2" class="headerlink" title=".tar.bz2"></a>.tar.bz2</h3><ul>
+<li>解压：tar jxvf FileName.tar.bz2</li>
+<li>压缩：tar jcvf FileName.tar.bz2 DirName</li>
+</ul>
+<h3 id="bz"><a href="#bz" class="headerlink" title=".bz"></a>.bz</h3><ul>
+<li>解压1：bzip2 -d FileName.bz</li>
+<li>解压2：bunzip2 FileName.bz</li>
+<li>压缩：未知</li>
+</ul>
+<h3 id="tar-bz"><a href="#tar-bz" class="headerlink" title=".tar.bz"></a>.tar.bz</h3><ul>
+<li>解压：tar jxvf FileName.tar.bz</li>
+<li>压缩：未知</li>
+</ul>
+<h3 id="Z"><a href="#Z" class="headerlink" title=".Z"></a>.Z</h3><ul>
+<li>解压：uncompress FileName.Z</li>
+<li>压缩：compress FileName</li>
+</ul>
+<h3 id="tar-Z"><a href="#tar-Z" class="headerlink" title=".tar.Z"></a>.tar.Z</h3><ul>
+<li>解压：tar Zxvf FileName.tar.Z</li>
+<li>压缩：tar Zcvf FileName.tar.Z DirName</li>
+</ul>
+<h3 id="zip"><a href="#zip" class="headerlink" title=".zip"></a>.zip</h3><ul>
+<li>解压：unzip FileName.zip</li>
+<li>压缩：zip FileName.zip DirName</li>
+</ul>
+<h3 id="rar"><a href="#rar" class="headerlink" title=".rar"></a>.rar</h3><ul>
+<li>解压：rar x FileName.rar</li>
+<li>压缩：rar a FileName.rar DirName</li>
+</ul>
+<h3 id="lha"><a href="#lha" class="headerlink" title=".lha"></a>.lha</h3><ul>
+<li>解压：lha -e FileName.lha</li>
+<li>压缩：lha -a FileName.lha FileName</li>
+</ul>
+<h3 id="rpm"><a href="#rpm" class="headerlink" title=".rpm"></a>.rpm</h3><ul>
+<li>解包：rpm2cpio FileName.rpm | cpio -div</li>
+</ul>
+<h3 id="deb"><a href="#deb" class="headerlink" title=".deb"></a>.deb</h3><ul>
+<li>解包：ar p FileName.deb data.tar.gz | tar zxf -</li>
+</ul>
+<h3 id="gzip-命令"><a href="#gzip-命令" class="headerlink" title="gzip 命令"></a>gzip 命令</h3><ul>
+<li><p>减少文件大小有两个明显的好处，一是可以减少存储空间，二是通过网络传输文件时，可以减少传输的时间。gzip 是在 Linux 系统中经常使用的一个对文件进行压缩和解压缩的命令，既方便又好用。</p>
+</li>
+<li><p>语法：gzip [选项] 压缩（解压缩）的文件名该命令的各选项含义如下：</p>
+</li>
+<li><p>-c 将输出写到标准输出上，并保留原有文件。-d 将压缩文件解压。-l 对每个压缩文件，显示下列字段：     压缩文件的大小；未压缩文件的大小；压缩比；未压缩文件的名字-r 递归式地查找指定目录并压缩其中的所有文件或者是解压缩。-t 测试，检查压缩文件是否完整。-v 对每一个压缩和解压的文件，显示文件名和压缩比。-num 用指定的数字 num 调整压缩的速度，-1 或 –fast 表示最快压缩方法（低压缩比），-9 或–best表示最慢压缩方法（高压缩比）。系统缺省值为 6。指令实例：</p>
+</li>
+<li><p>gzip *% 把当前目录下的每个文件压缩成 .gz 文件。gzip -dv *% 把当前目录下每个压缩的文件解压，并列出详细的信息。gzip -l *% 详细显示例1中每个压缩的文件的信息，并不解压。gzip usr.tar% 压缩 tar 备份文件 usr.tar，此时压缩文件的扩展名为.tar.gz。</p>
+</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>其实都可以直接查到，争取早日孰能生巧吧。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/技术/linux-解压命令汇总-2019-11-01.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-web-rtc技术基础-2019-10-30" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/技术/web-rtc技术基础-2019-10-30.html">web-rtc技术基础</a>
+    </h1>
+  
+
+        
+        <a href="/技术/web-rtc技术基础-2019-10-30.html" class="archive-article-date">
+  	<time datetime="2019-10-30T10:26:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>背景<br>5G时代，是时候玩玩WebRTC了吧</p>
+</blockquote>
+<h3 id="一、-WebRTC基础"><a href="#一、-WebRTC基础" class="headerlink" title="一、 WebRTC基础"></a>一、 WebRTC基础</h3><h5 id="1-关于WebRTC的关键词"><a href="#1-关于WebRTC的关键词" class="headerlink" title="1. 关于WebRTC的关键词"></a>1. 关于WebRTC的关键词</h5><ul>
+<li>Google开源，跨平台，多媒体框架</li>
+<li>音视频处理+即时通讯的开源库</li>
+<li>浏览器之间端到端之间实时数据传输</li>
+<li>音视频引擎：编码、采集等</li>
+</ul>
+<h5 id="2-应用场景"><a href="#2-应用场景" class="headerlink" title="2. 应用场景"></a>2. 应用场景</h5><ul>
+<li>实时视频会议，在线教育，共享远程桌面，录制，即时通讯，P2P网络加速，实时人脸识别，游戏</li>
+<li>浏览器+WebRTC是未来</li>
+</ul>
+<h5 id="3-浏览器支持情况"><a href="#3-浏览器支持情况" class="headerlink" title="3. 浏览器支持情况"></a>3. 浏览器支持情况</h5><ul>
+<li>Chrome，Safari，Firefox，Edge</li>
+</ul>
+<h5 id="4-WebRTC的能力和优势"><a href="#4-WebRTC的能力和优势" class="headerlink" title="4. WebRTC的能力和优势"></a>4. WebRTC的能力和优势</h5><ul>
+<li>能力<ul>
+<li>音视频设备管理</li>
+<li>音视频数据采集</li>
+<li>数据传输与实时互动</li>
+</ul>
+</li>
+<li>优势  <ul>
+<li>音视频实时传输</li>
+<li>游戏、即时通讯、文件传输（P2P传输）</li>
+<li>回音消除，降噪</li>
+</ul>
+</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>内容</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">音视频</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">WebRTC</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/技术/web-rtc技术基础-2019-10-30.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-FFmpeg-二次开发-2019-10-30" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/技术/FFmpeg-二次开发-2019-10-30.html">FFmpeg 二次开发</a>
+    </h1>
+  
+
+        
+        <a href="/技术/FFmpeg-二次开发-2019-10-30.html" class="archive-article-date">
+  	<time datetime="2019-10-30T06:41:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="一、FFmpeg"><a href="#一、FFmpeg" class="headerlink" title="一、FFmpeg"></a>一、FFmpeg</h3><h5 id="1-代码结构"><a href="#1-代码结构" class="headerlink" title="1. 代码结构"></a>1. 代码结构</h5><ul>
+<li>libacvdec<ul>
+<li>提供了一系列编码器的实现</li>
+<li>如果需要提供自己的编码，在此基础上进行二次开发</li>
+</ul>
+</li>
+<li>libavformat<ul>
+<li>实现在流协议、容器格式以及基本的IO访问</li>
+</ul>
+</li>
+<li>libavutil<ul>
+<li>提供了Hash器，解码器和各种工具函数</li>
+</ul>
+</li>
+<li>libavfilter<ul>
+<li>提供各种音视频过滤器</li>
+</ul>
+</li>
+<li>libavdevice<ul>
+<li>提供捕获设别的接口</li>
+</ul>
+</li>
+<li>libswresample<ul>
+<li>实现混音和重采样</li>
+</ul>
+</li>
+<li>libswscale<ul>
+<li>实现了色彩转换和缩放功能</li>
+</ul>
+</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>内容</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">音视频</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">FFmpeg</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/技术/FFmpeg-二次开发-2019-10-30.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-vim-编辑器-2019-10-30" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/技术/vim-编辑器-2019-10-30.html">vim 编辑器</a>
+    </h1>
+  
+
+        
+        <a href="/技术/vim-编辑器-2019-10-30.html" class="archive-article-date">
+  	<time datetime="2019-10-30T03:14:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>背景知识</p>
+<ul>
+<li>手不需要移开键盘的编程方法</li>
+</ul>
+</blockquote>
+<h3 id="Vim基础"><a href="#Vim基础" class="headerlink" title="Vim基础"></a>Vim基础</h3><h5 id="1-两种模式"><a href="#1-两种模式" class="headerlink" title="1. 两种模式"></a>1. 两种模式</h5><ul>
+<li>命令模式<ul>
+<li>拷贝、删除、粘贴</li>
+<li>通过 i（insert） 或者 a（append） 进行切换,一般都是用i</li>
+</ul>
+</li>
+<li>编辑模式<ul>
+<li>编辑字符，</li>
+<li>通过Esc进行切换</li>
+</ul>
+</li>
+</ul>
+<h3 id="二、常用命令"><a href="#二、常用命令" class="headerlink" title="二、常用命令"></a>二、常用命令</h3><h5 id="1-基础命令"><a href="#1-基础命令" class="headerlink" title="1. 基础命令"></a>1. 基础命令</h5><ul>
+<li>创建文件<ul>
+<li>vim filename</li>
+</ul>
+</li>
+<li>保存文件<ul>
+<li>:w</li>
+</ul>
+</li>
+<li>关闭文件<ul>
+<li>:q</li>
+</ul>
+</li>
+<li>拷贝<ul>
+<li>命令模式下</li>
+<li>yy  拷贝当前光标所在的一行</li>
+<li>yw  拷贝当前光标所在的一个单词,需要位于单词的第一个字母 </li>
+</ul>
+</li>
+<li>粘贴<ul>
+<li>p</li>
+</ul>
+</li>
+<li>删除<ul>
+<li>dd 删除当前光标所在的一行</li>
+<li>dw 删除当前光标所在的单词</li>
+</ul>
+</li>
+<li>撤销更改<ul>
+<li>小写u</li>
+</ul>
+</li>
+<li>反撤销<ul>
+<li>Ctrl + r</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-移动光标"><a href="#2-移动光标" class="headerlink" title="2. 移动光标"></a>2. 移动光标</h3><ul>
+<li>上下左右移动，命令模式下<ul>
+<li>h 左移</li>
+<li>j 上</li>
+<li>k 右</li>
+<li>l 下</li>
+</ul>
+</li>
+<li>跳到文件头<ul>
+<li>gg</li>
+</ul>
+</li>
+<li>跳到文件尾巴<ul>
+<li>GG</li>
+</ul>
+</li>
+<li>移动到行首<ul>
+<li>^</li>
+</ul>
+</li>
+<li>移动到行尾<ul>
+<li>$</li>
+</ul>
+</li>
+<li>按单词移动<ul>
+<li>w 向前</li>
+<li>b 向后</li>
+</ul>
+</li>
+</ul>
+<h5 id="3-查找与替换"><a href="#3-查找与替换" class="headerlink" title="3. 查找与替换"></a>3. 查找与替换</h5><ul>
+<li>查找关键词，命令模式<ul>
+<li>/key</li>
+</ul>
+</li>
+<li>查找并替换<ul>
+<li>%s/查找key/替换key/gc</li>
+<li>gc用户决定每次匹配是否需要替换（y替换，n不替换）</li>
+</ul>
+</li>
+</ul>
+<h5 id="4-Vim-多窗口"><a href="#4-Vim-多窗口" class="headerlink" title="4. Vim 多窗口"></a>4. Vim 多窗口</h5><ul>
+<li>分窗口命令<ul>
+<li>split</li>
+<li>vsplit</li>
+</ul>
+</li>
+<li>窗口间切换<ul>
+<li>ctrl + w</li>
+</ul>
+</li>
+</ul>
+<h5 id="5-其他操作"><a href="#5-其他操作" class="headerlink" title="5. 其他操作"></a>5. 其他操作</h5><ul>
+<li>展示行号<ul>
+<li>set number</li>
+</ul>
+</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote>
+<p>对于Vim编辑器的学习和使用，没有什么诀窍，就是多积累，多用</p>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">效率工具</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/技术/vim-编辑器-2019-10-30.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-FFmpeg-技术基础-2019-10-27" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/技术/FFmpeg-技术基础-2019-10-27.html">FFmpeg 技术基础</a>
+    </h1>
+  
+
+        
+        <a href="/技术/FFmpeg-技术基础-2019-10-27.html" class="archive-article-date">
+  	<time datetime="2019-10-27T15:26:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="番外"><a href="#番外" class="headerlink" title="番外"></a>番外</h3><p>格式工厂居然被FFmpeg拉黑名单了，因为没有遵守开源协议，转身就把它卸载了。</p>
+<h3 id="一、FFmpeg基础"><a href="#一、FFmpeg基础" class="headerlink" title="一、FFmpeg基础"></a>一、FFmpeg基础</h3><h5 id="1-FFmpeg处理音视频的流程"><a href="#1-FFmpeg处理音视频的流程" class="headerlink" title="1. FFmpeg处理音视频的流程"></a>1. FFmpeg处理音视频的流程</h5><ul>
+<li>解复用(demuxer)：带封装格式的输入文件-&gt;编码数据包（音频，视频，字幕等）</li>
+<li>解码(decoder)：编码数据包-&gt;解码后的数据帧</li>
+<li>处理（processer）：对数据帧进行处理，比如转码、转分辨率、转帧率、加滤镜等</li>
+<li>编码（encoder）：解码数据帧-&gt;编码数据包</li>
+<li>复用（muxer）：编码数据包-&gt;输出带封装格式的文件</li>
+<li>注意：<ul>
+<li>对于转封装这样的操作，不需要进行处理操作，所以不需要进行解码和编码操作，demuxer之后直接muxer就可以。</li>
+</ul>
+</li>
+</ul>
+<h3 id="常用FFmpeg命令"><a href="#常用FFmpeg命令" class="headerlink" title="常用FFmpeg命令"></a>常用FFmpeg命令</h3><h5 id="1-基本信息查询类"><a href="#1-基本信息查询类" class="headerlink" title="1. 基本信息查询类"></a>1. 基本信息查询类</h5><figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">-version</span></span><br><span class="line"><span class="deletion">-devices:显示可用设备</span></span><br><span class="line"><span class="deletion">-formats：支持的文件</span></span><br><span class="line"><span class="deletion">-muxer -demuxer：支持的封装和解封装</span></span><br><span class="line"><span class="deletion">-codecs -decoders：编解码器</span></span><br><span class="line"><span class="deletion">-filters：支持的所有过滤器</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="2-FFmpeg录制命令"><a href="#2-FFmpeg录制命令" class="headerlink" title="2. FFmpeg录制命令"></a>2. FFmpeg录制命令</h5><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// MAC 平台录制视频</span></span><br><span class="line">ffmpeg -f avfoundation -<span class="selector-tag">i</span> <span class="number">1</span> -r <span class="number">30</span> out.yuv</span><br><span class="line"><span class="comment">// 参数用法</span></span><br><span class="line">-f <span class="comment">// 格式，采用mac提供的avfoundation库来采集视频</span></span><br><span class="line">-<span class="selector-tag">i</span> <span class="comment">// 指定从哪里采集数据，1为屏幕设备的索引值，屏幕为1，摄像头为0</span></span><br><span class="line">-r <span class="comment">// 指定帧率，这里为30帧</span></span><br><span class="line"><span class="comment">// 播放录制的视频</span></span><br><span class="line">ffplay -video_size <span class="number">2560</span>x1600 -pix_fmt yuv420p out.yuv</span><br><span class="line"><span class="comment">// 录制声音</span></span><br><span class="line">ffmpeg -f avfoundation -<span class="selector-tag">i</span> :<span class="number">1</span> out.wav</span><br><span class="line"><span class="comment">// 播放录制的声音</span></span><br><span class="line">ffplay out.wav</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-FFmpeg-分解与复用处理（媒体格式转换）"><a href="#3-FFmpeg-分解与复用处理（媒体格式转换）" class="headerlink" title="3. FFmpeg 分解与复用处理（媒体格式转换）"></a>3. FFmpeg 分解与复用处理（媒体格式转换）</h5><ul>
+<li>一般的封装格式转换转换，比如.mp4转.flv</li>
+</ul>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// mp4转flv,这个的处理速度会非常的快</span></span><br><span class="line">ffmpeg -<span class="selector-tag">i</span> <span class="selector-tag">input</span><span class="selector-class">.mp4</span> -vcodec copy -acodec copy out.flv</span><br><span class="line"><span class="comment">//参数介绍</span></span><br><span class="line">-vcodec copy <span class="comment">// 视频编解码直接拷贝，不做更改</span></span><br><span class="line">-acodec copy <span class="comment">// 音频编解码也不做更改</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>从视频中仅抽取视频或者音频</li>
+</ul>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 抽取已有视频流和音频流</span></span><br><span class="line">ffmpeg -<span class="selector-tag">i</span> <span class="selector-tag">input</span><span class="selector-class">.mp4</span> -an -vcodec copy out.h254</span><br><span class="line">ffmpeg -<span class="selector-tag">i</span> <span class="selector-tag">input</span><span class="selector-class">.mp4</span> -vn -acodec copy out<span class="selector-class">.aac</span> <span class="comment">// 格式需要和视频中音频流的格式相同</span></span><br><span class="line"><span class="comment">// 参数介绍</span></span><br><span class="line">-an: <span class="selector-tag">audio</span> no,不要音频</span><br><span class="line">-vn: <span class="selector-tag">video</span> no,不要视频</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-FFmpeg处理原始数据命令"><a href="#4-FFmpeg处理原始数据命令" class="headerlink" title="4. FFmpeg处理原始数据命令"></a>4. FFmpeg处理原始数据命令</h5><ul>
+<li>原始数据<ul>
+<li>视频原始数据：YUV数据</li>
+<li>音频原视数据：PCM数据</li>
+</ul>
+</li>
+<li>原始数据的提取是之后对音视频进行进一步处理的基础</li>
+<li>提取YUV数据<ul>
+<li>这个过程会有些长，因为涉及到编解码了</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 提取YUV数据</span></span><br><span class="line">ffmpeg -<span class="selector-tag">i</span> <span class="selector-tag">input</span><span class="selector-class">.mp4</span> -an -c:v rawvideo -pix_fmt yuv420p out.yuv</span><br><span class="line"><span class="comment">// 参数意义</span></span><br><span class="line">-c:v rawvideo     <span class="comment">// 指定视频的编码器，选择rawvideo编解码器，得到YUV</span></span><br><span class="line">-pix_fmt yuv420p  <span class="comment">// 指定像素格式，这里一般指定为yuv420p （YUV4：2：0格式）</span></span><br><span class="line"><span class="comment">// 播放YUV数据</span></span><br><span class="line">ffplay -video_size <span class="number">2560</span>x1600 -pix_fmt yuv420p out.yuv</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>提取PCM音频原视数据</li>
+</ul>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 提取PCM</span></span><br><span class="line">ffmpeg -i input.mp4 -vn -ar <span class="number">44100</span> -ac <span class="number">2</span> -f s16le <span class="keyword">out</span>.pcm</span><br><span class="line"><span class="comment">// 参数意义</span></span><br><span class="line">-ar <span class="number">44100</span>   <span class="comment">// 设置音频采样率，常用的采样率，44.1kHZ，48kHZ，32kHZ，16kHZ</span></span><br><span class="line">-ac <span class="number">2</span>       <span class="comment">// 设置声道</span></span><br><span class="line">-f s16le    <span class="comment">// 指定pcm数据的存储格式</span></span><br><span class="line"><span class="comment">// 播放PCM</span></span><br><span class="line">ffplay -ar <span class="number">44100</span> -ac <span class="number">2</span> -f s16le <span class="keyword">out</span>.pcm</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-FFmpeg滤镜命令"><a href="#5-FFmpeg滤镜命令" class="headerlink" title="5. FFmpeg滤镜命令"></a>5. FFmpeg滤镜命令</h5><ul>
+<li>基于avfilter组件，多用于多媒体的处理与编辑</li>
+<li>可以实现加水印，去水印，画中画，裁剪，倍速播放</li>
+<li>滤镜的工作原理<ul>
+<li>对解码后的数据帧再进行过滤（处理）</li>
+<li>对过滤后的帧再进行编码</li>
+</ul>
+</li>
+<li>视频裁剪命令</li>
+</ul>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -<span class="selector-tag">i</span> <span class="selector-tag">input</span><span class="selector-class">.mp4</span> -vf crop=in_w-<span class="number">200</span>:in_h-<span class="number">200</span> -c:v libx264 -c:<span class="selector-tag">a</span> copy out</span><br><span class="line"><span class="comment">// 参数使用</span></span><br><span class="line">-vf crop=in_w-<span class="number">200</span>:in_h-<span class="number">200</span>  <span class="comment">// 指定滤镜名字为裁剪，之后为该滤镜的参数，宽高为200</span></span><br><span class="line">-c:v libx264                <span class="comment">// 指定视频处理的编码器</span></span><br><span class="line">-c:<span class="selector-tag">a</span> copy                   <span class="comment">// 音频不做处理</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>视频加水印命令</li>
+</ul>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// movie滤镜，添加水印</span><br><span class="line">ffmpeg -i input.flv -preset veryslow -c:v libx264 -c:a copy -vf "movie=pic.png[<span class="string">wm</span>];[<span class="string">in</span>][<span class="symbol">wm</span>] overlay=100:100[out]" overlay.flv</span><br><span class="line">// 参数使用</span><br><span class="line">-preset veryslow  // 慢模式，最终视频质量损失较低</span><br></pre></td></tr></table></figure>
+
+<h5 id="6-FFmpeg裁剪与合并命令"><a href="#6-FFmpeg裁剪与合并命令" class="headerlink" title="6. FFmpeg裁剪与合并命令"></a>6. FFmpeg裁剪与合并命令</h5><ul>
+<li>视频裁剪命令</li>
+</ul>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基于开始时间和时长进行裁剪</span></span><br><span class="line">ffmpeg -i input.flv -ss <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> -t <span class="number">10</span> <span class="keyword">out</span>.ts</span><br><span class="line"><span class="comment">// 参数使用</span></span><br><span class="line">-ss <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  <span class="comment">// 指定开始裁剪的时间，时：分：秒</span></span><br><span class="line">-t  <span class="number">10</span>        <span class="comment">// 裁剪的时长，以秒为单位</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>视频拼接命令</li>
+</ul>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 视频拼接命令</span></span><br><span class="line">ffmpeg -f concat -<span class="selector-tag">i</span> <span class="selector-tag">input</span><span class="selector-class">.txt</span> out.flv</span><br><span class="line"><span class="comment">// 参数</span></span><br><span class="line">-f concat       <span class="comment">// 指定为拼接</span></span><br><span class="line">-<span class="selector-tag">i</span> inputs<span class="selector-class">.txt</span>   <span class="comment">//指定视频列表的文件</span></span><br><span class="line"><span class="comment">// input.txt文件内容</span></span><br><span class="line">file <span class="string">'1.ts'</span></span><br><span class="line">file <span class="string">'2.ts'</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="7-图片-视频互转"><a href="#7-图片-视频互转" class="headerlink" title="7. 图片/视频互转"></a>7. 图片/视频互转</h5><ul>
+<li>视频转图片</li>
+</ul>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 视频转多张图片序列</span></span><br><span class="line">ffmpeg -i input.flv -r <span class="number">1</span> -f image2 image-%<span class="number">3</span>d.jpeg</span><br><span class="line"><span class="comment">// 参数使用</span></span><br><span class="line">-r <span class="number">1</span>    <span class="comment">// 指定转换图片的频率，每秒转出一张</span></span><br><span class="line">-f image2 <span class="comment">//  指定图片的输出格式</span></span><br><span class="line">image-%<span class="number">3</span>d.jepg  <span class="comment">// 文件名以image-加三个动态数字</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>多张图片序列转视频</li>
+</ul>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 图片转视频</span></span><br><span class="line">ffmpeg -i image-%<span class="number">3</span>d.jpeg -r <span class="number">1</span> <span class="keyword">out</span>.mp4</span><br></pre></td></tr></table></figure>
+
+<h5 id="8-直播相关的命令"><a href="#8-直播相关的命令" class="headerlink" title="8. 直播相关的命令"></a>8. 直播相关的命令</h5><ul>
+<li>直播推流</li>
+</ul>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -re -<span class="selector-tag">i</span> <span class="selector-tag">input</span><span class="selector-class">.mp4</span> -c copy -f flv rtmp:<span class="comment">//ip:1935/live/stream_name</span></span><br><span class="line"><span class="comment">//参数</span></span><br><span class="line">-re   <span class="comment">// 减慢推流帧率速度, 如果不加的话，ffmpeg会把所有数据一股脑的把所有的数据推出去。本来一个2分钟的视频 他可能几秒钟就推完了</span></span><br><span class="line">-f flv 需要指定输出的格式为rtmp</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -<span class="selector-tag">i</span> rtmp:<span class="comment">//ip:1935/live/stream_name -c copy video.flv</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>内容</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">音视频</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">FFmpeg</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/技术/FFmpeg-技术基础-2019-10-27.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-React前端项目的Docker化-2019-10-26" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/技术/React前端项目的Docker化-2019-10-26.html">React前端项目的Docker化</a>
+    </h1>
+  
+
+        
+        <a href="/技术/React前端项目的Docker化-2019-10-26.html" class="archive-article-date">
   	<time datetime="2019-10-26T15:09:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-26</time>
 </a>
         
@@ -214,15 +1334,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">React</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
         		</li>
       		
 		</ul>
@@ -243,7 +1363,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/技术/React前端项目的Docker化.html">展开全文 >></a>
+          <a class="article-more-a" href="/技术/React前端项目的Docker化-2019-10-26.html">展开全文 >></a>
         </p>
       
 
@@ -273,19 +1393,19 @@
 
 
   
-    <article id="post-前端JavaScript系统梳理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-前端JavaScript系统梳理-2019-10-14" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/技术/前端JavaScript系统梳理.html">前端JavaScript系统梳理</a>
+      <a class="article-title" href="/技术/前端JavaScript系统梳理-2019-10-14.html">前端JavaScript系统梳理</a>
     </h1>
   
 
         
-        <a href="/技术/前端JavaScript系统梳理.html" class="archive-article-date">
+        <a href="/技术/前端JavaScript系统梳理-2019-10-14.html" class="archive-article-date">
   	<time datetime="2019-10-14T11:28:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-14</time>
 </a>
         
@@ -674,7 +1794,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/技术/前端JavaScript系统梳理.html">展开全文 >></a>
+          <a class="article-more-a" href="/技术/前端JavaScript系统梳理-2019-10-14.html">展开全文 >></a>
         </p>
       
 
@@ -704,19 +1824,19 @@
 
 
   
-    <article id="post-CSS技术系统梳理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-CSS技术系统梳理-2019-10-10" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/技术/CSS技术系统梳理.html">系统地梳理下CSS3技术吧</a>
+      <a class="article-title" href="/技术/CSS技术系统梳理-2019-10-10.html">系统地梳理下CSS3技术吧</a>
     </h1>
   
 
         
-        <a href="/技术/CSS技术系统梳理.html" class="archive-article-date">
+        <a href="/技术/CSS技术系统梳理-2019-10-10.html" class="archive-article-date">
   	<time datetime="2019-10-10T11:24:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-10</time>
 </a>
         
@@ -863,7 +1983,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/技术/CSS技术系统梳理.html">展开全文 >></a>
+          <a class="article-more-a" href="/技术/CSS技术系统梳理-2019-10-10.html">展开全文 >></a>
         </p>
       
 
@@ -893,398 +2013,10 @@
 
 
   
-    <article id="post-BroswerRouter以及HashRouter的React前端项目在Nginx上部署" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/技术/BroswerRouter以及HashRouter的React前端项目在Nginx上部署.html">BroswerRouter以及HashRouter的React前端项目在Nginx上部署</a>
-    </h1>
-  
-
-        
-        <a href="/技术/BroswerRouter以及HashRouter的React前端项目在Nginx上部署.html" class="archive-article-date">
-  	<time datetime="2019-09-28T05:43:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>背景：视频云的前端项目使用了React框架，并通过React-Router实现了SPA单页应用。前端包括管理端和观看端，而React-Router有两种常用类型的Router，分别是HashRouter以及BrowserRouter，为了体验二者的不同，在管理端使用了HashRouter，而在观看端使用了HashRouter。</p>
-</blockquote>
-<h3 id="两种React-Router"><a href="#两种React-Router" class="headerlink" title="两种React-Router"></a>两种React-Router</h3><h5 id="1-HashRouter"><a href="#1-HashRouter" class="headerlink" title="1. HashRouter"></a>1. HashRouter</h5><ul>
-<li>history: 使用 hash history</li>
-<li>通过Hash部分来表示路由，属于浏览器端路由，Hash部分在请求的时候并不会提交到服务器，也就是说不管是请求 #foo 还是 #bar ，服务只知道请求了 index.html 并不知道 hash 部分的细节。</li>
-<li>url样例：/#/user</li>
-<li>不需要服务器支持，由浏览器负责路由。</li>
-</ul>
-<h5 id="2-BrowserRouter"><a href="#2-BrowserRouter" class="headerlink" title="2. BrowserRouter"></a>2. BrowserRouter</h5><ul>
-<li>使用的是 HTML5 的 History API，浏览器提供相应的接口来修改浏览器的历史记录</li>
-<li>需要服务器支持，属于服务器路由</li>
-<li>url样例：/user/lives</li>
-<li>路由直接在URL中，原则上每次URL切换的时候，都会像服务器请求页面</li>
-<li>但借助html5里面history的新的api，可以使用js改变url的值，而不会向服务端发请求。(刷新界面的时候还是会请求页面)</li>
-<li>是react-router官方推荐的</li>
-</ul>
-<h3 id="使用Nginx部署的时候需要特殊的配置"><a href="#使用Nginx部署的时候需要特殊的配置" class="headerlink" title="使用Nginx部署的时候需要特殊的配置"></a>使用Nginx部署的时候需要特殊的配置</h3><ul>
-<li>传统的前端部署之后，浏览器都是直接通过浏览器地址栏中的uri去请求服务器对应位置的文件，而在使用React-Router进行路由管理来实现SPA之后，依然采用这样的配置的话，初次加载首页是正常的，但当浏览器URI被改变之后，再点击刷新，则页面不显示或者404错误。</li>
-<li>原因在于，使用React-Router之后，页面内的路由是由前端自行渲染的，未通过后端，而是js动态更改了location。而当我们刷新界面时，首先访问的是后台地址，然后在返回的页面中再去加载React代码并执行。</li>
-<li>问题在于，React应用在运行的时候可能会去更改浏览器的URL，而实际服务器上可能并不存在与URI对应的资源（因为资源的定位已经交给React来做了），所以刷新页面的时候，浏览器直接用URI去寻找资源，可想而知会产生异常（404或者不显示）。</li>
-<li>而我们使用Webpack来打包React之后，最终的输出就是一个index.html附加一些文件，当然文件的定位逻辑也存在这些文件中。所以，默认的由Nginx服务器来定位这些资源的方式是行不通的，需要将该任务交给React本身来做。</li>
-<li>所以，思路是，浏览器在使用React应用期间，无论URI是否更改，服务器都直接无脑返回index.html这个页面就可以，浏览器得到index.html，加载React，剩下的任务都交给React本身去做就好了。</li>
-<li>使用Nginx的try_files，来将前端的请求都映射到index.html。</li>
-</ul>
-<h3 id="部署HashRouter的Nginx配置"><a href="#部署HashRouter的Nginx配置" class="headerlink" title="部署HashRouter的Nginx配置"></a>部署HashRouter的Nginx配置</h3><ul>
-<li>在Nginx中配置一个vhost</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nginx.conf整体配置大概如下：</span></span><br><span class="line">server &#123;</span><br><span class="line">    listen 8083;</span><br><span class="line">    root /home/name/..../build; <span class="comment"># 前端build完成之后的静态资源路径</span></span><br><span class="line">    index index.html index.htm;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        try_file <span class="variable">$uri</span> <span class="variable">$uri</span>/ /index.html;  <span class="comment"># url 切换时始终返回index.html</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 其他配置</span></span><br><span class="line">    <span class="comment"># 图片样式缓存1年</span></span><br><span class="line">    location ~* /app.*\.(js|css|png|jpg)$ &#123;</span><br><span class="line">       access_log off;</span><br><span class="line">        expires    365d;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment"># html/xml/json 文件不缓存</span></span><br><span class="line">    location ~* /app.*\.(?:manifest|appcache|html?|xml|json)$ &#123;</span><br><span class="line">        expires    -1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>部署项目的时候搞得很头痛和低效，深入搞明白之后，再也不怕React前端的部署了。</p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
-<li>1.<a href="https://www.cnblogs.com/soyxiaobi/p/11096940.html" target="_blank" rel="noopener">react-router-dom下的BrowserRouter和HashRouter</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">React</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Nginx</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/技术/BroswerRouter以及HashRouter的React前端项目在Nginx上部署.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-搞定跨域资源共享CORS（笔记整理）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/技术/搞定跨域资源共享CORS（笔记整理）.html">搞定跨域资源共享CORS（笔记整理）</a>
-    </h1>
-  
-
-        
-        <a href="/技术/搞定跨域资源共享CORS（笔记整理）.html" class="archive-article-date">
-  	<time datetime="2019-09-23T03:24:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>当从一个域向另一个不同的域或者端口请求资源的时候，会产生跨域请求。<br><img src="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/kuayu.png" alt="跨域.png"></p>
-</blockquote>
-<h3 id="一、什么是跨域"><a href="#一、什么是跨域" class="headerlink" title="一、什么是跨域"></a>一、什么是跨域</h3><ol>
-<li>同源政策（same origin policy）：协议，主机名和端口号要相同，否则就会产生跨域请求。</li>
-<li>通常的错误形式：Access to XMLHttpRequest at XXX has been blocked by CORS policy: No ‘Access-Control-Allow-Origin’ header is present on the requested resource.</li>
-<li>整个CORS通信过程，都是浏览器自动完成，不需要用户参与。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。</li>
-<li>出于安全原因，浏览器限制从脚本内发起的跨源HTTP请求（或者跨域响应被拦截）。比如XMLHttpRequest和Fetch API都需要遵循同源策略。</li>
-<li>实现CORS必须要在服务器端实现CORS接口，即响应报文包含了正确CORS响应头。</li>
-</ol>
-<h3 id="二、为何要限制跨域"><a href="#二、为何要限制跨域" class="headerlink" title="二、为何要限制跨域"></a>二、为何要限制跨域</h3><blockquote>
-<p>跨站请求攻击CSRF<br><img src="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/csrf.png" alt="CSRF.png"></p>
-</blockquote>
-<ol>
-<li>攻击者引导用户去登录访问正常的网站，比如银行，session_id等认证会留在浏览器中。</li>
-<li>同时用户还在访问攻击者提供的网站，但是该网站会自动或者通过点击触发向之前正常的网站发起请求，当然用了之前已经认证过的session_id。</li>
-<li>这样就在用户不知道的情况下进行了一些诸如发送邮件，甚至转账、购买商品等操作。</li>
-<li>其利用的是Web用户身份验证的漏洞，即，简单的身份验证智能保证请求是来自该用户的浏览器（不是其他人在另一个浏览器伪造），但是并不能保证请求是用户本身自愿发出的。</li>
-<li>同源政策将会确保网站a拒绝来自网站b的请求。</li>
-</ol>
-<h3 id="三、为何又需要跨域呢"><a href="#三、为何又需要跨域呢" class="headerlink" title="三、为何又需要跨域呢"></a>三、为何又需要跨域呢</h3><blockquote>
-<p>前后端分离</p>
-</blockquote>
-<p>当前端框架兴起之后，前后端彻底分离的开发方式渐渐流行。前端和后端往往部署在不同的域名之上。前端通过访问后端的API获取数据，渲染前端界面，甚至进行路由跳转。这通常意味着前后端会出现不同源的问题。因为即使部署在同一台主机上，二者也属于不同的端口。那么我们就需要某种策略使得跨域请求能够通过。</p>
-<h3 id="四、跨域请求过程"><a href="#四、跨域请求过程" class="headerlink" title="四、跨域请求过程"></a>四、跨域请求过程</h3><blockquote>
-<p>浏览器将CORS请求分成两类：简单请求（simple request）和非简单请求（not-so-simple request）。</p>
-</blockquote>
-<h5 id="1-简单请求的跨域过程"><a href="#1-简单请求的跨域过程" class="headerlink" title="1. 简单请求的跨域过程"></a>1. 简单请求的跨域过程</h5><ul>
-<li>1.1. 简单请求是什么</li>
-</ul>
-<blockquote>
-<ol>
-<li>请求方法是以下三种方法之一（简单方法）：HEAD，GET，POST</li>
-<li>HTTP的头信息不超出以下几种字段（简单头）：Accept，Accept-Language，Content-Language，Last-Event-ID，Content-Type：只限于三个值application/x-www-form-urlencoded、multipart/form-data、text/plain</li>
-</ol>
-</blockquote>
-<ul>
-<li>1.2. 跨域过程</li>
-</ul>
-<blockquote>
-<ol>
-<li>浏览器检测到这是一个简单请求，会自动在Header中添加Origin字段，该字段描述了协议，域名以及端口的信息。</li>
-<li>服务器会检查Origin，如果不在许可范围内（allow-origin），就会返回一个正常的HTTP回应，浏览器会抛出异常。如果在，服务器会返回响应，响应Header中会怎加几个头信息字段。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Origin:* <span class="comment">//服务器接收的origin</span></span><br><span class="line">Access-Control-Allow-Credentials: <span class="literal">true</span> <span class="comment">// 服务器是否允许CORS请求中发送Cookie。</span></span><br><span class="line"><span class="comment">//如果想实现发送Cookie的话，还需要在浏览器端设置withCredentials = true;</span></span><br><span class="line">Access-Control-Expose-Headers: <span class="comment">// ResponsHeader中暴露的字段</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</blockquote>
-<h5 id="2-非简单请求的跨域过程"><a href="#2-非简单请求的跨域过程" class="headerlink" title="2. 非简单请求的跨域过程"></a>2. 非简单请求的跨域过程</h5><blockquote>
-<p>比如请求方法是PUT或DELETE，或者Content-Type字段的类型是application/json，含有自定义的请求头等。</p>
-</blockquote>
-<ul>
-<li>Step.1. 预检请求Preflight</li>
-</ul>
-<blockquote>
-<p>旨在确保服务器对 CORS 标准知情，以保护不支持 CORS 的旧服务器</p>
-<ol>
-<li>浏览器发现是非简单请求，会在正式的通信之前，先向服务器询问当前网页所在的域名是否在服务器的许可名单中，以及可以使用哪些HTTP动词。</li>
-<li>预检请求是一个OPTION请求，会携带Access-Control-Request-Method（指明该跨域请求的Method），Access-Control-Request-Headers（该跨域请求额外会发送的头信息字段，比如认证字段）以及Origin信息。</li>
-<li>服务器检查以上三个字段，确认允许后就会做出回应。（服务器在设置跨域请求的时候不能忘记对预检请求的处理）。回应Header包括Access-Control-Allow-Methods，Access-Control-Allow-Headers，Access-Control-Allow-Credentials等。</li>
-</ol>
-</blockquote>
-<ul>
-<li>Step.2. 预检成功后再发起跨域请求</li>
-</ul>
-<blockquote>
-<p>预检通过之后，浏览器会像简单请求一样，再发送正式的CORS请求。<br><img src="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/cros-yujian.png" alt="d"></p>
-</blockquote>
-<h3 id="五、服务器配置CORS"><a href="#五、服务器配置CORS" class="headerlink" title="五、服务器配置CORS"></a>五、服务器配置CORS</h3><p>以nodejs koa为例，如下为koa corszho</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> URL = require(<span class="string">'url'</span>);</span><br><span class="line"><span class="comment"><span class="markdown">/**</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>关键点：</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>1、如果需要支持 cookies,</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> *    </span>Access-Control-Allow-Origin 不能设置为 *,</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> *    </span>并且 Access-Control-Allow-Credentials 需要设置为 true</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> *    </span>(注意前端请求需要设置 withCredentials = true)</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>2、当 method = OPTIONS 时, 属于预检(复杂请求), 当为预检时, 可以直接返回空响应体, 对应的 http 状态码为 204</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>3、通过 Access-Control-Max-Age 可以设置预检结果的缓存, 单位(秒)</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>4、通过 Access-Control-Allow-Headers 设置需要支持的跨域请求头</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>5、通过 Access-Control-Allow-Methods 设置需要支持的跨域请求方法</span></span></span><br><span class="line"><span class="comment"><span class="markdown"> */</span></span></span><br><span class="line">module.exports = <span class="keyword">async</span> function (ctx, next) &#123;</span><br><span class="line">    <span class="keyword">const</span> origin = URL.parse(ctx.<span class="keyword">get</span>(<span class="string">'origin'</span>) || ctx.<span class="keyword">get</span>(<span class="string">'referer'</span>) || <span class="string">''</span>);</span><br><span class="line">    <span class="keyword">if</span> (origin.protocol &amp;&amp; origin.host) &#123;</span><br><span class="line">        ctx.<span class="keyword">set</span>(<span class="string">'Access-Control-Allow-Origin'</span>, `$&#123;origin.protocol&#125;<span class="comment">//$&#123;origin.host&#125;`);</span></span><br><span class="line">        ctx.<span class="keyword">set</span>(<span class="string">'Access-Control-Allow-Methods'</span>, <span class="string">'POST, GET, OPTIONS, DELETE, PUT'</span>);</span><br><span class="line">        ctx.<span class="keyword">set</span>(<span class="string">'Access-Control-Allow-Headers'</span>, <span class="string">'X-Requested-With, User-Agent, Referer, Content-Type, Cache-Control,accesstoken'</span>);</span><br><span class="line">        ctx.<span class="keyword">set</span>(<span class="string">'Access-Control-Max-Age'</span>, <span class="string">'86400'</span>);</span><br><span class="line">        ctx.<span class="keyword">set</span>(<span class="string">'Access-Control-Allow-Credentials'</span>, <span class="string">'true'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (ctx.method !== <span class="string">'OPTIONS'</span>) &#123;</span><br><span class="line">        <span class="comment">// 如果请求类型为非预检请求，则进入下一个中间件（包括路由中间件等）</span></span><br><span class="line">        <span class="keyword">await</span> next();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 当为预检时，直接返回204,代表空响应体</span></span><br><span class="line">        ctx.body = <span class="string">''</span>;</span><br><span class="line">        ctx.status = <span class="number">204</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在开发前端的过程中CROS问题总是让自己很头痛，前期花费了大量时间解决CROS问题。再了解了CROS的原理和过程后，对跨域问题不再畏惧。</p>
-<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><ol>
-<li><a href="https://segmentfault.com/a/1190000015017666" target="_blank" rel="noopener">https://segmentfault.com/a/1190000015017666</a></li>
-<li><a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="noopener">跨域资源共享 CORS 详解</a></li>
-<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS" target="_blank" rel="noopener">HTTP访问控制（CORS）</a></li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HTTP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/技术/搞定跨域资源共享CORS（笔记整理）.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-在一台服务器上通过Nginx配置多个二级域名映射多个不同端口的应用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/技术/在一台服务器上通过Nginx配置多个二级域名映射多个不同端口的应用.html">在一台服务器上通过Nginx配置多个二级域名映射多个不同端口的应用</a>
-    </h1>
-  
-
-        
-        <a href="/技术/在一台服务器上通过Nginx配置多个二级域名映射多个不同端口的应用.html" class="archive-article-date">
-  	<time datetime="2019-09-21T15:35:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>背景：需要在实验室服务器上部署gitlab，jira，jenkins等等Server服务，这些服务工作在不同的端口，无法直接通过http的80端口访问，所以之前是通过IP+端口号的方式进行访问。在申请了自己的一个域名之后，想要通过多个二级域名来访问。</p>
-</blockquote>
-<h4 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h4><p>能够通过gitlab.domain.cn访问绑定在82端口上的gitlab服务，通过jenkins.domain.cn访问绑定在9090端口上的jenkins服务。</p>
-<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><ul>
-<li><p>1.在域名的解析中分别添加gitlab, jenkins,以及www三个记录，指向均为实验室服务器的IP地址。</p>
-</li>
-<li><p>2.使用Nginx作为代理服务器，监听80端口，通过server_name进行匹配，将请求转发到对应的应用服务器。(这应该属于Nginx的反向代理功能，即为多个服务提供代理服务)</p>
-<h4 id="实际解决"><a href="#实际解决" class="headerlink" title="实际解决"></a>实际解决</h4></li>
-<li><p>1.编辑Nginx配置信息（Ubuntu）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置文件路径：/etc/nginx/conf.d/domain.conf，（没有的话需要创建）</span></span><br><span class="line"><span class="comment"># Nginx会自动include /etc/nginx/conf.d 目录下所有以.conf结尾的配置到主配置文件nginx.conf中.</span></span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">        listen 80;  <span class="comment"># 设置Nginx对外监听80端口</span></span><br><span class="line">        server_name *.domain.cn;  <span class="comment"># 绑定到该服务器的域名</span></span><br><span class="line">                <span class="keyword">if</span> ( <span class="variable">$http_host</span> ~* <span class="string">"^(.*?)\.domain\.cn"</span> ) &#123;  <span class="comment"># 对http_host进行正则匹配，解析domain</span></span><br><span class="line">                        <span class="built_in">set</span> <span class="variable">$domain</span> <span class="variable">$1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">        location / &#123;</span><br><span class="line">                proxy_set_header        X-Real-IP       <span class="variable">$remote_addr</span>;</span><br><span class="line">                proxy_set_header        Host            <span class="variable">$http_host</span>;</span><br><span class="line">                <span class="comment"># 分别处理各个domain</span></span><br><span class="line">                <span class="keyword">if</span> ( <span class="variable">$domain</span> ~* <span class="string">"www"</span> ) &#123;</span><br><span class="line">                        proxy_pass http://localhost:82;  <span class="comment"># 通过proxy_pass 进行代理转发</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> ( <span class="variable">$domain</span> ~* <span class="string">"gitlab"</span> ) &#123;</span><br><span class="line">                        proxy_pass http://localhost:82;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> ( <span class="variable">$domain</span> ~* <span class="string">"jenkins"</span> ) &#123;</span><br><span class="line">                        proxy_pass http://localhost:9090;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>2.检查配置文件合法性</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 需要将nginx添加到环境变量中</span></span><br><span class="line">sudo nginx -t</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>3.更新Nginx配置</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nginx -s reload</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h4 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h4><p>最开始的思路是在Nginx中配置多个server块，再每个块中再配置proxy_pass来实现，配置文件如下。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># jenkins.domain.cn.conf</span></span><br><span class="line">server &#123;</span><br><span class="line">        listen 80;  <span class="comment"># 设置Nginx对外监听80端口</span></span><br><span class="line">        server_name jenkins.domain.cn;  </span><br><span class="line">        proxy_pass http://localhost:9090;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># gitlab.domain.cn.conf</span></span><br><span class="line">server &#123;</span><br><span class="line">        listen 80;  <span class="comment"># 设置Nginx对外监听80端口</span></span><br><span class="line">        server_name gitlab.domain.cn;  </span><br><span class="line">        proxy_pass http://localhost:82;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Reload Nginx之后发现，二级域名是时效的，两个域名均指向的是gitlab，无法实现想要的效果。分析应该是gitlab.domain.cn.conf先被include到nginx.conf中，所以生效的是gitlab吧。<br>不确定，还需要进一步研究。</p>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>Nginx是个强大的工具，可以作为Web服务器，文件服务器，代理服务器，反向代理服务器，直播服务器，负载均衡服务器等等，值得深入学习。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Nginx</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/技术/在一台服务器上通过Nginx配置多个二级域名映射多个不同端口的应用.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 
 
@@ -1370,14 +2102,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CSS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Docker</a>
               </li>
              
@@ -1391,6 +2115,42 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">音视频</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">FFmpeg</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">前端</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CSS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">效率工具</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">WebRTC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">OAuth</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">反向代理</a>
               </li>
              
               <li class="article-tag-list-item">
