@@ -152,6 +152,626 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-前端JavaScript系统梳理-2019-10-14" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/技术/前端JavaScript系统梳理-2019-10-14.html">前端JavaScript系统梳理</a>
+    </h1>
+  
+
+        
+        <a href="/技术/前端JavaScript系统梳理-2019-10-14.html" class="archive-article-date">
+  	<time datetime="2019-10-14T11:28:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>背景知识</p>
+<ul>
+<li>本文依然按照以往的风格，更注重JavaScript技术的系统性梳理，不赘述技术细节，因为Google一下就好。</li>
+</ul>
+</blockquote>
+<h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><h5 id="1-基础知识"><a href="#1-基础知识" class="headerlink" title="1. 基础知识"></a>1. 基础知识</h5><ul>
+<li>JavaScript：ES5/6 + DOM + BOM<ul>
+<li>ECMAScript 5 2015（ES6）</li>
+<li>DOM: 针对HTML的编程接口</li>
+<li>BOM：对浏览器进行操作的编程接口</li>
+</ul>
+</li>
+<li>浏览器内核<ul>
+<li>渲染引擎：Blink、Webkit（用于浏览器）</li>
+<li>JS引擎：V8引擎</li>
+</ul>
+</li>
+<li>标识符</li>
+<li>strict mode<ul>
+<li>严格模式：添加“use strict”</li>
+<li>让代码变得更可靠</li>
+<li>使用方式：全局使用，局部使用（在方法中使用）</li>
+<li>推荐编写代码的时候使用严格模式</li>
+</ul>
+</li>
+<li>语句<ul>
+<li>表达式语句：习惯—最好以分号结尾</li>
+<li>流控制语句：for-in, with</li>
+<li>异常处理语句：</li>
+<li>返回值：</li>
+</ul>
+</li>
+<li>变量<ul>
+<li>局部变量：需要添加var，没有的话会升级为全局变量</li>
+<li>全局变量：</li>
+</ul>
+</li>
+<li>数据类型：<ul>
+<li>5种基础数据类型（undifend、null、Boolean、Number、String），以及Object。只限制这6种形式，不存在其他类型的类型</li>
+<li>typeof运算符：不是函数，返回值为字符串（undefined, boolean, string, number, object, function）</li>
+<li>undefined: 变量被声明但是未初始化</li>
+<li>null: 空对象指针。当我们声明一个变量是为了保存一个对象时，但是没法立即给他初始化时候，最好把它设置为null，这样就知道未来这个变量是变量。</li>
+<li>Number与String数据类型转换</li>
+<li>Object类型：创建</li>
+</ul>
+</li>
+<li>运算符<ul>
+<li>JS种的奇技淫巧都来自于对运算符的使用</li>
+<li>基础的运算符，和其他语言一样</li>
+<li>布尔运算（!!取bool值,&amp;&amp;短路操作,||默认值）</li>
+<li>相等运算符：相等（==，!=）,全等（===，!==）,他们的不同。</li>
+<li>条件运算符</li>
+</ul>
+</li>
+<li>函数<ul>
+<li>function 声明</li>
+<li>参数：arguments，参数都是值传递的（copy简单值，copy对象和函数指针），其实就是局部变量</li>
+<li>没有函数重载，（不过可以通过模拟函数实现：通过对arguments进行解析判断）</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-引用类型"><a href="#2-引用类型" class="headerlink" title="2.引用类型"></a>2.引用类型</h5><ul>
+<li>Object</li>
+</ul>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#125; 等价于 new Object()</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-class">.b</span> 等价于 <span class="selector-tag">a</span>[b]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Array</li>
+</ul>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[] 等价于 <span class="keyword">new</span> <span class="keyword">Array</span>()</span><br><span class="line"><span class="keyword">array</span>.length</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>判断是否是Array的两种方法：instanceof，isArray</li>
+<li>typeof VS instanceof<ul>
+<li>Date：+ new Date() 得到时间戳</li>
+<li>RegExp: 正则表达式</li>
+<li>Function</li>
+<li>单例内置对象</li>
+</ul>
+</li>
+<li>window</li>
+<li>Math</li>
+</ul>
+<h5 id="3-作用域"><a href="#3-作用域" class="headerlink" title="3. 作用域"></a>3. 作用域</h5><ul>
+<li>作用域链<ul>
+<li>从外向内部的链条，内部可以访问外部，外部无法访问内部。内部没查找到，则向上外层继续查找</li>
+</ul>
+</li>
+<li>this作用域：永远指向最后调用它的对象，具有一定的作用域。</li>
+<li>bind():可以为函数调用绑定一个作用域（实际是一个对象）</li>
+<li>没有块级作用域！！！，花括号无法延长作用域，只可以通过函数的方式来增加作用域</li>
+<li>闭包：有权访问另一个函数作用域中的变量的函数</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">applyArr</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> arr = [];</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i &lt; <span class="number">10</span>; i++)&#123;  <span class="comment">// 不存在块作用域，不会新增作用域</span></span><br><span class="line">    <span class="comment">// 不使用闭包</span></span><br><span class="line">    arr.push(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;  <span class="comment">//使用的i是applyArr的作用域，</span></span><br><span class="line">      <span class="keyword">return</span> i;           <span class="comment">// 最终在外部执行的时候，i取值一直都是10</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="comment">// 使用闭包</span></span><br><span class="line">    (<span class="function"><span class="keyword">function</span>(<span class="params">index</span>)</span>&#123;     <span class="comment">// 通过函数构造一个新的作用域,并将i作为参数传入</span></span><br><span class="line">      arr.push(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> index;     <span class="comment">// 这样return返回的时候，取得是新创建作用域中的值</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)(i);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> arr = applyArr();</span><br><span class="line"><span class="keyword">var</span> b = arr[<span class="number">1</span>]();</span><br><span class="line"><span class="comment">// 如果不使用闭包，那么b最终的值为10</span></span><br><span class="line"><span class="comment">// 使用闭包后，b的值为1</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="4-面向对象的JavaScript"><a href="#4-面向对象的JavaScript" class="headerlink" title="4. 面向对象的JavaScript"></a>4. 面向对象的JavaScript</h5><ul>
+<li>对象属性<ul>
+<li>一般方法：直接赋值新增属性</li>
+<li>数据属性：Object.defineProperty(obj,”name”,{configurable,enumerable,writable,value});</li>
+<li>访问器属性：get，set</li>
+</ul>
+</li>
+<li>创建对象<ul>
+<li>工厂模式</li>
+<li>构造函数模式</li>
+<li>原型模式：prototype</li>
+<li>构造函数与原型组合构造：属性放在构造函数中，方法放在原型中</li>
+</ul>
+</li>
+<li>实例属性和原型属性<ul>
+<li>in：“name” in obj， 用来判断实例obj是否有name属性</li>
+<li>obj.hasOwnProperty(“name”): 用来判断在实例化之后的对象上，目标的属性是否是实例属性or实例方法。</li>
+</ul>
+</li>
+<li>对象继承<ul>
+<li>基于原型链的继承：缺点，属性也被继承了，继承的属性在子类中是原型属性</li>
+<li>基于构造函数的继承：父类方法在子类中拷贝，资源浪费。</li>
+<li>组合继承：</li>
+</ul>
+</li>
+</ul>
+<h5 id="5-DOM编程"><a href="#5-DOM编程" class="headerlink" title="5. DOM编程"></a>5. DOM编程</h5><ul>
+<li>DOM节点<ul>
+<li>节点间的关系：父子，兄弟</li>
+<li>节点特征：nodeType,nodeName,nodeValue,parentNode…</li>
+</ul>
+</li>
+<li>document节点的属性<ul>
+<li>document.title：页面标题</li>
+<li>document.referrer：来自于那个页面，用于安全性判断，防盗链</li>
+<li>document.domain：解决域不同的问题</li>
+</ul>
+</li>
+<li>DOM元素节点的默认属性<ul>
+<li>.id</li>
+<li>.className</li>
+<li>.title</li>
+<li>.lang：文本</li>
+<li>.dir</li>
+<li>.getAttribute(‘id’)</li>
+</ul>
+</li>
+<li>DOM操作<ul>
+<li>创建：document.createElement(“div”);</li>
+<li>添加：someNode.appendChild(newNode);</li>
+<li>插入：someNode.insertBefore(newNode,beforeChildNode);</li>
+<li>替换：someNode.replaceChild(newNode,firstChild)</li>
+<li>删除：someNode.remove(someNode.firstNode);</li>
+<li>查找：document.getElementById(‘id’); document.getElementsByTagName()</li>
+</ul>
+</li>
+</ul>
+<h5 id="6-事件"><a href="#6-事件" class="headerlink" title="6. 事件"></a>6. 事件</h5><ul>
+<li>事件流<ul>
+<li>用来判断页面的哪一个部分会拥有某个特定的事件，即事件的定位</li>
+<li>事件流：冒泡<ul>
+<li>逐级向上级传递，接收和处理</li>
+</ul>
+</li>
+<li>事件流：捕获<ul>
+<li>从顶层节点向下传递，接收和处理</li>
+</ul>
+</li>
+<li>DOM事件流：组合了冒泡<ul>
+<li>先是捕获阶段，然后冒泡阶段，每个几点有两次处理事件的机会。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>事件处理<ul>
+<li>HTML标签中：比如onclick</li>
+<li>DOM0事件处理：domElement.onclick = function…</li>
+<li>DOM2事件处理：element.addEventListener(“click”,function()…, true/false),第三个参数指明是在捕获阶段true还是冒泡阶段处理事件。先绑定的事件先处理。</li>
+</ul>
+</li>
+<li>事件处理跨浏览器<ul>
+<li>封装跨浏览器的事件处理方法，比如安卓控制网页中的事件。</li>
+</ul>
+</li>
+<li>event属性方法<ul>
+<li>e.stopPropagation()：阻止事件冒泡</li>
+<li>e.preventDefault(); 阻止一些默认事件</li>
+</ul>
+</li>
+<li>事件类型<ul>
+<li>各种事件，用的时候查</li>
+<li>PC事件和移动端事件</li>
+</ul>
+</li>
+</ul>
+<h5 id="7-JSON数据通信"><a href="#7-JSON数据通信" class="headerlink" title="7. JSON数据通信"></a>7. JSON数据通信</h5><ul>
+<li><p>JSON</p>
+<ul>
+<li>JSON是一种数据格式，和XML是编程语言</li>
+<li>JSON更高效</li>
+<li>JSON无法表示undifend类型</li>
+<li>JSON字符串是双引号</li>
+<li>JSON中的对象的属性也必须是字符串</li>
+<li>JSON.stringify(obj)：将js对象序列化成json字符串</li>
+<li>JSON.parse(jsonText,function(key,value))：解析JSON，第二个参数为解析函数</li>
+</ul>
+</li>
+<li><p>AJAX</p>
+<ul>
+<li>异步加载</li>
+<li>无需前端界面刷新</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.open(<span class="string">"get"</span>,<span class="string">"url"</span>,<span class="literal">false</span>); <span class="comment">// 请求是否异步【异步：请求期间可以执行后续js，同步：不允许请求期间执行后续js】</span></span><br><span class="line">xhr.send(<span class="string">""</span>);</span><br><span class="line"><span class="comment">// 同步的话</span></span><br><span class="line">xhr.status</span><br><span class="line">xhr.responseText</span><br><span class="line"><span class="comment">// 异步的话</span></span><br><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;  <span class="comment">//在执行的过程中会不断执行onreadystatechange</span></span><br><span class="line">  <span class="keyword">if</span>(xhr.readyState === <span class="number">4</span>)&#123; <span class="comment">//0.未初始化，1.启动，2.发送，3.接收，4.完成</span></span><br><span class="line">    xhr.status</span><br><span class="line">    xhr.responseText</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="三、ES6"><a href="#三、ES6" class="headerlink" title="三、ES6"></a>三、ES6</h3><h5 id="1-历史"><a href="#1-历史" class="headerlink" title="1. 历史"></a>1. 历史</h5><ul>
+<li>ES发展<ul>
+<li>ES5</li>
+<li>ES6 = ES2015</li>
+<li>ES2015… 一年一更</li>
+</ul>
+</li>
+<li>Evergreen浏览器<ul>
+<li>IE，chrome，firefox，opera…</li>
+</ul>
+</li>
+<li>环境<ul>
+<li>Node：执行环境</li>
+<li>NPM： 依赖以及包管理工具</li>
+<li>Babel：ECMASCRIPT的转译器，将先进的标准转化为已经支持的标准</li>
+</ul>
+</li>
+<li>如何支持新标准<ul>
+<li>原生支持：开发者查看浏览器的支持情况</li>
+<li>Polyfill：以贴近新标准的方式封装API的效果</li>
+<li>转译器：babel</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-ES6的模块"><a href="#2-ES6的模块" class="headerlink" title="2. ES6的模块"></a>2. ES6的模块</h5><ul>
+<li>模块<ul>
+<li>易于拆分，模块加载</li>
+<li>模块化</li>
+</ul>
+</li>
+<li>模块加载规范<ul>
+<li>UMD <ul>
+<li>CommonJS</li>
+<li>AMD</li>
+</ul>
+</li>
+<li>CMD</li>
+</ul>
+</li>
+<li>ES6中的模块加载</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// module1.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">methodA</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">methodB</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">methodC</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="comment">// module2.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; methodA &#125;<span class="keyword">from</span> <span class="string">'./module1.js'</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>打包工具<ul>
+<li>browserify、webpack等：</li>
+<li>将多个js模块进行整体打包成一个js文件</li>
+<li>在打包之前需要先使用babel将ES6转化为ES5</li>
+</ul>
+</li>
+</ul>
+<h5 id="3-ES6的Class"><a href="#3-ES6的Class" class="headerlink" title="3. ES6的Class"></a>3. ES6的Class</h5><ul>
+<li>不需要像ES5那样用原型取声明各种方法</li>
+<li>class的typeof值其实也为function</li>
+<li>class内部声明的是实例属性</li>
+<li>ES6实际上是提供了一些语法糖</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ClassName</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>()&#123;&#125;</span><br><span class="line">  getName()&#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> hh = <span class="keyword">new</span> ClassName();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>继承<ul>
+<li>ES5特别麻烦，ES6就一个extends就可以了</li>
+</ul>
+</li>
+</ul>
+<h5 id="4-ES6常用特性"><a href="#4-ES6常用特性" class="headerlink" title="4. ES6常用特性"></a>4. ES6常用特性</h5><ul>
+<li>解构赋值</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从data</span></span><br><span class="line"><span class="keyword">const</span> &#123;id = <span class="number">1</span>&#125; = data;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>展开操作符</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//数组展开</span></span><br><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,...x]</span><br><span class="line"><span class="comment">//属性展开</span></span><br><span class="line">&#123;<span class="attr">a</span>:<span class="number">3</span>,<span class="attr">b</span>:<span class="number">4</span>,...c&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>取余</li>
+</ul>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[a,b,...rest] = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]</span><br><span class="line"><span class="comment">// a = 1</span></span><br><span class="line"><span class="comment">// b = 2</span></span><br><span class="line"><span class="comment">// rest = [3,4,5,6]</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>模板</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">`my name is <span class="subst">$&#123;name&#125;</span>`</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Set 和 Map<ul>
+<li>类似ES5中的数组和对象</li>
+<li>但是不允许出现元素的重复</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="keyword">set</span> = new Set([1,2,3,4,4]);</span><br><span class="line"><span class="keyword">set</span>.add(5)</span><br><span class="line"></span><br><span class="line">var map = new Map([</span><br><span class="line">  ['a',1],</span><br><span class="line">  ['b',2]]);</span><br><span class="line">map.put('c',3);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Generator函数和Iterator函数<ul>
+<li>Generator用来实现状态机</li>
+<li>Iterator用来实现迭代和遍历</li>
+</ul>
+</li>
+</ul>
+<h5 id="5-ES6的异步编程"><a href="#5-ES6的异步编程" class="headerlink" title="5.ES6的异步编程"></a>5.ES6的异步编程</h5><ul>
+<li><p>回调函数/事件</p>
+<ul>
+<li>遇到多种回调嵌套的时候写起来会很不友好</li>
+</ul>
+</li>
+<li><p>Promise</p>
+<ul>
+<li>是异步编程的一种解决方案，比传统的基于回调函数和事件的方式更合理和强大</li>
+<li>Promise对象代表一个异步操作，有三种状态<ul>
+<li>Pending：进行中</li>
+<li>Resolved：已完成</li>
+<li>Rejected：已失效</li>
+</ul>
+</li>
+<li>Promise.then()<ul>
+<li>可以接受两个回调函数为参数: then（（resolved, rejected）=&gt;{}）</li>
+<li>then的返回值可以还是一个Promise对象，即仍是一个异步操作。<ul>
+<li>可以采用链式写法，即then方法后再调用另一个then</li>
+<li>后续的回调函数会等到该Promise对象处理完成之后才会被调用</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 第一个异步操作</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">p1</span> (<span class="params">value</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">    someoperation(value,...)=&gt;&#123;</span><br><span class="line">      <span class="keyword">if</span>(...)&#123;</span><br><span class="line">        reject();</span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        resolve(value)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//第二个异步操作</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">p2</span> (<span class="params">value</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">    someoperation(value,...)=&gt;&#123;</span><br><span class="line">      <span class="keyword">if</span>(...)&#123;</span><br><span class="line">        reject();</span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        resolve(value)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 按照先1-&gt;2-&gt;1的顺序执行</span></span><br><span class="line">p1(<span class="number">10</span>)</span><br><span class="line">.then(<span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">  p2(value)</span><br><span class="line">&#125;, rej =&gt; &#123;&#125;)</span><br><span class="line">.then(<span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">  p1(value)</span><br><span class="line">&#125;, rej =&gt; &#123;&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>asyncy异步编程</p>
+<h3 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h3></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/技术/前端JavaScript系统梳理-2019-10-14.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-CSS技术系统梳理-2019-10-10" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/技术/CSS技术系统梳理-2019-10-10.html">系统地梳理下CSS3技术吧</a>
+    </h1>
+  
+
+        
+        <a href="/技术/CSS技术系统梳理-2019-10-10.html" class="archive-article-date">
+  	<time datetime="2019-10-10T11:24:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><blockquote>
+<ul>
+<li>视频云的开发已经进入正常的开发流程了，对前端框架层面已经有了一定的了解，需要返回补充前端核心接触知识了。</li>
+<li>在实际的开发中，调整样式总是花了我前端开发的一大半时间，主要还是对CSS不太熟悉，有必要系统学习一下。</li>
+<li>本文依然按照以往的风格，更注重CSS技术的系统性梳理，不赘述技术细节，因为Google一下就好。</li>
+</ul>
+</blockquote>
+<h3 id="CSS基础"><a href="#CSS基础" class="headerlink" title="CSS基础"></a>CSS基础</h3><h5 id="1-CSS的几种引入方式"><a href="#1-CSS的几种引入方式" class="headerlink" title="1.  CSS的几种引入方式"></a>1.  CSS的几种引入方式</h5><ul>
+<li>head中直接添加文档内样式代码</li>
+</ul>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span><span class="template-variable">&#123;</span></span><br><span class="line"><span class="template-variable">    body&#123;&#125;</span><span class="xml"></span></span><br><span class="line"><span class="xml">&#125;</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>head中引入外部样式</li>
+</ul>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link <span class="attribute">rel</span>=<span class="string">"stylesheet"</span> <span class="attribute">type</span>=<span class="string">"text/css"</span> <span class="attribute">href</span>=<span class="string">"common.css"</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>元素的style样式</li>
+</ul>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="attribute">style</span>=<span class="string">"width:200px"</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-CSS3的几种选择器"><a href="#2-CSS3的几种选择器" class="headerlink" title="2.CSS3的几种选择器"></a>2.CSS3的几种选择器</h5><ul>
+<li>简单选择器（type，#id, .class）</li>
+</ul>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">每个元素的id是唯一的，<span class="keyword">class</span>可以多个元素同时用</span><br><span class="line">选择器组</span><br><span class="line"><span class="symbol">ul, <span class="symbol">ol</span></span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>属性选择器</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.class</span><span class="selector-attr">[width = 200px]</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>上下文选择器</li>
+<li>伪类选择器</li>
+</ul>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//结构化伪类选择器</span></span><br><span class="line"><span class="symbol">e:</span>first-child&#123;&#125; <span class="comment">//第一个子元素设置</span></span><br><span class="line"><span class="symbol">e:</span>last-child&#123;&#125;</span><br><span class="line"><span class="symbol">e:</span>nth-child(<span class="number">2</span>n+<span class="number">1</span>)&#123;&#125; <span class="comment">//奇数位置元素</span></span><br><span class="line"><span class="comment">//UI伪类选择器</span></span><br><span class="line"><span class="symbol">e:</span>visited&#123;&#125;</span><br><span class="line">hover,focus,active, checked</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>伪元素选择器</li>
+</ul>
+<h5 id="3-CSS的级联Casscading"><a href="#3-CSS的级联Casscading" class="headerlink" title="3. CSS的级联Casscading"></a>3. CSS的级联Casscading</h5><ul>
+<li>级联：一个元素可能会被多个CSS选择器选中，就会产生层叠/级联效果。</li>
+<li>优先级规则算法：</li>
+</ul>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1. 首先会判断重要性important</span><br><span class="line">    a &#123;</span><br><span class="line">        color:blue; !important</span><br><span class="line">    &#125;</span><br><span class="line">2. 规则来源： 开发者设置 &gt; 用户设置  &gt; 浏览器预设</span><br><span class="line">2. 基于明确程度，ID &gt; Class &gt;<span class="built_in"> Type </span>, 算法通过（I-C-T）分量来判断</span><br><span class="line">3. 顺序：后添加的生效</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-CSS的继承"><a href="#4-CSS的继承" class="headerlink" title="4. CSS的继承"></a>4. CSS的继承</h5><ul>
+<li>子元素会继承来自父元素的属性</li>
+<li>不是所有的属性都是可继承的</li>
+</ul>
+<h5 id="5-厂商前缀"><a href="#5-厂商前缀" class="headerlink" title="5. 厂商前缀"></a>5. 厂商前缀</h5><ul>
+<li>为了解决不同厂商的浏览器的兼容问题</li>
+<li>常见的厂商前缀</li>
+</ul>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Chrome:</span>     -webkit</span><br><span class="line"><span class="symbol">Firefox:</span>    -moz</span><br><span class="line"><span class="symbol">Opera:</span>      -o</span><br><span class="line"><span class="symbol">Safari:</span>     -webkit</span><br></pre></td></tr></table></figure>
+
+<h3 id="CSS布局"><a href="#CSS布局" class="headerlink" title="CSS布局"></a>CSS布局</h3><h5 id="1-float"><a href="#1-float" class="headerlink" title="1. float"></a>1. float</h5><h5 id="2-Postion定位"><a href="#2-Postion定位" class="headerlink" title="2. Postion定位"></a>2. Postion定位</h5><h5 id="3-Flex"><a href="#3-Flex" class="headerlink" title="3. Flex"></a>3. Flex</h5><p>内容</p>
+<h3 id="CSS高级"><a href="#CSS高级" class="headerlink" title="CSS高级"></a>CSS高级</h3><h5 id="1-媒体查询"><a href="#1-媒体查询" class="headerlink" title="1. 媒体查询"></a>1. 媒体查询</h5><ul>
+<li>用来实现响应式布局控制</li>
+<li>类似编程语言中的if语句</li>
+<li>指定一组媒体条件，在满足所有媒体条件的时候，应用新的样式规则</li>
+</ul>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@media(<span class="built_in">max</span>-<span class="built_in">width</span>:<span class="number">600</span>px) <span class="keyword">and</span> (<span class="built_in">width</span>&lt;=<span class="number">600</span>px) <span class="keyword">and</span> (mf2) &#123;</span><br><span class="line">    prestyle&#123;</span><br><span class="line">        <span class="keyword">new</span> style</span><br><span class="line">    &#125;</span><br><span class="line">    rules&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>开源库：<a href="https://github.com/scottjehl/Respond/" target="_blank" rel="noopener">Respond.js</a></p>
+<h5 id="2-mobile-first-的响应式设计"><a href="#2-mobile-first-的响应式设计" class="headerlink" title="2. mobile first 的响应式设计"></a>2. mobile first 的响应式设计</h5><ul>
+<li>之前的实现都是宽屏优先的，初始样式是面向宽屏的。</li>
+<li>移动优先的初始设计是面向手机设备，然后对逐渐宽屏进行响应式设计。</li>
+<li>优点：移动端是趋势，移动设备加载更快，在移动设备上不会去下载宽屏的样式文件。</li>
+</ul>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">css rules <span class="built_in">for</span> mobile device </span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">@media screen <span class="keyword">and</span> (<span class="built_in">min</span>-<span class="built_in">width</span>:<span class="number">768</span>px)&#123;</span><br><span class="line">    rule1</span><br><span class="line">    rule2</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 769px小屏， 972px中屏，1200px大屏</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="3-CSS3的Transform"><a href="#3-CSS3的Transform" class="headerlink" title="3. CSS3的Transform"></a>3. CSS3的Transform</h5><ul>
+<li>为元素添加变形和变换效果，2D和3D</li>
+<li>行内元素（inline）不是transformable元素，其他常见的都是的</li>
+<li>Transform 对于元素的内容，边框，边距等都会生效。</li>
+<li>实质上是进行矩阵变换</li>
+<li>默认以元素的中心为Transform的基点，可以通过transform-origin更改</li>
+<li>几个基本操作</li>
+</ul>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">transform</span>: rotate(<span class="number">45</span>deg);   //旋转<span class="number">45</span>度，度数可以是负数</span><br><span class="line"><span class="keyword">transform</span>: scale(x-<span class="keyword">value</span>,y-<span class="keyword">value</span>); //x,y方向上的缩放</span><br><span class="line"><span class="keyword">transform</span>: translate(x-<span class="keyword">value</span>,y-<span class="keyword">value</span>)//在xy上移动</span><br><span class="line"><span class="keyword">transform</span>: skew(<span class="number">45</span>deg,<span class="number">45</span>deg)   //x和y方向上倾斜度数</span><br><span class="line"><span class="keyword">transform</span>: rotate(<span class="number">45</span>deg) scale(<span class="number">3</span>);  //多个<span class="keyword">transform</span>组合使用，需要注意的是从右向左生效的</span><br><span class="line"><span class="keyword">transform</span>-origin: left top; //将<span class="keyword">Transform</span>的基点变成左上角</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-CSS3的Transition"><a href="#4-CSS3的Transition" class="headerlink" title="4. CSS3的Transition"></a>4. CSS3的Transition</h5><ul>
+<li>用于给文档中的样式变化添加过渡效果</li>
+<li>不是所有的CSS属性都可以添加过渡效果</li>
+</ul>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">transition-property</span>: width, background-color;     <span class="comment">//设置transition关注的属性值的变化</span></span><br><span class="line"><span class="attribute">transition-property</span>: all;       <span class="comment">//为所有的可添加属性添加transition效果</span></span><br><span class="line"><span class="attribute">transition-duration</span>: <span class="number">3s</span>, <span class="number">1ms</span>;        <span class="comment">//各个属性平滑过渡效果的持续时长</span></span><br><span class="line"><span class="attribute">transition-delay</span>：1s, 2ms;      <span class="comment">//执行过渡效果动画的等待时间</span></span><br><span class="line"><span class="attribute">transition-timing-function</span>: linear | ease-in | ease-out | ease-in-out | ease; <span class="comment">//设置渐变的时间函数(常用的5个)</span></span><br><span class="line"><span class="attribute">transition</span>: property duration func delay;       <span class="comment">// 简写属性</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="6-CSS3的Animation"><a href="#6-CSS3的Animation" class="headerlink" title="6. CSS3的Animation"></a>6. CSS3的Animation</h5><ul>
+<li>与Transition的不同：Animation可以支持一个系列的变化，而Transition只能实现从一个状态过渡到另一个</li>
+<li>实现本质方式：指定元素在动画中的关键帧状态</li>
+<li>例子： 实现弹球动画</li>
+</ul>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 先定义了一个动画序列效果</span></span><br><span class="line">@Keyframes bounce &#123;     </span><br><span class="line">    0% &#123;</span><br><span class="line">        <span class="attribute">left</span>: <span class="number">0px</span>;</span><br><span class="line">        <span class="attribute">top</span>: <span class="number">0px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    0% &#123;</span><br><span class="line">        <span class="attribute">left</span>: <span class="number">50px</span>;</span><br><span class="line">        <span class="attribute">top</span>: <span class="number">100px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    0% &#123;</span><br><span class="line">        <span class="attribute">left</span>: <span class="number">100px</span>;</span><br><span class="line">        <span class="attribute">top</span>: <span class="number">0px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 应用动画序列效果</span></span><br><span class="line"><span class="selector-class">.box</span>:hover <span class="selector-class">.ball</span> &#123;</span><br><span class="line">    <span class="attribute">animation</span>: bounce <span class="number">4s</span> linear <span class="number">0s</span>;     <span class="comment">//鼠标悬停的时候触发动画</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>动画循环次数属性：animation-iteration-count</li>
+<li>动画方向属性：animation-direction</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>内容</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CSS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/技术/CSS技术系统梳理-2019-10-10.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-BroswerRouter以及HashRouter的React前端项目在Nginx上部署-2019-09-28" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -650,19 +1270,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">高性能服务器</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">React</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">音视频</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">FFmpeg</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -674,6 +1294,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">音视频</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">FFmpeg</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
@@ -682,11 +1310,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">WebRTC</a>
+                <a href="javascript:void(0)" class="js-tag color1">OAuth</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">OAuth</a>
+                <a href="javascript:void(0)" class="js-tag color2">WebRTC</a>
               </li>
              
               <li class="article-tag-list-item">
