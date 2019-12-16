@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="ZWboy的站点">
 <meta property="og:description" content="配置https123456789101112131415161718192021server &amp;#123;  listen        443;  server_name   zwboy.cn;  ssl           on;  ssl_certificate_key   ./cert/zwboy.cn.prikey.key  ssl_certificate       ./cert/zw">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-03T06:38:17.947Z">
+<meta property="og:updated_time" content="2019-12-13T08:19:16.440Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx日常使用中的配置积累">
 <meta name="twitter:description" content="配置https123456789101112131415161718192021server &amp;#123;  listen        443;  server_name   zwboy.cn;  ssl           on;  ssl_certificate_key   ./cert/zwboy.cn.prikey.key  ssl_certificate       ./cert/zw">
@@ -182,6 +182,39 @@
 <h3 id="配置多个host的代理"><a href="#配置多个host的代理" class="headerlink" title="配置多个host的代理"></a>配置多个host的代理</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">        <span class="attribute">listen</span> <span class="number">80</span>;  <span class="comment"># 设置Nginx对外监听80端口</span></span><br><span class="line">        <span class="attribute">server_name</span> <span class="regexp">*.domain.cn</span>;  <span class="comment"># 绑定到该服务器的域名</span></span><br><span class="line">        <span class="attribute">if</span> ( <span class="variable">$http_host</span> <span class="regexp">~* "^(.*?)\.domain\.cn"</span> ) &#123;  <span class="comment"># 对http_host进行正则匹配，解析domain</span></span><br><span class="line">                <span class="attribute">set</span> <span class="variable">$domain</span> <span class="variable">$1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="attribute">location</span> / &#123;</span><br><span class="line">                <span class="attribute">proxy_set_header</span>        X-Real-IP       <span class="variable">$remote_addr</span>;</span><br><span class="line">                <span class="attribute">proxy_set_header</span>        Host            <span class="variable">$http_host</span>;</span><br><span class="line">                <span class="comment"># 分别处理各个domain</span></span><br><span class="line">                <span class="attribute">if</span> ( <span class="variable">$domain</span> <span class="regexp">~* "www"</span> ) &#123;</span><br><span class="line">                        <span class="attribute">proxy_pass</span> http://localhost:82;  <span class="comment"># 通过proxy_pass 进行代理转发</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="attribute">if</span> ( <span class="variable">$domain</span> <span class="regexp">~* "gitlab"</span> ) &#123;</span><br><span class="line">                        <span class="attribute">proxy_pass</span> http://localhost:82;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="attribute">if</span> ( <span class="variable">$domain</span> <span class="regexp">~* "jenkins"</span> ) &#123;</span><br><span class="line">                        <span class="attribute">proxy_pass</span> http://localhost:9090;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="部署React前端单页应用"><a href="#部署React前端单页应用" class="headerlink" title="部署React前端单页应用"></a>部署React前端单页应用</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">8083</span>;</span><br><span class="line">    <span class="attribute">root</span> /home/name/..../build; <span class="comment"># 前端build完成之后的静态资源路径</span></span><br><span class="line">    <span class="attribute">index</span> index.html index.htm;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="attribute">try_file</span> <span class="variable">$uri</span> <span class="variable">$uri</span>/ /index.html;  <span class="comment"># url 切换时始终返回index.html</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 其他配置</span></span><br><span class="line">    <span class="comment"># 图片样式缓存1年</span></span><br><span class="line">    <span class="attribute">location</span> <span class="regexp">~* /app.*\.(js|css|png|jpg)$</span> &#123;</span><br><span class="line">       <span class="attribute">access_log</span> <span class="literal">off</span>;</span><br><span class="line">        <span class="attribute">expires</span>    <span class="number">365d</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment"># html/xml/json 文件不缓存</span></span><br><span class="line">    <span class="attribute">location</span> <span class="regexp">~* /app.*\.(?:manifest|appcache|html?|xml|json)$</span> &#123;</span><br><span class="line">        <span class="attribute">expires</span>    -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="server-name"><a href="#server-name" class="headerlink" title="server_name"></a>server_name</h3><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">server</span>&#123;</span><br><span class="line">  server_name <span class="keyword">primary</span>.zwboy.cn blog.zwboy.cn;</span><br><span class="line">  server_name_in_redirect <span class="keyword">off</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">302</span> /redirect;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="nginx-http模块的11个阶段"><a href="#nginx-http模块的11个阶段" class="headerlink" title="nginx http模块的11个阶段"></a>nginx http模块的11个阶段</h3><blockquote>
+<p>简化的阶段：1.读取request头，2.检查配置块，3.流量控制（是否超出连接限制，速率控制），4.鉴权（是否盗链），5.生成内容（5.1作为代理服务器，去上有请求数据，5.2，内部生成数据），6.Response 过滤（压缩，SSL等），7.日志处理</p>
+</blockquote>
+<ul>
+<li>实际是按照以下11个阶段顺序进行的</li>
+</ul>
+<h5 id="POST-READ"><a href="#POST-READ" class="headerlink" title="POST_READ"></a>POST_READ</h5><ul>
+<li>读取request headers之后</li>
+<li>realip，拿到用户的真实ip，可以用于限流等<h5 id="SERVER-REWRITE"><a href="#SERVER-REWRITE" class="headerlink" title="SERVER_REWRITE"></a>SERVER_REWRITE</h5></li>
+<li>rewite模块<h5 id="FIND-CONFIG"><a href="#FIND-CONFIG" class="headerlink" title="FIND_CONFIG"></a>FIND_CONFIG</h5></li>
+<li>nginx模块本身<h5 id="REWRITE"><a href="#REWRITE" class="headerlink" title="REWRITE"></a>REWRITE</h5><h5 id="POST-REWRITE"><a href="#POST-REWRITE" class="headerlink" title="POST_REWRITE"></a>POST_REWRITE</h5></li>
+<li>rewrite之后的阶段<h5 id="PREACCESS"><a href="#PREACCESS" class="headerlink" title="PREACCESS"></a>PREACCESS</h5></li>
+<li>确认访问权限前的阶段</li>
+<li>limt_conn，并发连接限制</li>
+<li>limt_req，每秒请求数限制<h5 id="ACCESS"><a href="#ACCESS" class="headerlink" title="ACCESS"></a>ACCESS</h5></li>
+<li>判断能不能访问</li>
+<li>auth_basic，用户名，密码</li>
+<li>access，根据ip</li>
+<li>auth_request，根据第三方服义判断<h5 id="POST-ACCESS"><a href="#POST-ACCESS" class="headerlink" title="POST_ACCESS"></a>POST_ACCESS</h5></li>
+<li>访问之后阶段<h5 id="PRECONTENT"><a href="#PRECONTENT" class="headerlink" title="PRECONTENT"></a>PRECONTENT</h5></li>
+<li>连接前阶段</li>
+<li>try_files<h5 id="CONTENT"><a href="#CONTENT" class="headerlink" title="CONTENT"></a>CONTENT</h5></li>
+<li>index</li>
+<li>autoindex</li>
+<li>concat<h5 id="LOG"><a href="#LOG" class="headerlink" title="LOG"></a>LOG</h5></li>
+<li>access_log</li>
+</ul>
+<h3 id="realip"><a href="#realip" class="headerlink" title="realip"></a>realip</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">  server_name domain.cn;</span><br><span class="line"></span><br><span class="line">  set_real_ip_from 111.111.112.1;</span><br><span class="line">  real_ip_recursive on;</span><br><span class="line">  real_ip_header X-Forwardwd-For;  <span class="comment"># realip可以来自Http的头，X-Forwardwd-For和Real-IP</span></span><br><span class="line"></span><br><span class="line">  location / &#123;</span><br><span class="line">    <span class="built_in">return</span> 200 <span class="string">"Client real ip: <span class="variable">$remote_addr</span>\n"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="rewrite"><a href="#rewrite" class="headerlink" title="rewrite"></a>rewrite</h3>
       
 
       
@@ -295,6 +328,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/技术/update-alternatives-让多个版本库共存.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          update-alternatives 让多个版本库共存
+        
+      </div>
+    </a>
   
   
     <a href="/技术/高性能服务器：实现简单的TCP-UDP-server，以及对应的Client.html" id="article-nav-older" class="article-nav-link-wrap">
@@ -420,15 +462,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">高性能服务器</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">React</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">前端</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CSS</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -440,11 +486,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color3">前端</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">高性能服务器</a>
+                <a href="javascript:void(0)" class="js-tag color4">CSS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -452,7 +498,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color5">效率工具</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -460,15 +506,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">效率工具</a>
+                <a href="javascript:void(0)" class="js-tag color1">OAuth</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">反向代理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">OAuth</a>
               </li>
              
               <li class="article-tag-list-item">
