@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://zwboy.cn">
-  <title>Tag: Docker | ZWboy的站点</title>
+  <title>大脑Cache系列--Java快速梳理，方便随时load到大脑，减少低级bug (一) | ZWboy的站点</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="杰克机会jackchance">
-<meta name="keywords" content="Code，Ideas, Thinking, and Solutions">
-<meta property="og:type" content="website">
-<meta property="og:title" content="ZWboy的站点">
-<meta property="og:url" content="http://zwboy.cn/tags/Docker/index.html">
+  <meta name="description" content="背景  Java程序常常会遇到一些蛋疼的bug，最后发现，都是在一些很基础的方面造成的。大量的时间花在调试代码找低级bug上是十分没有性价比的。所以，再系统梳理下Java，是十分必要的。 已经反复学习和使用Java多次了，但只要有段时间没用Java之后，每次使用前都想要重头再梳理一遍。本文章将更注重Java只是的系统性，而不是细节性。 本文是本人大脑的专属Cache，所以逻辑上可能只有我自己能够看">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大脑Cache系列--Java快速梳理，方便随时load到大脑，减少低级bug (一)">
+<meta property="og:url" content="http://zwboy.cn/技术/Java系统梳理.html">
 <meta property="og:site_name" content="ZWboy的站点">
-<meta property="og:description" content="杰克机会jackchance">
+<meta property="og:description" content="背景  Java程序常常会遇到一些蛋疼的bug，最后发现，都是在一些很基础的方面造成的。大量的时间花在调试代码找低级bug上是十分没有性价比的。所以，再系统梳理下Java，是十分必要的。 已经反复学习和使用Java多次了，但只要有段时间没用Java之后，每次使用前都想要重头再梳理一遍。本文章将更注重Java只是的系统性，而不是细节性。 本文是本人大脑的专属Cache，所以逻辑上可能只有我自己能够看">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-06T07:17:43.924Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ZWboy的站点">
-<meta name="twitter:description" content="杰克机会jackchance">
+<meta name="twitter:title" content="大脑Cache系列--Java快速梳理，方便随时load到大脑，减少低级bug (一)">
+<meta name="twitter:description" content="背景  Java程序常常会遇到一些蛋疼的bug，最后发现，都是在一些很基础的方面造成的。大量的时间花在调试代码找低级bug上是十分没有性价比的。所以，再系统梳理下Java，是十分必要的。 已经反复学习和使用Java多次了，但只要有段时间没用Java之后，每次使用前都想要重头再梳理一遍。本文章将更注重Java只是的系统性，而不是细节性。 本文是本人大脑的专属Cache，所以逻辑上可能只有我自己能够看">
   
     <link rel="alternative" href="/atom.xml" title="ZWboy的站点" type="application/atom+xml">
   
@@ -150,56 +151,345 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Java系统梳理" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/技术/React前端项目的Docker化-2019-10-26.html" class="archive-article-date">
-  	<time datetime="2019-10-26T15:09:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-26</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/技术/React前端项目的Docker化-2019-10-26.html">React前端项目的Docker化</a>
+    <h1 class="article-title" itemprop="name">
+      大脑Cache系列--Java快速梳理，方便随时load到大脑，减少低级bug (一)
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/技术/Java系统梳理.html" class="archive-article-date">
+  	<time datetime="2020-01-02T09:39:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><blockquote>
+<ul>
+<li>Java程序常常会遇到一些蛋疼的bug，最后发现，都是在一些很基础的方面造成的。大量的时间花在调试代码找低级bug上是十分没有性价比的。所以，再系统梳理下Java，是十分必要的。</li>
+<li>已经反复学习和使用Java多次了，但只要有段时间没用Java之后，每次使用前都想要重头再梳理一遍。本文章将更注重Java只是的系统性，而不是细节性。</li>
+<li>本文是本人大脑的专属Cache，所以逻辑上可能只有我自己能够看懂，见谅。</li>
+</ul>
+</blockquote>
+<h3 id="一、目录"><a href="#一、目录" class="headerlink" title="一、目录"></a>一、目录</h3><ul>
+<li>数据类型，字符串，数组</li>
+<li>基础语句语法</li>
+<li>类与对象</li>
+</ul>
+<h3 id="二、语法"><a href="#二、语法" class="headerlink" title="二、语法"></a>二、语法</h3><blockquote>
+<ul>
+<li>虽然没那么重要，但既然系统学Java技术了，就得了解下吧。</li>
+<li>其实还是有很多基础知识，是自己平时写代码的时候没有注意到的，而这很容易导致一些低级bug，耗费大量的调试时间。</li>
+</ul>
+</blockquote>
+<h5 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h5><ul>
+<li>编译命令: javac Main.java</li>
+<li>运行:java Main </li>
+<li>版本：java -version</li>
+</ul>
+<h5 id="8种基本类型"><a href="#8种基本类型" class="headerlink" title="8种基本类型"></a>8种基本类型</h5><ul>
+<li>整数：byte，short，int，long</li>
+<li>浮点：float，double</li>
+<li>Unicode编码的char字符类型</li>
+<li>boolean</li>
+</ul>
+<h5 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h5><ul>
+<li>java的整形均是有符号的，需要会计算整型的数据范围</li>
+<li><strong>注意：在java中，为了保障移植性，整型的范围与实际的机器无关（C和C++中整型范围和目标平台是相关的），JVM解决了不同机器整型之间的差别。</strong></li>
+<li>byte：1字节，一般很少用，用在底层文件处理，或者占用存储空间的大数组</li>
+<li>short：2字节，和byte用处类似</li>
+<li>int：4字节，最常用</li>
+<li>long：8字节，比如需要表示星球上的居住人数，可以使用long，后缀可以加一个L或者l标识</li>
+<li>更易读的整数方式：1_000_000, java编译器会自动去除这些下划线。</li>
+</ul>
+<h5 id="浮点类型"><a href="#浮点类型" class="headerlink" title="浮点类型"></a>浮点类型</h5><ul>
+<li>float 4字节，有效位6-7位 </li>
+<li>double 8字节，有效位15位</li>
+<li><strong>默认为double，一般也很少用float（float的精度一般很难满足需求），除非在需要处理或者存储大量数据</strong></li>
+<li>double后缀D或d，float后缀F或者f</li>
+<li>特殊浮点数值（一般用不到）<ul>
+<li>正无穷大：Double.POSITIVE_INFINITY</li>
+<li>负无穷大: Double.NEGATIVE_INFINITY</li>
+<li>非数字: Double.NaN, 判断用Double.isNaN(n),不能用 == 号（所有非数值都是不相等的）</li>
+</ul>
+</li>
+</ul>
+<h5 id="字符类型char"><a href="#字符类型char" class="headerlink" title="字符类型char"></a>字符类型char</h5><ul>
+<li>Java的char采用Unicode编码</li>
+<li>‘a’,”A”的区别</li>
+<li>码点与代码单元</li>
+</ul>
+<h5 id="boolean"><a href="#boolean" class="headerlink" title="boolean"></a>boolean</h5><ul>
+<li><strong>和C++不一样，整型和boolean之间不能相互转换</strong></li>
+</ul>
+<h5 id="大数值-BigInteger-BigDecimal"><a href="#大数值-BigInteger-BigDecimal" class="headerlink" title="大数值 BigInteger BigDecimal"></a>大数值 BigInteger BigDecimal</h5><ul>
+<li>不是一个java类型，而是一个java对象，可以表示任意精度的整型和浮点数</li>
+<li>无法通过运算符计算，需要通过方法进行运算</li>
+</ul>
+<h5 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h5><ul>
+<li>声明-&gt;初始化-&gt;使用</li>
+<li>Java变量在使用之前必须要进行初始化，否则会编译报错</li>
+</ul>
+<h5 id="常量与类常量"><a href="#常量与类常量" class="headerlink" title="常量与类常量"></a>常量与类常量</h5><ul>
+<li>final表示常量，只能被赋值一次，且声明的时候必须初始化</li>
+<li>常量名推荐使用全大写,<code>final int NUMBER = 10;</code></li>
+<li>static final，类常量，可以在类中额多个方法中使用</li>
+<li>注意：与C++不同，常量不是通过const声明的，Java中const是保留字，但没有实际作用。</li>
+</ul>
+<h5 id="常用的Math静态方法"><a href="#常用的Math静态方法" class="headerlink" title="常用的Math静态方法"></a>常用的Math静态方法</h5><ul>
+<li>平方根：<code>double result = Math.sqrt(double x);</code></li>
+<li>幂运算：<code>double result = Math.pow(x,a);</code></li>
+<li>四舍五入：<code>long n = Math.round(double x);</code></li>
+<li>随机数: <code>Math.random()</code>,返回0-1之间的随机浮点数，比如要取0 - n-1之间的随机数，<code>int result = (int)(Math.random() * n)</code>.</li>
+</ul>
+<h5 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h5><ul>
+<li>强制类型转换会导致结果被截断成一个完全不同的值，比如(byte)300 的值为 44</li>
+<li>不要将boolean与任何类型之间做类型转换。</li>
+</ul>
+<h5 id="枚举类型"><a href="#枚举类型" class="headerlink" title="枚举类型"></a>枚举类型</h5><ul>
+<li>自定义枚举类型</li>
+</ul>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Size</span> &#123;</span></span><br><span class="line">  SMALL, LARGE, EXTRA_LARGE</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用</li>
+</ul>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Size</span> <span class="built_in">size</span> = <span class="built_in">Size</span>.SMALL;</span><br></pre></td></tr></table></figure>
+
+<h5 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h5><ul>
+<li>不是一个基础类型，而是一个预定义类</li>
+<li><strong>Java 的字符串是不可变的，对字符串的修改，实际上是创建了一个新的String对象，目的是为了复用共享字符串</strong></li>
+<li>对字符串修改的需求没有对字符串进行比较的需求大</li>
+<li><strong>和C++不同，Java中的String不是字符数组，而是一个对象，可以理解为char*指针</strong></li>
+<li>字符串比较：一定要使用equal(str)方法，而不能使用 == 来判断<ul>
+<li>因为Java没有像C++那样，重载了==运算符，==判断的是两个字符串变量是否引用的是同一个位置的。</li>
+<li>所以 == 判断的结果是未知的，常常会导致隐藏bug</li>
+</ul>
+</li>
+<li>字符串判空,<strong>区分空串和Null串</strong><ul>
+<li>if(str != null &amp;&amp; str.length()!=0)</li>
+</ul>
+</li>
+<li>码点与代码单元<ul>
+<li>str.length()返回的是代码单元个数</li>
+<li>str.codePointCount(0,str.length()),统计的是码点数量</li>
+<li>str.charAt(n),获取n位置的代码单元</li>
+<li><strong>最好避免直接操作char，这太底层了</strong></li>
+<li>关于代码单元与码点：</li>
+</ul>
+</li>
+</ul>
+<h5 id="常用的String-API"><a href="#常用的String-API" class="headerlink" title="常用的String API"></a>常用的String API</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span> <span class="title">charAt</span><span class="params">(<span class="keyword">int</span> index)</span></span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span></span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">equalsIgnoreCase</span><span class="params">(String str)</span></span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">startsWith</span><span class="params">(String prefix)</span>，判断是否是以prefix为前缀</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">endsWith</span><span class="params">(String suffix)</span>，判断是否以suffix为后缀</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">indexof</span><span class="params">(String str)</span>, 找到字串str第一次出现的位置，没有则返回-1</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">length</span><span class="params">()</span>,字符串长度</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">codePointCount</span><span class="params">(<span class="keyword">int</span> startIndex, <span class="keyword">int</span> endIndex)</span>,统计代码点数目</span></span><br><span class="line"><span class="function">String <span class="title">substring</span><span class="params">(<span class="keyword">int</span> begin , <span class="keyword">int</span> end)</span></span>;</span><br><span class="line"><span class="function">String <span class="title">toLowerCase</span><span class="params">()</span>, <span class="title">toUpperCase</span><span class="params">()</span></span></span><br><span class="line"><span class="function">Stirng <span class="title">trim</span><span class="params">()</span>, 删除字符串开始和结尾的空格</span></span><br><span class="line"><span class="function">String <span class="title">join</span><span class="params">(<span class="string">'divider'</span>,CharSequence...emements)</span></span></span><br></pre></td></tr></table></figure>
+
+<h5 id="StringBuilder字符串构造"><a href="#StringBuilder字符串构造" class="headerlink" title="StringBuilder字符串构造"></a>StringBuilder字符串构造</h5><ul>
+<li>在构造字符串的时候，每次连接字符串都需要构建一个新的String对象，效率比较低，推荐使用StringBuilder</li>
+<li>使用方式</li>
+</ul>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">String builder = <span class="keyword">new</span> <span class="constructor">StringBuilder()</span>; <span class="comment">// 创建一个构造器</span></span><br><span class="line">builder.append(<span class="string">"hello"</span>);</span><br><span class="line">builder.append(<span class="string">"world"</span>); <span class="comment">// 追加字符或者字符串</span></span><br><span class="line">String str = builder.<span class="keyword">to</span><span class="constructor">String()</span>; <span class="comment">// 构造String对象</span></span><br><span class="line"><span class="comment">// 其他api</span></span><br><span class="line">builder.set<span class="constructor">CharAt(<span class="params">index</span>,<span class="params">char</span>)</span></span><br><span class="line">builder.delete(start,<span class="keyword">end</span>)</span><br><span class="line">builder.insert(offset,<span class="built_in">string</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>StringBuilder的前身是StringBuffer，但是StringBuffer的效率要低一些，因为它是线程安全的，允许多线程操作</li>
+<li>而StringBuilder是非线程安全的，一般在单线程的应用中使用StringBuilder</li>
+<li>他们的API是一样的</li>
+</ul>
+<h5 id="读取输入"><a href="#读取输入" class="headerlink" title="读取输入"></a>读取输入</h5><ul>
+<li>从控制台读取基础数据类型</li>
+</ul>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Scanner <span class="built_in">scan</span> = new Scanner(System.<span class="keyword">in</span>); //创建scanner，并与标准输入关联,System.<span class="keyword">in</span>的类型为InputStream</span><br><span class="line"><span class="built_in">scan</span>.nextLine();</span><br><span class="line"><span class="built_in">scan</span>.next();</span><br><span class="line"><span class="built_in">scan</span>.nextInt();</span><br><span class="line"><span class="built_in">scan</span>.nextDouble();</span><br><span class="line"><span class="built_in">scan</span>.hasNext();</span><br><span class="line"><span class="built_in">scan</span>.hasNextInt();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>从控制台读取密码</li>
+</ul>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// java se 6 提供了Console类实现读取密码</span></span><br><span class="line">Console console = <span class="module-access"><span class="module"><span class="identifier">System</span>.</span></span>console<span class="literal">()</span>;</span><br><span class="line">Stirng userName = console.read<span class="constructor">Line(<span class="string">"UserName:"</span>)</span>;</span><br><span class="line"><span class="built_in">char</span> <span class="literal">[]</span> psd = console.read<span class="constructor">Password(<span class="string">"Password:"</span>)</span>;</span><br></pre></td></tr></table></figure>
+
+<h5 id="字符文件输入输出"><a href="#字符文件输入输出" class="headerlink" title="字符文件输入输出"></a>字符文件输入输出</h5><ul>
+<li>读取字符文件</li>
+</ul>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Scanner scan = <span class="keyword">new</span> <span class="constructor">Scanner(Path.<span class="params">get</span>(<span class="string">"pathstring"</span>)</span>,<span class="string">"UTF-8"</span>); <span class="comment">// 路径是相对于Java虚拟机启动路径的相对位置</span></span><br><span class="line">scan.read<span class="constructor">Line()</span>....等一系列方法</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>写字符文件</li>
+</ul>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PrintWriter <span class="keyword">out</span> = <span class="keyword">new</span> PrintWriter(<span class="string">"filename.txt"</span>,<span class="string">"UTF-8"</span>);</span><br><span class="line"><span class="keyword">out</span>.println(<span class="string">"hhh"</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>对于处理文件的Scanner以及PrintWriter，需要在方法中处理异常</li>
+</ul>
+<h5 id="Java的块作用域"><a href="#Java的块作用域" class="headerlink" title="Java的块作用域"></a>Java的块作用域</h5><ul>
+<li><strong>和C++不一样，Java不允许在嵌套块中重复定义一个变量，会编译错误</strong></li>
+</ul>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="built_in">int</span> <span class="built_in">n</span>;</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">int</span> <span class="built_in">n</span>; // 这种写法在java中是编译不过的</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="switch-case-break"><a href="#switch-case-break" class="headerlink" title="switch case break"></a>switch case break</h5><ul>
+<li>虽然很简单，但周围很多人都会用错</li>
+<li>break的意思是，本case如果命中了，在执行结束之后，中断之后的case检查，直接返回。</li>
+<li>多个case可以公用同一个处理函数</li>
+<li>case标签的类型可以是char，4种整型，枚举常量，以及字符串常量（Java7开始支持）</li>
+</ul>
+<h5 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h5><ul>
+<li><p>数组声明：int [] array;</p>
+</li>
+<li><p>数组初始化： array = new int [100];</p>
+<ul>
+<li>需要指定数组初始大小，可以是整型n变量，数组创建之后大小无法更改。（如果需要，使用数组列表）</li>
+<li>整型数组所有元素初始化为0，boolean初始化为false，对象类型初始化为null</li>
+</ul>
+</li>
+<li><p>数组元素个数：array.length</p>
+</li>
+<li><p>数组for循环：for(int item : array)</p>
+</li>
+<li><p>数组拷贝</p>
+<ul>
+<li>浅拷贝：直接将一个数据变量的值赋值给另一个数组变量，两个数组变量引用的是堆中的同一个数组，对一个的修改会影响到另一个</li>
+<li>深拷贝：在原来的基础上，新创建一个一模一样的数组，或者更长的数组。Array提供了copyOf方法<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> [] newArray = Array.copyOf(array,array.length+<span class="number">10</span>); <span class="comment">// 拷贝array数组，长度加10</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>Java中的数据是在堆上创建的，相当于C++中的<code>int * a = new int[30];</code>,而不是<code>int a[10];</code>,这是在栈中的数组。</p>
+</li>
+<li><p>多维数组：数组的元素还是数组而已，且Java还支持不规则的数组（行列不一定要求是整齐的），C++是不支持的</p>
+</li>
+</ul>
+<h3 id="类与对象"><a href="#类与对象" class="headerlink" title="类与对象"></a>类与对象</h3><ul>
+<li>类与对象的关系：模板，实例</li>
+<li>面向对象编程的含义：封装</li>
+<li>类之间的三种关系</li>
+<li>对象与对象变量之间的关系</li>
+<li>预定义类（String，Date，LocalDate）与自定义类</li>
+<li>Java多源文件的使用：Java编译器内置了类似UNIX的make功能，在编译的时候，能够自动查找需要依赖的其他类，有class文件就直接使用，没有则查找java文件并编译。</li>
+<li>Java中，所有的方法都必须包含在类中</li>
+<li>private私有域，只有属于同一个类的对象（本身，其他同类对象）才可以访问。</li>
+<li>final常量、final方法：</li>
+<li>静态变量、静态常量、静态方法</li>
+<li>静态方法中不能访问非静态实例域，但可以访问静态域。</li>
+<li>main()方法是一个静态方法，它不对任何对象进行操作，负责在程序启动的时候创建对象。</li>
+<li>每个类都可以实现一个main方法，用来进行单元测试，在执行完整Application时候，每个单元中的main并不会执行。</li>
+</ul>
+<h5 id="对象构造"><a href="#对象构造" class="headerlink" title="对象构造"></a>对象构造</h5><ul>
+<li>构造函数：Java的对象都是在堆上构造的，通过new操作符在堆上创建新对象。构造函数在new对象的时候被调用。</li>
+<li>与C++中对象的构造做区分，C++中支持在栈和堆上创建对象，Java对象与后者类似。</li>
+</ul>
+<h5 id="对象域的初始化"><a href="#对象域的初始化" class="headerlink" title="对象域的初始化"></a>对象域的初始化</h5><ul>
+<li>三种域初始化方式：在构造器中初始化，声明中初始化，在初始化块</li>
+<li>在用户没给构造函数的时候，系统会自动提供一个无参构造函数，一旦用户提供了，系统就不再提供无参构造函数。</li>
+<li>对象中的域，默认被初始化为0，false，以及null</li>
+<li>域的初始化也可以直接在声明时进行，好习惯是在声明变量域的时候，就给个安全的初始值。（C++中是不允许的，只能通过构造函数初始化域）</li>
+<li>初始化块：一个或多个代码块，只要构造类对象，这些初始化块就一定会执行，一般用于初始化比较复杂的情况。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 初始化块</span></span><br><span class="line">  <span class="keyword">static</span></span><br><span class="line">  &#123;</span><br><span class="line">    Random generator = <span class="keyword">new</span> Random(); </span><br><span class="line">    id = generator.nextInt(<span class="number">1000</span>); <span class="comment">// 生成0-999的随机数</span></span><br><span class="line">    System.out.println(<span class="string">"hello"</span>); <span class="comment">//也可以执行非初始化语句的</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>具体的域初始化步骤<ul>
+<li>1.所有数据域被初始化为0，false、null</li>
+<li>2.按照类中各个数据域声明出现的前后顺序，执行各自的初始化语句以及初始化块。</li>
+<li>3.执行构造器内容</li>
+</ul>
+</li>
+</ul>
+<h5 id="对象析构-finalize方法"><a href="#对象析构-finalize方法" class="headerlink" title="对象析构 finalize方法"></a>对象析构 finalize方法</h5><ul>
+<li>Java有自动的垃圾回收器，所以不像C++，没有显式的析构器。</li>
+<li>可以为类添加一个finalize方法，该方法在对象被清楚之前调用。</li>
+<li><strong>实际应用中，避免在finalize中去释放资源，因为finalize什么时候被执行是无法确定的</strong></li>
+<li>对于一些资源的使用，要提供一个close方法，在使用完毕后调用。</li>
+<li>可以通过Runtime.addShutdownHook 方法来添加关闭钩子的方式更好的实现。</li>
+</ul>
+<h5 id="方法参数传递"><a href="#方法参数传递" class="headerlink" title="方法参数传递"></a>方法参数传递</h5><ul>
+<li>Java的参数传递是<strong>传值调用</strong>的，方法得到的是参数的拷贝，且<strong>方法内无法修改传递进来的参数</strong>。</li>
+<li>对于基本数据类型，直接传入的是数据拷贝，而对于对象，传入的是对象引用的拷贝（<strong>容易理解为传引用调用，但实际是通过传值调用实现的，只是这里的值是对象引用</strong>）。<ul>
+<li>对于基本数据类型参数，参数传递不会改变参数变量的值。</li>
+<li>对于对象引用参数，方法内可以通过对象应用去修改对象内容。</li>
+<li>对于对象引用参数，无法将对象引用参数指向另一个新对象。</li>
+</ul>
+</li>
+</ul>
+<h5 id="重载"><a href="#重载" class="headerlink" title="重载"></a>重载</h5><ul>
+<li>重载：overloading，多个方法，有相同的名字，但有不同的参数列表。</li>
+<li>重载解析：编译器负责根据参数列表，匹配正确的函数。</li>
+<li>函数签名：函数名+参数列表，<strong>注意，返回类型不属于函数签名，不能通过不同的返回类型来重载</strong></li>
+</ul>
+<h5 id="包-package"><a href="#包-package" class="headerlink" title="包 package"></a>包 package</h5><ul>
+<li>通过包来组织类，文件目录方式，避免重名</li>
+<li>import导入类、静态导入</li>
+<li>将类放入包中：<ul>
+<li>1.类源代码开头添加 package path; （没有该行，则该类属于默认包）</li>
+<li>2.将类源文件放在package对应的问价夹中</li>
+</ul>
+</li>
+<li><strong>编译器在编译文件的时候是不关注目录结构的，但定位一个类的时候，通过包名和类名来定位。所以，必须将类源代码放在package对应的文件夹下，否则虚拟机找不到类</strong></li>
+<li>包作用域：不添加public和private时，默认的作用域。同一个包中都可以访问。</li>
+</ul>
+<h5 id="类路径"><a href="#类路径" class="headerlink" title="类路径"></a>类路径</h5><ul>
+<li>从三个地方加载类<ul>
+<li>1.JRE中的JAR文件</li>
+<li>2.第三方JAR文件</li>
+<li>3.用户源程序目录</li>
+</ul>
+</li>
+<li>通过<code>java -classpath</code>或者设置<code>CLASSPATH</code>环境变量来设置类路径。</li>
+</ul>
+<h5 id="类注释"><a href="#类注释" class="headerlink" title="类注释"></a>类注释</h5><ul>
+<li>javadoc，由源文件生成html</li>
+<li>类注释</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  类注释</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">hhh</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>方法注释</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* desc hh</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> id</span></span><br><span class="line"><span class="comment">* <span class="doctag">@return</span> void</span></span><br><span class="line"><span class="comment">* <span class="doctag">@throws</span></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">hh</span><span class="params">(<span class="keyword">int</span> id)</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>域注释</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* desc</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">int</span> id;</span><br></pre></td></tr></table></figure>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">React</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -212,17 +502,104 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://zwboy.cn/技术/Java系统梳理.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/技术/update-alternatives-让多个版本库共存.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">update-alternatives 让多个版本库共存</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -245,9 +622,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
