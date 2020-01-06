@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="ZWboy的站点">
 <meta property="og:description" content="有兴趣搞一搞高性能流媒体服务器，这些得了解，学习过程中记录一下，方便未来回顾。  一、实现一个TCP ServerServer端步骤 socker():创建socket，指定使用TCP协议 bind():将socket与地址和端口进行绑定 listen():侦听端口 accept():创建新的socket recv():使用recv接收数据 send():使用send发送数据 close():使">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-25T05:58:27.655Z">
+<meta property="og:updated_time" content="2020-01-06T07:27:18.057Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="高性能服务器：实现简单的TCP&#x2F;UDP server，以及对应的Client">
 <meta name="twitter:description" content="有兴趣搞一搞高性能流媒体服务器，这些得了解，学习过程中记录一下，方便未来回顾。  一、实现一个TCP ServerServer端步骤 socker():创建socket，指定使用TCP协议 bind():将socket与地址和端口进行绑定 listen():侦听端口 accept():创建新的socket recv():使用recv接收数据 send():使用send发送数据 close():使">
@@ -183,6 +183,8 @@
 <li>send():使用send发送数据</li>
 <li>close():使用close关闭连接</li>
 </ul>
+<a id="more"></a>
+
 <h5 id="TCP常见套接字选项"><a href="#TCP常见套接字选项" class="headerlink" title="TCP常见套接字选项"></a>TCP常见套接字选项</h5><ul>
 <li>SO_REUSEADDR: 地址重用<ul>
 <li>之前程序结束，端口处于WAIT_TIME状态下，新启动的程序仍然可以启动</li>
@@ -411,7 +413,7 @@
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
-		open_in_new: false,
+		open_in_new: true,
 		toc_hide_index: true,
 		root: "/",
 		innerArchive: true,

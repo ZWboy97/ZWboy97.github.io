@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="ZWboy的站点">
 <meta property="og:description" content="记录在解决Ubuntu系统python2.7与python3.4共存的问题，使用update-alternatives在两个版本之间进行切换  update-alternatives检查update-alternatives是否已经检测到两个版本的python1update-alternatives --list python  如果出现以下错误，则说明未添加 1update-alternati">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-16T02:25:28.064Z">
+<meta property="og:updated_time" content="2020-01-06T07:27:57.596Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="update-alternatives 让多个版本库共存">
 <meta name="twitter:description" content="记录在解决Ubuntu系统python2.7与python3.4共存的问题，使用update-alternatives在两个版本之间进行切换  update-alternatives检查update-alternatives是否已经检测到两个版本的python1update-alternatives --list python  如果出现以下错误，则说明未添加 1update-alternati">
@@ -179,6 +179,7 @@
 <p>如果出现以下错误，则说明未添加</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span>-alternative<span class="variable">s:</span> error: <span class="keyword">no</span> alternatives <span class="keyword">for</span> <span class="keyword">python</span></span><br></pre></td></tr></table></figure>
 
+<a id="more"></a>
 <h5 id="更新替代列表，将两个版本的python放入其中"><a href="#更新替代列表，将两个版本的python放入其中" class="headerlink" title="更新替代列表，将两个版本的python放入其中"></a>更新替代列表，将两个版本的python放入其中</h5><p>update-alternatives –install [link] [name] [path] [priority]</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span>-alternatives --install /usr/bin/<span class="keyword">python</span> <span class="keyword">python</span> /usr/bin/python2.<span class="number">7</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">update</span>-alternatives --install /usr/bin/<span class="keyword">python</span> <span class="keyword">python</span> /usr/bin/<span class="keyword">python3</span>.<span class="number">4</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
 
@@ -310,7 +311,7 @@
   
 <nav id="article-nav">
   
-    <a href="/技术/Java系统梳理.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/大脑Cache/大脑Cache系列--Java快速梳理（一）.html" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
@@ -381,7 +382,7 @@
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
-		open_in_new: false,
+		open_in_new: true,
 		toc_hide_index: true,
 		root: "/",
 		innerArchive: true,

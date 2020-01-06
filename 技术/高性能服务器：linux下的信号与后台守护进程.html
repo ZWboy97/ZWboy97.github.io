@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="ZWboy的站点">
 <meta property="og:description" content="有兴趣搞一搞高性能流媒体服务器了，这些得了解，学习过程中记录一下，方便未来回顾。  一、Linux 下的几个重要信号 SIGPIPE：管道终止信号，当写入无人读取的管道时产生该信号，默认终止进程，需要我们去处理 网络程序必须要处理，否则Client端断开连接之后，会导致Server Crash   SIGCHLD：子进程结束或者停止发送时候 容易产生僵尸进程（一个早已死亡的进程，但是在进程表中还">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-11-20T11:58:26.577Z">
+<meta property="og:updated_time" content="2020-01-06T07:27:25.916Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="高性能服务器：Linux下的信号与后台守护进程">
 <meta name="twitter:description" content="有兴趣搞一搞高性能流媒体服务器了，这些得了解，学习过程中记录一下，方便未来回顾。  一、Linux 下的几个重要信号 SIGPIPE：管道终止信号，当写入无人读取的管道时产生该信号，默认终止进程，需要我们去处理 网络程序必须要处理，否则Client端断开连接之后，会导致Server Crash   SIGCHLD：子进程结束或者停止发送时候 容易产生僵尸进程（一个早已死亡的进程，但是在进程表中还">
@@ -190,6 +190,8 @@
 <li>SIGQUIT： 键盘输入的退出信号</li>
 <li>SIGHUP：控制终端挂起信号</li>
 </ul>
+<a id="more"></a>
+
 <h3 id="二、信号的发送和处理"><a href="#二、信号的发送和处理" class="headerlink" title="二、信号的发送和处理"></a>二、信号的发送和处理</h3><ul>
 <li>硬件方式<ul>
 <li>ctrl+c，ctrl+\</li>
@@ -419,7 +421,7 @@
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
-		open_in_new: false,
+		open_in_new: true,
 		toc_hide_index: true,
 		root: "/",
 		innerArchive: true,

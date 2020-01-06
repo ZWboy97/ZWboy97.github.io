@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="ZWboy的站点">
 <meta property="og:description" content="番外格式工厂居然被FFmpeg拉黑名单了，因为没有遵守开源协议，转身就把它卸载了。 一、FFmpeg基础1. FFmpeg处理音视频的流程 解复用(demuxer)：带封装格式的输入文件-&amp;gt;编码数据包（音频，视频，字幕等） 解码(decoder)：编码数据包-&amp;gt;解码后的数据帧 处理（processer）：对数据帧进行处理，比如转码、转分辨率、转帧率、加滤镜等 编码（encoder）：解">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-30T06:15:34.360Z">
+<meta property="og:updated_time" content="2020-01-06T07:29:16.827Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="FFmpeg 技术基础">
 <meta name="twitter:description" content="番外格式工厂居然被FFmpeg拉黑名单了，因为没有遵守开源协议，转身就把它卸载了。 一、FFmpeg基础1. FFmpeg处理音视频的流程 解复用(demuxer)：带封装格式的输入文件-&amp;gt;编码数据包（音频，视频，字幕等） 解码(decoder)：编码数据包-&amp;gt;解码后的数据帧 处理（processer）：对数据帧进行处理，比如转码、转分辨率、转帧率、加滤镜等 编码（encoder）：解">
@@ -183,6 +183,8 @@
 </ul>
 </li>
 </ul>
+<a id="more"></a>
+
 <h3 id="常用FFmpeg命令"><a href="#常用FFmpeg命令" class="headerlink" title="常用FFmpeg命令"></a>常用FFmpeg命令</h3><h5 id="1-基本信息查询类"><a href="#1-基本信息查询类" class="headerlink" title="1. 基本信息查询类"></a>1. 基本信息查询类</h5><figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">-version</span></span><br><span class="line"><span class="deletion">-devices:显示可用设备</span></span><br><span class="line"><span class="deletion">-formats：支持的文件</span></span><br><span class="line"><span class="deletion">-muxer -demuxer：支持的封装和解封装</span></span><br><span class="line"><span class="deletion">-codecs -decoders：编解码器</span></span><br><span class="line"><span class="deletion">-filters：支持的所有过滤器</span></span><br></pre></td></tr></table></figure>
 
 <h5 id="2-FFmpeg录制命令"><a href="#2-FFmpeg录制命令" class="headerlink" title="2. FFmpeg录制命令"></a>2. FFmpeg录制命令</h5><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// MAC 平台录制视频</span></span><br><span class="line">ffmpeg -f avfoundation -<span class="selector-tag">i</span> <span class="number">1</span> -r <span class="number">30</span> out.yuv</span><br><span class="line"><span class="comment">// 参数用法</span></span><br><span class="line">-f <span class="comment">// 格式，采用mac提供的avfoundation库来采集视频</span></span><br><span class="line">-<span class="selector-tag">i</span> <span class="comment">// 指定从哪里采集数据，1为屏幕设备的索引值，屏幕为1，摄像头为0</span></span><br><span class="line">-r <span class="comment">// 指定帧率，这里为30帧</span></span><br><span class="line"><span class="comment">// 播放录制的视频</span></span><br><span class="line">ffplay -video_size <span class="number">2560</span>x1600 -pix_fmt yuv420p out.yuv</span><br><span class="line"><span class="comment">// 录制声音</span></span><br><span class="line">ffmpeg -f avfoundation -<span class="selector-tag">i</span> :<span class="number">1</span> out.wav</span><br><span class="line"><span class="comment">// 播放录制的声音</span></span><br><span class="line">ffplay out.wav</span><br></pre></td></tr></table></figure>
@@ -451,7 +453,7 @@
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
-		open_in_new: false,
+		open_in_new: true,
 		toc_hide_index: true,
 		root: "/",
 		innerArchive: true,

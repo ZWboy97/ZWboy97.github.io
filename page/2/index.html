@@ -190,105 +190,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="二、常用命令"><a href="#二、常用命令" class="headerlink" title="二、常用命令"></a>二、常用命令</h3><h5 id="1-基础命令"><a href="#1-基础命令" class="headerlink" title="1. 基础命令"></a>1. 基础命令</h5><ul>
-<li>创建文件<ul>
-<li>vim filename</li>
-</ul>
-</li>
-<li>保存文件<ul>
-<li>:w</li>
-</ul>
-</li>
-<li>关闭文件<ul>
-<li>:q</li>
-</ul>
-</li>
-<li>拷贝<ul>
-<li>命令模式下</li>
-<li>yy  拷贝当前光标所在的一行</li>
-<li>yw  拷贝当前光标所在的一个单词,需要位于单词的第一个字母 </li>
-</ul>
-</li>
-<li>粘贴<ul>
-<li>p</li>
-</ul>
-</li>
-<li>删除<ul>
-<li>dd 删除当前光标所在的一行</li>
-<li>dw 删除当前光标所在的单词</li>
-</ul>
-</li>
-<li>撤销更改<ul>
-<li>小写u</li>
-</ul>
-</li>
-<li>反撤销<ul>
-<li>Ctrl + r</li>
-</ul>
-</li>
-</ul>
-<h3 id="2-移动光标"><a href="#2-移动光标" class="headerlink" title="2. 移动光标"></a>2. 移动光标</h3><ul>
-<li>上下左右移动，命令模式下<ul>
-<li>h 左移</li>
-<li>j 上</li>
-<li>k 右</li>
-<li>l 下</li>
-</ul>
-</li>
-<li>跳到文件头<ul>
-<li>gg</li>
-</ul>
-</li>
-<li>跳到文件尾巴<ul>
-<li>GG</li>
-</ul>
-</li>
-<li>移动到行首<ul>
-<li>^</li>
-</ul>
-</li>
-<li>移动到行尾<ul>
-<li>$</li>
-</ul>
-</li>
-<li>按单词移动<ul>
-<li>w 向前</li>
-<li>b 向后</li>
-</ul>
-</li>
-</ul>
-<h5 id="3-查找与替换"><a href="#3-查找与替换" class="headerlink" title="3. 查找与替换"></a>3. 查找与替换</h5><ul>
-<li>查找关键词，命令模式<ul>
-<li>/key</li>
-</ul>
-</li>
-<li>查找并替换<ul>
-<li>%s/查找key/替换key/gc</li>
-<li>gc用户决定每次匹配是否需要替换（y替换，n不替换）</li>
-</ul>
-</li>
-</ul>
-<h5 id="4-Vim-多窗口"><a href="#4-Vim-多窗口" class="headerlink" title="4. Vim 多窗口"></a>4. Vim 多窗口</h5><ul>
-<li>分窗口命令<ul>
-<li>split</li>
-<li>vsplit</li>
-</ul>
-</li>
-<li>窗口间切换<ul>
-<li>ctrl + w</li>
-</ul>
-</li>
-</ul>
-<h5 id="5-其他操作"><a href="#5-其他操作" class="headerlink" title="5. 其他操作"></a>5. 其他操作</h5><ul>
-<li>展示行号<ul>
-<li>set number</li>
-</ul>
-</li>
-</ul>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><blockquote>
-<p>对于Vim编辑器的学习和使用，没有什么诀窍，就是多积累，多用</p>
-</blockquote>
-
+        
       
 
       
@@ -384,85 +286,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="常用FFmpeg命令"><a href="#常用FFmpeg命令" class="headerlink" title="常用FFmpeg命令"></a>常用FFmpeg命令</h3><h5 id="1-基本信息查询类"><a href="#1-基本信息查询类" class="headerlink" title="1. 基本信息查询类"></a>1. 基本信息查询类</h5><figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">-version</span></span><br><span class="line"><span class="deletion">-devices:显示可用设备</span></span><br><span class="line"><span class="deletion">-formats：支持的文件</span></span><br><span class="line"><span class="deletion">-muxer -demuxer：支持的封装和解封装</span></span><br><span class="line"><span class="deletion">-codecs -decoders：编解码器</span></span><br><span class="line"><span class="deletion">-filters：支持的所有过滤器</span></span><br></pre></td></tr></table></figure>
-
-<h5 id="2-FFmpeg录制命令"><a href="#2-FFmpeg录制命令" class="headerlink" title="2. FFmpeg录制命令"></a>2. FFmpeg录制命令</h5><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// MAC 平台录制视频</span></span><br><span class="line">ffmpeg -f avfoundation -<span class="selector-tag">i</span> <span class="number">1</span> -r <span class="number">30</span> out.yuv</span><br><span class="line"><span class="comment">// 参数用法</span></span><br><span class="line">-f <span class="comment">// 格式，采用mac提供的avfoundation库来采集视频</span></span><br><span class="line">-<span class="selector-tag">i</span> <span class="comment">// 指定从哪里采集数据，1为屏幕设备的索引值，屏幕为1，摄像头为0</span></span><br><span class="line">-r <span class="comment">// 指定帧率，这里为30帧</span></span><br><span class="line"><span class="comment">// 播放录制的视频</span></span><br><span class="line">ffplay -video_size <span class="number">2560</span>x1600 -pix_fmt yuv420p out.yuv</span><br><span class="line"><span class="comment">// 录制声音</span></span><br><span class="line">ffmpeg -f avfoundation -<span class="selector-tag">i</span> :<span class="number">1</span> out.wav</span><br><span class="line"><span class="comment">// 播放录制的声音</span></span><br><span class="line">ffplay out.wav</span><br></pre></td></tr></table></figure>
-
-<h5 id="3-FFmpeg-分解与复用处理（媒体格式转换）"><a href="#3-FFmpeg-分解与复用处理（媒体格式转换）" class="headerlink" title="3. FFmpeg 分解与复用处理（媒体格式转换）"></a>3. FFmpeg 分解与复用处理（媒体格式转换）</h5><ul>
-<li>一般的封装格式转换转换，比如.mp4转.flv</li>
-</ul>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// mp4转flv,这个的处理速度会非常的快</span></span><br><span class="line">ffmpeg -<span class="selector-tag">i</span> <span class="selector-tag">input</span><span class="selector-class">.mp4</span> -vcodec copy -acodec copy out.flv</span><br><span class="line"><span class="comment">//参数介绍</span></span><br><span class="line">-vcodec copy <span class="comment">// 视频编解码直接拷贝，不做更改</span></span><br><span class="line">-acodec copy <span class="comment">// 音频编解码也不做更改</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>从视频中仅抽取视频或者音频</li>
-</ul>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 抽取已有视频流和音频流</span></span><br><span class="line">ffmpeg -<span class="selector-tag">i</span> <span class="selector-tag">input</span><span class="selector-class">.mp4</span> -an -vcodec copy out.h254</span><br><span class="line">ffmpeg -<span class="selector-tag">i</span> <span class="selector-tag">input</span><span class="selector-class">.mp4</span> -vn -acodec copy out<span class="selector-class">.aac</span> <span class="comment">// 格式需要和视频中音频流的格式相同</span></span><br><span class="line"><span class="comment">// 参数介绍</span></span><br><span class="line">-an: <span class="selector-tag">audio</span> no,不要音频</span><br><span class="line">-vn: <span class="selector-tag">video</span> no,不要视频</span><br></pre></td></tr></table></figure>
-
-<h5 id="4-FFmpeg处理原始数据命令"><a href="#4-FFmpeg处理原始数据命令" class="headerlink" title="4. FFmpeg处理原始数据命令"></a>4. FFmpeg处理原始数据命令</h5><ul>
-<li>原始数据<ul>
-<li>视频原始数据：YUV数据</li>
-<li>音频原视数据：PCM数据</li>
-</ul>
-</li>
-<li>原始数据的提取是之后对音视频进行进一步处理的基础</li>
-<li>提取YUV数据<ul>
-<li>这个过程会有些长，因为涉及到编解码了</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 提取YUV数据</span></span><br><span class="line">ffmpeg -<span class="selector-tag">i</span> <span class="selector-tag">input</span><span class="selector-class">.mp4</span> -an -c:v rawvideo -pix_fmt yuv420p out.yuv</span><br><span class="line"><span class="comment">// 参数意义</span></span><br><span class="line">-c:v rawvideo     <span class="comment">// 指定视频的编码器，选择rawvideo编解码器，得到YUV</span></span><br><span class="line">-pix_fmt yuv420p  <span class="comment">// 指定像素格式，这里一般指定为yuv420p （YUV4：2：0格式）</span></span><br><span class="line"><span class="comment">// 播放YUV数据</span></span><br><span class="line">ffplay -video_size <span class="number">2560</span>x1600 -pix_fmt yuv420p out.yuv</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>提取PCM音频原视数据</li>
-</ul>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 提取PCM</span></span><br><span class="line">ffmpeg -i input.mp4 -vn -ar <span class="number">44100</span> -ac <span class="number">2</span> -f s16le <span class="keyword">out</span>.pcm</span><br><span class="line"><span class="comment">// 参数意义</span></span><br><span class="line">-ar <span class="number">44100</span>   <span class="comment">// 设置音频采样率，常用的采样率，44.1kHZ，48kHZ，32kHZ，16kHZ</span></span><br><span class="line">-ac <span class="number">2</span>       <span class="comment">// 设置声道</span></span><br><span class="line">-f s16le    <span class="comment">// 指定pcm数据的存储格式</span></span><br><span class="line"><span class="comment">// 播放PCM</span></span><br><span class="line">ffplay -ar <span class="number">44100</span> -ac <span class="number">2</span> -f s16le <span class="keyword">out</span>.pcm</span><br></pre></td></tr></table></figure>
-
-<h5 id="5-FFmpeg滤镜命令"><a href="#5-FFmpeg滤镜命令" class="headerlink" title="5. FFmpeg滤镜命令"></a>5. FFmpeg滤镜命令</h5><ul>
-<li>基于avfilter组件，多用于多媒体的处理与编辑</li>
-<li>可以实现加水印，去水印，画中画，裁剪，倍速播放</li>
-<li>滤镜的工作原理<ul>
-<li>对解码后的数据帧再进行过滤（处理）</li>
-<li>对过滤后的帧再进行编码</li>
-</ul>
-</li>
-<li>视频裁剪命令</li>
-</ul>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -<span class="selector-tag">i</span> <span class="selector-tag">input</span><span class="selector-class">.mp4</span> -vf crop=in_w-<span class="number">200</span>:in_h-<span class="number">200</span> -c:v libx264 -c:<span class="selector-tag">a</span> copy out</span><br><span class="line"><span class="comment">// 参数使用</span></span><br><span class="line">-vf crop=in_w-<span class="number">200</span>:in_h-<span class="number">200</span>  <span class="comment">// 指定滤镜名字为裁剪，之后为该滤镜的参数，宽高为200</span></span><br><span class="line">-c:v libx264                <span class="comment">// 指定视频处理的编码器</span></span><br><span class="line">-c:<span class="selector-tag">a</span> copy                   <span class="comment">// 音频不做处理</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>视频加水印命令</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// movie滤镜，添加水印</span><br><span class="line">ffmpeg -i input.flv -preset veryslow -c:v libx264 -c:a copy -vf "movie=pic.png[<span class="string">wm</span>];[<span class="string">in</span>][<span class="symbol">wm</span>] overlay=100:100[out]" overlay.flv</span><br><span class="line">// 参数使用</span><br><span class="line">-preset veryslow  // 慢模式，最终视频质量损失较低</span><br></pre></td></tr></table></figure>
-
-<h5 id="6-FFmpeg裁剪与合并命令"><a href="#6-FFmpeg裁剪与合并命令" class="headerlink" title="6. FFmpeg裁剪与合并命令"></a>6. FFmpeg裁剪与合并命令</h5><ul>
-<li>视频裁剪命令</li>
-</ul>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基于开始时间和时长进行裁剪</span></span><br><span class="line">ffmpeg -i input.flv -ss <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> -t <span class="number">10</span> <span class="keyword">out</span>.ts</span><br><span class="line"><span class="comment">// 参数使用</span></span><br><span class="line">-ss <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  <span class="comment">// 指定开始裁剪的时间，时：分：秒</span></span><br><span class="line">-t  <span class="number">10</span>        <span class="comment">// 裁剪的时长，以秒为单位</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>视频拼接命令</li>
-</ul>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 视频拼接命令</span></span><br><span class="line">ffmpeg -f concat -<span class="selector-tag">i</span> <span class="selector-tag">input</span><span class="selector-class">.txt</span> out.flv</span><br><span class="line"><span class="comment">// 参数</span></span><br><span class="line">-f concat       <span class="comment">// 指定为拼接</span></span><br><span class="line">-<span class="selector-tag">i</span> inputs<span class="selector-class">.txt</span>   <span class="comment">//指定视频列表的文件</span></span><br><span class="line"><span class="comment">// input.txt文件内容</span></span><br><span class="line">file <span class="string">'1.ts'</span></span><br><span class="line">file <span class="string">'2.ts'</span></span><br></pre></td></tr></table></figure>
-
-<h5 id="7-图片-视频互转"><a href="#7-图片-视频互转" class="headerlink" title="7. 图片/视频互转"></a>7. 图片/视频互转</h5><ul>
-<li>视频转图片</li>
-</ul>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 视频转多张图片序列</span></span><br><span class="line">ffmpeg -i input.flv -r <span class="number">1</span> -f image2 image-%<span class="number">3</span>d.jpeg</span><br><span class="line"><span class="comment">// 参数使用</span></span><br><span class="line">-r <span class="number">1</span>    <span class="comment">// 指定转换图片的频率，每秒转出一张</span></span><br><span class="line">-f image2 <span class="comment">//  指定图片的输出格式</span></span><br><span class="line">image-%<span class="number">3</span>d.jepg  <span class="comment">// 文件名以image-加三个动态数字</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>多张图片序列转视频</li>
-</ul>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 图片转视频</span></span><br><span class="line">ffmpeg -i image-%<span class="number">3</span>d.jpeg -r <span class="number">1</span> <span class="keyword">out</span>.mp4</span><br></pre></td></tr></table></figure>
-
-<h5 id="8-直播相关的命令"><a href="#8-直播相关的命令" class="headerlink" title="8. 直播相关的命令"></a>8. 直播相关的命令</h5><ul>
-<li>直播推流</li>
-</ul>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -re -<span class="selector-tag">i</span> <span class="selector-tag">input</span><span class="selector-class">.mp4</span> -c copy -f flv rtmp:<span class="comment">//ip:1935/live/stream_name</span></span><br><span class="line"><span class="comment">//参数</span></span><br><span class="line">-re   <span class="comment">// 减慢推流帧率速度, 如果不加的话，ffmpeg会把所有数据一股脑的把所有的数据推出去。本来一个2分钟的视频 他可能几秒钟就推完了</span></span><br><span class="line">-f flv 需要指定输出的格式为rtmp</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -<span class="selector-tag">i</span> rtmp:<span class="comment">//ip:1935/live/stream_name -c copy video.flv</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>内容</p>
-
+        
       
 
       
@@ -552,34 +376,7 @@
       
         <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>之前的整个视频云项目都是直接部署在实验室的服务器上，前端直接通过Nginx进行部署（运用反向代理）。现在需要将开发完成的项目整体迁移到阿里云上进行部署，能够通过外网IP和域名进行访问。</p>
 <h3 id="为什么要前端Docker化"><a href="#为什么要前端Docker化" class="headerlink" title="为什么要前端Docker化"></a>为什么要前端Docker化</h3><p>在进行选型的时候，选择了阿里云提供的Kubernetes容器计算服务，因为相比直接购买ECS云主机或者轻量云服务器，更适合我们项目前期的低使用率以及后期的可扩展性需求，不必花费几千元仅购买了个性能较强的云主机。并且将服务拆分为一个个小小的Docker中也更便于项目的运维和部署。</p>
-<h3 id="前端Docker化思路"><a href="#前端Docker化思路" class="headerlink" title="前端Docker化思路"></a>前端Docker化思路</h3><h5 id="1-前端镜像形式"><a href="#1-前端镜像形式" class="headerlink" title="1. 前端镜像形式"></a>1. 前端镜像形式</h5><ul>
-<li>以Nginx为基础镜像</li>
-<li>将前端打包完成后的build内容copy到镜像中</li>
-<li>将Nginx的配置文件Copy到镜像中的对应位置</li>
-<li>启动nginx服务，对外暴露80端口</li>
-</ul>
-<h5 id="2-前端打包过程也要在构建中进行"><a href="#2-前端打包过程也要在构建中进行" class="headerlink" title="2. 前端打包过程也要在构建中进行"></a>2. 前端打包过程也要在构建中进行</h5><ul>
-<li>直接将打包完成的build文件Copy进镜像是可行的，但是如果想使用阿里云提供的容器镜像仓库的自动构建服务，需要将前端的打包过程也在镜像构建的过程中进行。</li>
-<li>我们知道，最终的前端镜像中不需要那些用于打包的各种依赖，并且实际上我们的代码仓库中，node_modules等依赖并没有添加到git仓库中。</li>
-<li>Docker构建可以分阶段进行：也就是构建过程分为build环境和最终的production环境。</li>
-<li>而通过Dockerfile正好支持这样的构建方式</li>
-</ul>
-<h3 id="所使用的Dockerfile文件"><a href="#所使用的Dockerfile文件" class="headerlink" title="所使用的Dockerfile文件"></a>所使用的Dockerfile文件</h3><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># build environment</span></span><br><span class="line"><span class="keyword">FROM</span> 	  node as build</span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash">	/app</span></span><br><span class="line"><span class="keyword">ENV</span>	    PATH /app/node_modules/.bin:$PATH</span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> 	  . /app</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash">	    yarn</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> 	  yarn build</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># production environment</span></span><br><span class="line"><span class="keyword">FROM</span> 	  nginx</span><br><span class="line"><span class="keyword">COPY</span><span class="bash">	  --from=build /app/build /usr/share/nginx/html</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> 	  rm /etc/nginx/conf.d/default.conf</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> 	  deploy/nginx.conf /etc/nginx/conf.d</span></span><br><span class="line"><span class="keyword">EXPOSE</span> 	<span class="number">80</span></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> 	  [<span class="string">"nginx"</span>, <span class="string">"-g"</span>, <span class="string">"daemon off;"</span> ]</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="所使用的Nginx配置文件"><a href="#所使用的Nginx配置文件" class="headerlink" title="所使用的Nginx配置文件"></a>所使用的Nginx配置文件</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># deploy/nginx.conf</span></span><br><span class="line">server &#123;</span><br><span class="line">	listen 80;</span><br><span class="line">	</span><br><span class="line">	location / &#123;</span><br><span class="line">		root	/usr/share/nginx/html;</span><br><span class="line">		index 	index.html	index.htm;</span><br><span class="line">		try_files <span class="variable">$uri</span> <span class="variable">$uri</span>/	/index.html;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	error_page 500 502 503 504	/50x.html;</span><br><span class="line"></span><br><span class="line">	location = /50x.html &#123;</span><br><span class="line">		root	/usr/share/nginx/html;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="问题与思考"><a href="#问题与思考" class="headerlink" title="问题与思考"></a>问题与思考</h3><h5 id="1-镜像的构建过程太漫长了"><a href="#1-镜像的构建过程太漫长了" class="headerlink" title="1. 镜像的构建过程太漫长了"></a>1. 镜像的构建过程太漫长了</h5><ul>
-<li>主要时间大部分都用在了build环节，并且是依赖安装环节</li>
-<li>缩减构建时间很重要</li>
-<li>优化思路<ul>
-<li>项目中有很多多余的依赖，去除这些未使用的依赖</li>
-<li>更换yarn依赖安装的源（阿里似乎已经帮我们更换了）</li>
-<li>区分依赖区分开发环境和生产环境，比如类似eslint这样的依赖，在生产打包中就不需要了。</li>
-</ul>
-</li>
-</ul>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>最后，由衷感受，Docker真是个好东西，搞技术的都应该学一下。</p>
-
+        
       
 
       
@@ -697,324 +494,8 @@
 <li>推荐编写代码的时候使用严格模式</li>
 </ul>
 </li>
-<li>语句<ul>
-<li>表达式语句：习惯—最好以分号结尾</li>
-<li>流控制语句：for-in, with</li>
-<li>异常处理语句：</li>
-<li>返回值：</li>
 </ul>
-</li>
-<li>变量<ul>
-<li>局部变量：需要添加var，没有的话会升级为全局变量</li>
-<li>全局变量：</li>
-</ul>
-</li>
-<li>数据类型：<ul>
-<li>5种基础数据类型（undifend、null、Boolean、Number、String），以及Object。只限制这6种形式，不存在其他类型的类型</li>
-<li>typeof运算符：不是函数，返回值为字符串（undefined, boolean, string, number, object, function）</li>
-<li>undefined: 变量被声明但是未初始化</li>
-<li>null: 空对象指针。当我们声明一个变量是为了保存一个对象时，但是没法立即给他初始化时候，最好把它设置为null，这样就知道未来这个变量是变量。</li>
-<li>Number与String数据类型转换</li>
-<li>Object类型：创建</li>
-</ul>
-</li>
-<li>运算符<ul>
-<li>JS种的奇技淫巧都来自于对运算符的使用</li>
-<li>基础的运算符，和其他语言一样</li>
-<li>布尔运算（!!取bool值,&amp;&amp;短路操作,||默认值）</li>
-<li>相等运算符：相等（==，!=）,全等（===，!==）,他们的不同。</li>
-<li>条件运算符</li>
-</ul>
-</li>
-<li>函数<ul>
-<li>function 声明</li>
-<li>参数：arguments，参数都是值传递的（copy简单值，copy对象和函数指针），其实就是局部变量</li>
-<li>没有函数重载，（不过可以通过模拟函数实现：通过对arguments进行解析判断）</li>
-</ul>
-</li>
-</ul>
-<h5 id="2-引用类型"><a href="#2-引用类型" class="headerlink" title="2.引用类型"></a>2.引用类型</h5><ul>
-<li>Object</li>
-</ul>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#125; 等价于 new Object()</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-class">.b</span> 等价于 <span class="selector-tag">a</span>[b]</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>Array</li>
-</ul>
-<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[] 等价于 <span class="keyword">new</span> <span class="keyword">Array</span>()</span><br><span class="line"><span class="keyword">array</span>.length</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>判断是否是Array的两种方法：instanceof，isArray</li>
-<li>typeof VS instanceof<ul>
-<li>Date：+ new Date() 得到时间戳</li>
-<li>RegExp: 正则表达式</li>
-<li>Function</li>
-<li>单例内置对象</li>
-</ul>
-</li>
-<li>window</li>
-<li>Math</li>
-</ul>
-<h5 id="3-作用域"><a href="#3-作用域" class="headerlink" title="3. 作用域"></a>3. 作用域</h5><ul>
-<li>作用域链<ul>
-<li>从外向内部的链条，内部可以访问外部，外部无法访问内部。内部没查找到，则向上外层继续查找</li>
-</ul>
-</li>
-<li>this作用域：永远指向最后调用它的对象，具有一定的作用域。</li>
-<li>bind():可以为函数调用绑定一个作用域（实际是一个对象）</li>
-<li>没有块级作用域！！！，花括号无法延长作用域，只可以通过函数的方式来增加作用域</li>
-<li>闭包：有权访问另一个函数作用域中的变量的函数</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">applyArr</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> arr = [];</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i &lt; <span class="number">10</span>; i++)&#123;  <span class="comment">// 不存在块作用域，不会新增作用域</span></span><br><span class="line">    <span class="comment">// 不使用闭包</span></span><br><span class="line">    arr.push(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;  <span class="comment">//使用的i是applyArr的作用域，</span></span><br><span class="line">      <span class="keyword">return</span> i;           <span class="comment">// 最终在外部执行的时候，i取值一直都是10</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="comment">// 使用闭包</span></span><br><span class="line">    (<span class="function"><span class="keyword">function</span>(<span class="params">index</span>)</span>&#123;     <span class="comment">// 通过函数构造一个新的作用域,并将i作为参数传入</span></span><br><span class="line">      arr.push(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> index;     <span class="comment">// 这样return返回的时候，取得是新创建作用域中的值</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)(i);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> arr = applyArr();</span><br><span class="line"><span class="keyword">var</span> b = arr[<span class="number">1</span>]();</span><br><span class="line"><span class="comment">// 如果不使用闭包，那么b最终的值为10</span></span><br><span class="line"><span class="comment">// 使用闭包后，b的值为1</span></span><br></pre></td></tr></table></figure>
-
-<h5 id="4-面向对象的JavaScript"><a href="#4-面向对象的JavaScript" class="headerlink" title="4. 面向对象的JavaScript"></a>4. 面向对象的JavaScript</h5><ul>
-<li>对象属性<ul>
-<li>一般方法：直接赋值新增属性</li>
-<li>数据属性：Object.defineProperty(obj,”name”,{configurable,enumerable,writable,value});</li>
-<li>访问器属性：get，set</li>
-</ul>
-</li>
-<li>创建对象<ul>
-<li>工厂模式</li>
-<li>构造函数模式</li>
-<li>原型模式：prototype</li>
-<li>构造函数与原型组合构造：属性放在构造函数中，方法放在原型中</li>
-</ul>
-</li>
-<li>实例属性和原型属性<ul>
-<li>in：“name” in obj， 用来判断实例obj是否有name属性</li>
-<li>obj.hasOwnProperty(“name”): 用来判断在实例化之后的对象上，目标的属性是否是实例属性or实例方法。</li>
-</ul>
-</li>
-<li>对象继承<ul>
-<li>基于原型链的继承：缺点，属性也被继承了，继承的属性在子类中是原型属性</li>
-<li>基于构造函数的继承：父类方法在子类中拷贝，资源浪费。</li>
-<li>组合继承：</li>
-</ul>
-</li>
-</ul>
-<h5 id="5-DOM编程"><a href="#5-DOM编程" class="headerlink" title="5. DOM编程"></a>5. DOM编程</h5><ul>
-<li>DOM节点<ul>
-<li>节点间的关系：父子，兄弟</li>
-<li>节点特征：nodeType,nodeName,nodeValue,parentNode…</li>
-</ul>
-</li>
-<li>document节点的属性<ul>
-<li>document.title：页面标题</li>
-<li>document.referrer：来自于那个页面，用于安全性判断，防盗链</li>
-<li>document.domain：解决域不同的问题</li>
-</ul>
-</li>
-<li>DOM元素节点的默认属性<ul>
-<li>.id</li>
-<li>.className</li>
-<li>.title</li>
-<li>.lang：文本</li>
-<li>.dir</li>
-<li>.getAttribute(‘id’)</li>
-</ul>
-</li>
-<li>DOM操作<ul>
-<li>创建：document.createElement(“div”);</li>
-<li>添加：someNode.appendChild(newNode);</li>
-<li>插入：someNode.insertBefore(newNode,beforeChildNode);</li>
-<li>替换：someNode.replaceChild(newNode,firstChild)</li>
-<li>删除：someNode.remove(someNode.firstNode);</li>
-<li>查找：document.getElementById(‘id’); document.getElementsByTagName()</li>
-</ul>
-</li>
-</ul>
-<h5 id="6-事件"><a href="#6-事件" class="headerlink" title="6. 事件"></a>6. 事件</h5><ul>
-<li>事件流<ul>
-<li>用来判断页面的哪一个部分会拥有某个特定的事件，即事件的定位</li>
-<li>事件流：冒泡<ul>
-<li>逐级向上级传递，接收和处理</li>
-</ul>
-</li>
-<li>事件流：捕获<ul>
-<li>从顶层节点向下传递，接收和处理</li>
-</ul>
-</li>
-<li>DOM事件流：组合了冒泡<ul>
-<li>先是捕获阶段，然后冒泡阶段，每个几点有两次处理事件的机会。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>事件处理<ul>
-<li>HTML标签中：比如onclick</li>
-<li>DOM0事件处理：domElement.onclick = function…</li>
-<li>DOM2事件处理：element.addEventListener(“click”,function()…, true/false),第三个参数指明是在捕获阶段true还是冒泡阶段处理事件。先绑定的事件先处理。</li>
-</ul>
-</li>
-<li>事件处理跨浏览器<ul>
-<li>封装跨浏览器的事件处理方法，比如安卓控制网页中的事件。</li>
-</ul>
-</li>
-<li>event属性方法<ul>
-<li>e.stopPropagation()：阻止事件冒泡</li>
-<li>e.preventDefault(); 阻止一些默认事件</li>
-</ul>
-</li>
-<li>事件类型<ul>
-<li>各种事件，用的时候查</li>
-<li>PC事件和移动端事件</li>
-</ul>
-</li>
-</ul>
-<h5 id="7-JSON数据通信"><a href="#7-JSON数据通信" class="headerlink" title="7. JSON数据通信"></a>7. JSON数据通信</h5><ul>
-<li><p>JSON</p>
-<ul>
-<li>JSON是一种数据格式，和XML是编程语言</li>
-<li>JSON更高效</li>
-<li>JSON无法表示undifend类型</li>
-<li>JSON字符串是双引号</li>
-<li>JSON中的对象的属性也必须是字符串</li>
-<li>JSON.stringify(obj)：将js对象序列化成json字符串</li>
-<li>JSON.parse(jsonText,function(key,value))：解析JSON，第二个参数为解析函数</li>
-</ul>
-</li>
-<li><p>AJAX</p>
-<ul>
-<li>异步加载</li>
-<li>无需前端界面刷新</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.open(<span class="string">"get"</span>,<span class="string">"url"</span>,<span class="literal">false</span>); <span class="comment">// 请求是否异步【异步：请求期间可以执行后续js，同步：不允许请求期间执行后续js】</span></span><br><span class="line">xhr.send(<span class="string">""</span>);</span><br><span class="line"><span class="comment">// 同步的话</span></span><br><span class="line">xhr.status</span><br><span class="line">xhr.responseText</span><br><span class="line"><span class="comment">// 异步的话</span></span><br><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;  <span class="comment">//在执行的过程中会不断执行onreadystatechange</span></span><br><span class="line">  <span class="keyword">if</span>(xhr.readyState === <span class="number">4</span>)&#123; <span class="comment">//0.未初始化，1.启动，2.发送，3.接收，4.完成</span></span><br><span class="line">    xhr.status</span><br><span class="line">    xhr.responseText</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="三、ES6"><a href="#三、ES6" class="headerlink" title="三、ES6"></a>三、ES6</h3><h5 id="1-历史"><a href="#1-历史" class="headerlink" title="1. 历史"></a>1. 历史</h5><ul>
-<li>ES发展<ul>
-<li>ES5</li>
-<li>ES6 = ES2015</li>
-<li>ES2015… 一年一更</li>
-</ul>
-</li>
-<li>Evergreen浏览器<ul>
-<li>IE，chrome，firefox，opera…</li>
-</ul>
-</li>
-<li>环境<ul>
-<li>Node：执行环境</li>
-<li>NPM： 依赖以及包管理工具</li>
-<li>Babel：ECMASCRIPT的转译器，将先进的标准转化为已经支持的标准</li>
-</ul>
-</li>
-<li>如何支持新标准<ul>
-<li>原生支持：开发者查看浏览器的支持情况</li>
-<li>Polyfill：以贴近新标准的方式封装API的效果</li>
-<li>转译器：babel</li>
-</ul>
-</li>
-</ul>
-<h5 id="2-ES6的模块"><a href="#2-ES6的模块" class="headerlink" title="2. ES6的模块"></a>2. ES6的模块</h5><ul>
-<li>模块<ul>
-<li>易于拆分，模块加载</li>
-<li>模块化</li>
-</ul>
-</li>
-<li>模块加载规范<ul>
-<li>UMD <ul>
-<li>CommonJS</li>
-<li>AMD</li>
-</ul>
-</li>
-<li>CMD</li>
-</ul>
-</li>
-<li>ES6中的模块加载</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// module1.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">methodA</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">methodB</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">methodC</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="comment">// module2.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; methodA &#125;<span class="keyword">from</span> <span class="string">'./module1.js'</span>;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>打包工具<ul>
-<li>browserify、webpack等：</li>
-<li>将多个js模块进行整体打包成一个js文件</li>
-<li>在打包之前需要先使用babel将ES6转化为ES5</li>
-</ul>
-</li>
-</ul>
-<h5 id="3-ES6的Class"><a href="#3-ES6的Class" class="headerlink" title="3. ES6的Class"></a>3. ES6的Class</h5><ul>
-<li>不需要像ES5那样用原型取声明各种方法</li>
-<li>class的typeof值其实也为function</li>
-<li>class内部声明的是实例属性</li>
-<li>ES6实际上是提供了一些语法糖</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ClassName</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>()&#123;&#125;</span><br><span class="line">  getName()&#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> hh = <span class="keyword">new</span> ClassName();</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>继承<ul>
-<li>ES5特别麻烦，ES6就一个extends就可以了</li>
-</ul>
-</li>
-</ul>
-<h5 id="4-ES6常用特性"><a href="#4-ES6常用特性" class="headerlink" title="4. ES6常用特性"></a>4. ES6常用特性</h5><ul>
-<li>解构赋值</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从data</span></span><br><span class="line"><span class="keyword">const</span> &#123;id = <span class="number">1</span>&#125; = data;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>展开操作符</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//数组展开</span></span><br><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,...x]</span><br><span class="line"><span class="comment">//属性展开</span></span><br><span class="line">&#123;<span class="attr">a</span>:<span class="number">3</span>,<span class="attr">b</span>:<span class="number">4</span>,...c&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>取余</li>
-</ul>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[a,b,...rest] = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]</span><br><span class="line"><span class="comment">// a = 1</span></span><br><span class="line"><span class="comment">// b = 2</span></span><br><span class="line"><span class="comment">// rest = [3,4,5,6]</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>模板</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">`my name is <span class="subst">$&#123;name&#125;</span>`</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>Set 和 Map<ul>
-<li>类似ES5中的数组和对象</li>
-<li>但是不允许出现元素的重复</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="keyword">set</span> = new Set([1,2,3,4,4]);</span><br><span class="line"><span class="keyword">set</span>.add(5)</span><br><span class="line"></span><br><span class="line">var map = new Map([</span><br><span class="line">  ['a',1],</span><br><span class="line">  ['b',2]]);</span><br><span class="line">map.put('c',3);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>Generator函数和Iterator函数<ul>
-<li>Generator用来实现状态机</li>
-<li>Iterator用来实现迭代和遍历</li>
-</ul>
-</li>
-</ul>
-<h5 id="5-ES6的异步编程"><a href="#5-ES6的异步编程" class="headerlink" title="5.ES6的异步编程"></a>5.ES6的异步编程</h5><ul>
-<li><p>回调函数/事件</p>
-<ul>
-<li>遇到多种回调嵌套的时候写起来会很不友好</li>
-</ul>
-</li>
-<li><p>Promise</p>
-<ul>
-<li>是异步编程的一种解决方案，比传统的基于回调函数和事件的方式更合理和强大</li>
-<li>Promise对象代表一个异步操作，有三种状态<ul>
-<li>Pending：进行中</li>
-<li>Resolved：已完成</li>
-<li>Rejected：已失效</li>
-</ul>
-</li>
-<li>Promise.then()<ul>
-<li>可以接受两个回调函数为参数: then（（resolved, rejected）=&gt;{}）</li>
-<li>then的返回值可以还是一个Promise对象，即仍是一个异步操作。<ul>
-<li>可以采用链式写法，即then方法后再调用另一个then</li>
-<li>后续的回调函数会等到该Promise对象处理完成之后才会被调用</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 第一个异步操作</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">p1</span> (<span class="params">value</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">    someoperation(value,...)=&gt;&#123;</span><br><span class="line">      <span class="keyword">if</span>(...)&#123;</span><br><span class="line">        reject();</span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        resolve(value)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//第二个异步操作</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">p2</span> (<span class="params">value</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">    someoperation(value,...)=&gt;&#123;</span><br><span class="line">      <span class="keyword">if</span>(...)&#123;</span><br><span class="line">        reject();</span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        resolve(value)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 按照先1-&gt;2-&gt;1的顺序执行</span></span><br><span class="line">p1(<span class="number">10</span>)</span><br><span class="line">.then(<span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">  p2(value)</span><br><span class="line">&#125;, rej =&gt; &#123;&#125;)</span><br><span class="line">.then(<span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">  p1(value)</span><br><span class="line">&#125;, rej =&gt; &#123;&#125;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>asyncy异步编程</p>
-<h3 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h3></li>
-</ul>
-
+        
       
 
       
@@ -1089,12 +570,12 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/技术/CSS技术系统梳理-2019-10-10.html">系统地梳理下CSS3技术吧</a>
+      <a class="article-title" href="/大脑Cache/CSS技术系统梳理-2019-10-10.html">系统地梳理下CSS3技术吧</a>
     </h1>
   
 
         
-        <a href="/技术/CSS技术系统梳理-2019-10-10.html" class="archive-article-date">
+        <a href="/大脑Cache/CSS技术系统梳理-2019-10-10.html" class="archive-article-date">
   	<time datetime="2019-10-10T11:24:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-10</time>
 </a>
         
@@ -1112,98 +593,7 @@
 <h3 id="CSS基础"><a href="#CSS基础" class="headerlink" title="CSS基础"></a>CSS基础</h3><h5 id="1-CSS的几种引入方式"><a href="#1-CSS的几种引入方式" class="headerlink" title="1.  CSS的几种引入方式"></a>1.  CSS的几种引入方式</h5><ul>
 <li>head中直接添加文档内样式代码</li>
 </ul>
-<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span></span></span><br><span class="line"><span class="xml"></span><span class="template-variable">&#123;</span></span><br><span class="line"><span class="template-variable">    body&#123;&#125;</span><span class="xml"></span></span><br><span class="line"><span class="xml">&#125;</span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>head中引入外部样式</li>
-</ul>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link <span class="attribute">rel</span>=<span class="string">"stylesheet"</span> <span class="attribute">type</span>=<span class="string">"text/css"</span> <span class="attribute">href</span>=<span class="string">"common.css"</span>&gt;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>元素的style样式</li>
-</ul>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div <span class="attribute">style</span>=<span class="string">"width:200px"</span>&gt;</span><br></pre></td></tr></table></figure>
-
-<h5 id="2-CSS3的几种选择器"><a href="#2-CSS3的几种选择器" class="headerlink" title="2.CSS3的几种选择器"></a>2.CSS3的几种选择器</h5><ul>
-<li>简单选择器（type，#id, .class）</li>
-</ul>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">每个元素的id是唯一的，<span class="keyword">class</span>可以多个元素同时用</span><br><span class="line">选择器组</span><br><span class="line"><span class="symbol">ul, <span class="symbol">ol</span></span> &#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>属性选择器</li>
-</ul>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.class</span><span class="selector-attr">[width = 200px]</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>上下文选择器</li>
-<li>伪类选择器</li>
-</ul>
-<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//结构化伪类选择器</span></span><br><span class="line"><span class="symbol">e:</span>first-child&#123;&#125; <span class="comment">//第一个子元素设置</span></span><br><span class="line"><span class="symbol">e:</span>last-child&#123;&#125;</span><br><span class="line"><span class="symbol">e:</span>nth-child(<span class="number">2</span>n+<span class="number">1</span>)&#123;&#125; <span class="comment">//奇数位置元素</span></span><br><span class="line"><span class="comment">//UI伪类选择器</span></span><br><span class="line"><span class="symbol">e:</span>visited&#123;&#125;</span><br><span class="line">hover,focus,active, checked</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>伪元素选择器</li>
-</ul>
-<h5 id="3-CSS的级联Casscading"><a href="#3-CSS的级联Casscading" class="headerlink" title="3. CSS的级联Casscading"></a>3. CSS的级联Casscading</h5><ul>
-<li>级联：一个元素可能会被多个CSS选择器选中，就会产生层叠/级联效果。</li>
-<li>优先级规则算法：</li>
-</ul>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1. 首先会判断重要性important</span><br><span class="line">    a &#123;</span><br><span class="line">        color:blue; !important</span><br><span class="line">    &#125;</span><br><span class="line">2. 规则来源： 开发者设置 &gt; 用户设置  &gt; 浏览器预设</span><br><span class="line">2. 基于明确程度，ID &gt; Class &gt;<span class="built_in"> Type </span>, 算法通过（I-C-T）分量来判断</span><br><span class="line">3. 顺序：后添加的生效</span><br></pre></td></tr></table></figure>
-
-<h5 id="4-CSS的继承"><a href="#4-CSS的继承" class="headerlink" title="4. CSS的继承"></a>4. CSS的继承</h5><ul>
-<li>子元素会继承来自父元素的属性</li>
-<li>不是所有的属性都是可继承的</li>
-</ul>
-<h5 id="5-厂商前缀"><a href="#5-厂商前缀" class="headerlink" title="5. 厂商前缀"></a>5. 厂商前缀</h5><ul>
-<li>为了解决不同厂商的浏览器的兼容问题</li>
-<li>常见的厂商前缀</li>
-</ul>
-<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Chrome:</span>     -webkit</span><br><span class="line"><span class="symbol">Firefox:</span>    -moz</span><br><span class="line"><span class="symbol">Opera:</span>      -o</span><br><span class="line"><span class="symbol">Safari:</span>     -webkit</span><br></pre></td></tr></table></figure>
-
-<h3 id="CSS布局"><a href="#CSS布局" class="headerlink" title="CSS布局"></a>CSS布局</h3><h5 id="1-float"><a href="#1-float" class="headerlink" title="1. float"></a>1. float</h5><h5 id="2-Postion定位"><a href="#2-Postion定位" class="headerlink" title="2. Postion定位"></a>2. Postion定位</h5><h5 id="3-Flex"><a href="#3-Flex" class="headerlink" title="3. Flex"></a>3. Flex</h5><p>内容</p>
-<h3 id="CSS高级"><a href="#CSS高级" class="headerlink" title="CSS高级"></a>CSS高级</h3><h5 id="1-媒体查询"><a href="#1-媒体查询" class="headerlink" title="1. 媒体查询"></a>1. 媒体查询</h5><ul>
-<li>用来实现响应式布局控制</li>
-<li>类似编程语言中的if语句</li>
-<li>指定一组媒体条件，在满足所有媒体条件的时候，应用新的样式规则</li>
-</ul>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@media(<span class="built_in">max</span>-<span class="built_in">width</span>:<span class="number">600</span>px) <span class="keyword">and</span> (<span class="built_in">width</span>&lt;=<span class="number">600</span>px) <span class="keyword">and</span> (mf2) &#123;</span><br><span class="line">    prestyle&#123;</span><br><span class="line">        <span class="keyword">new</span> style</span><br><span class="line">    &#125;</span><br><span class="line">    rules&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>开源库：<a href="https://github.com/scottjehl/Respond/" target="_blank" rel="noopener">Respond.js</a></p>
-<h5 id="2-mobile-first-的响应式设计"><a href="#2-mobile-first-的响应式设计" class="headerlink" title="2. mobile first 的响应式设计"></a>2. mobile first 的响应式设计</h5><ul>
-<li>之前的实现都是宽屏优先的，初始样式是面向宽屏的。</li>
-<li>移动优先的初始设计是面向手机设备，然后对逐渐宽屏进行响应式设计。</li>
-<li>优点：移动端是趋势，移动设备加载更快，在移动设备上不会去下载宽屏的样式文件。</li>
-</ul>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">css rules <span class="built_in">for</span> mobile device </span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">@media screen <span class="keyword">and</span> (<span class="built_in">min</span>-<span class="built_in">width</span>:<span class="number">768</span>px)&#123;</span><br><span class="line">    rule1</span><br><span class="line">    rule2</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 769px小屏， 972px中屏，1200px大屏</span></span><br></pre></td></tr></table></figure>
-
-<h5 id="3-CSS3的Transform"><a href="#3-CSS3的Transform" class="headerlink" title="3. CSS3的Transform"></a>3. CSS3的Transform</h5><ul>
-<li>为元素添加变形和变换效果，2D和3D</li>
-<li>行内元素（inline）不是transformable元素，其他常见的都是的</li>
-<li>Transform 对于元素的内容，边框，边距等都会生效。</li>
-<li>实质上是进行矩阵变换</li>
-<li>默认以元素的中心为Transform的基点，可以通过transform-origin更改</li>
-<li>几个基本操作</li>
-</ul>
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">transform</span>: rotate(<span class="number">45</span>deg);   //旋转<span class="number">45</span>度，度数可以是负数</span><br><span class="line"><span class="keyword">transform</span>: scale(x-<span class="keyword">value</span>,y-<span class="keyword">value</span>); //x,y方向上的缩放</span><br><span class="line"><span class="keyword">transform</span>: translate(x-<span class="keyword">value</span>,y-<span class="keyword">value</span>)//在xy上移动</span><br><span class="line"><span class="keyword">transform</span>: skew(<span class="number">45</span>deg,<span class="number">45</span>deg)   //x和y方向上倾斜度数</span><br><span class="line"><span class="keyword">transform</span>: rotate(<span class="number">45</span>deg) scale(<span class="number">3</span>);  //多个<span class="keyword">transform</span>组合使用，需要注意的是从右向左生效的</span><br><span class="line"><span class="keyword">transform</span>-origin: left top; //将<span class="keyword">Transform</span>的基点变成左上角</span><br></pre></td></tr></table></figure>
-
-<h5 id="4-CSS3的Transition"><a href="#4-CSS3的Transition" class="headerlink" title="4. CSS3的Transition"></a>4. CSS3的Transition</h5><ul>
-<li>用于给文档中的样式变化添加过渡效果</li>
-<li>不是所有的CSS属性都可以添加过渡效果</li>
-</ul>
-<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">transition-property</span>: width, background-color;     <span class="comment">//设置transition关注的属性值的变化</span></span><br><span class="line"><span class="attribute">transition-property</span>: all;       <span class="comment">//为所有的可添加属性添加transition效果</span></span><br><span class="line"><span class="attribute">transition-duration</span>: <span class="number">3s</span>, <span class="number">1ms</span>;        <span class="comment">//各个属性平滑过渡效果的持续时长</span></span><br><span class="line"><span class="attribute">transition-delay</span>：1s, 2ms;      <span class="comment">//执行过渡效果动画的等待时间</span></span><br><span class="line"><span class="attribute">transition-timing-function</span>: linear | ease-in | ease-out | ease-in-out | ease; <span class="comment">//设置渐变的时间函数(常用的5个)</span></span><br><span class="line"><span class="attribute">transition</span>: property duration func delay;       <span class="comment">// 简写属性</span></span><br></pre></td></tr></table></figure>
-
-<h5 id="6-CSS3的Animation"><a href="#6-CSS3的Animation" class="headerlink" title="6. CSS3的Animation"></a>6. CSS3的Animation</h5><ul>
-<li>与Transition的不同：Animation可以支持一个系列的变化，而Transition只能实现从一个状态过渡到另一个</li>
-<li>实现本质方式：指定元素在动画中的关键帧状态</li>
-<li>例子： 实现弹球动画</li>
-</ul>
-<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 先定义了一个动画序列效果</span></span><br><span class="line">@Keyframes bounce &#123;     </span><br><span class="line">    0% &#123;</span><br><span class="line">        <span class="attribute">left</span>: <span class="number">0px</span>;</span><br><span class="line">        <span class="attribute">top</span>: <span class="number">0px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    0% &#123;</span><br><span class="line">        <span class="attribute">left</span>: <span class="number">50px</span>;</span><br><span class="line">        <span class="attribute">top</span>: <span class="number">100px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    0% &#123;</span><br><span class="line">        <span class="attribute">left</span>: <span class="number">100px</span>;</span><br><span class="line">        <span class="attribute">top</span>: <span class="number">0px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 应用动画序列效果</span></span><br><span class="line"><span class="selector-class">.box</span>:hover <span class="selector-class">.ball</span> &#123;</span><br><span class="line">    <span class="attribute">animation</span>: bounce <span class="number">4s</span> linear <span class="number">0s</span>;     <span class="comment">//鼠标悬停的时候触发动画</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>动画循环次数属性：animation-iteration-count</li>
-<li>动画方向属性：animation-direction</li>
-</ul>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>内容</p>
-
+        
       
 
       
@@ -1234,6 +624,10 @@
         		<li class="article-tag-list-item">
         			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
         		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/大脑Cache//" class="article-tag-list-link color3">大脑Cache</a>
+        		</li>
       		
 		</ul>
 	</div>
@@ -1241,7 +635,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/技术/CSS技术系统梳理-2019-10-10.html">展开全文 >></a>
+          <a class="article-more-a" href="/大脑Cache/CSS技术系统梳理-2019-10-10.html">展开全文 >></a>
         </p>
       
 
@@ -1300,32 +694,7 @@
 <li>url样例：/#/user</li>
 <li>不需要服务器支持，由浏览器负责路由。</li>
 </ul>
-<h5 id="2-BrowserRouter"><a href="#2-BrowserRouter" class="headerlink" title="2. BrowserRouter"></a>2. BrowserRouter</h5><ul>
-<li>使用的是 HTML5 的 History API，浏览器提供相应的接口来修改浏览器的历史记录</li>
-<li>需要服务器支持，属于服务器路由</li>
-<li>url样例：/user/lives</li>
-<li>路由直接在URL中，原则上每次URL切换的时候，都会像服务器请求页面</li>
-<li>但借助html5里面history的新的api，可以使用js改变url的值，而不会向服务端发请求。(刷新界面的时候还是会请求页面)</li>
-<li>是react-router官方推荐的</li>
-</ul>
-<h3 id="使用Nginx部署的时候需要特殊的配置"><a href="#使用Nginx部署的时候需要特殊的配置" class="headerlink" title="使用Nginx部署的时候需要特殊的配置"></a>使用Nginx部署的时候需要特殊的配置</h3><ul>
-<li>传统的前端部署之后，浏览器都是直接通过浏览器地址栏中的uri去请求服务器对应位置的文件，而在使用React-Router进行路由管理来实现SPA之后，依然采用这样的配置的话，初次加载首页是正常的，但当浏览器URI被改变之后，再点击刷新，则页面不显示或者404错误。</li>
-<li>原因在于，使用React-Router之后，页面内的路由是由前端自行渲染的，未通过后端，而是js动态更改了location。而当我们刷新界面时，首先访问的是后台地址，然后在返回的页面中再去加载React代码并执行。</li>
-<li>问题在于，React应用在运行的时候可能会去更改浏览器的URL，而实际服务器上可能并不存在与URI对应的资源（因为资源的定位已经交给React来做了），所以刷新页面的时候，浏览器直接用URI去寻找资源，可想而知会产生异常（404或者不显示）。</li>
-<li>而我们使用Webpack来打包React之后，最终的输出就是一个index.html附加一些文件，当然文件的定位逻辑也存在这些文件中。所以，默认的由Nginx服务器来定位这些资源的方式是行不通的，需要将该任务交给React本身来做。</li>
-<li>所以，思路是，浏览器在使用React应用期间，无论URI是否更改，服务器都直接无脑返回index.html这个页面就可以，浏览器得到index.html，加载React，剩下的任务都交给React本身去做就好了。</li>
-<li>使用Nginx的try_files，来将前端的请求都映射到index.html。</li>
-</ul>
-<h3 id="部署HashRouter的Nginx配置"><a href="#部署HashRouter的Nginx配置" class="headerlink" title="部署HashRouter的Nginx配置"></a>部署HashRouter的Nginx配置</h3><ul>
-<li>在Nginx中配置一个vhost</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nginx.conf整体配置大概如下：</span></span><br><span class="line">server &#123;</span><br><span class="line">    listen 8083;</span><br><span class="line">    root /home/name/..../build; <span class="comment"># 前端build完成之后的静态资源路径</span></span><br><span class="line">    index index.html index.htm;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        try_file <span class="variable">$uri</span> <span class="variable">$uri</span>/ /index.html;  <span class="comment"># url 切换时始终返回index.html</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 其他配置</span></span><br><span class="line">    <span class="comment"># 图片样式缓存1年</span></span><br><span class="line">    location ~* /app.*\.(js|css|png|jpg)$ &#123;</span><br><span class="line">       access_log off;</span><br><span class="line">        expires    365d;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment"># html/xml/json 文件不缓存</span></span><br><span class="line">    location ~* /app.*\.(?:manifest|appcache|html?|xml|json)$ &#123;</span><br><span class="line">        expires    -1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>部署项目的时候搞得很头痛和低效，深入搞明白之后，再也不怕React前端的部署了。</p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
-<li>1.<a href="https://www.cnblogs.com/soyxiaobi/p/11096940.html" target="_blank" rel="noopener">react-router-dom下的BrowserRouter和HashRouter</a></li>
-</ul>
-
+        
       
 
       
@@ -1423,72 +792,7 @@
 <li>出于安全原因，浏览器限制从脚本内发起的跨源HTTP请求（或者跨域响应被拦截）。比如XMLHttpRequest和Fetch API都需要遵循同源策略。</li>
 <li>实现CORS必须要在服务器端实现CORS接口，即响应报文包含了正确CORS响应头。</li>
 </ol>
-<h3 id="二、为何要限制跨域"><a href="#二、为何要限制跨域" class="headerlink" title="二、为何要限制跨域"></a>二、为何要限制跨域</h3><blockquote>
-<p>跨站请求攻击CSRF<br><img src="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/csrf.png" alt="CSRF.png"></p>
-</blockquote>
-<ol>
-<li>攻击者引导用户去登录访问正常的网站，比如银行，session_id等认证会留在浏览器中。</li>
-<li>同时用户还在访问攻击者提供的网站，但是该网站会自动或者通过点击触发向之前正常的网站发起请求，当然用了之前已经认证过的session_id。</li>
-<li>这样就在用户不知道的情况下进行了一些诸如发送邮件，甚至转账、购买商品等操作。</li>
-<li>其利用的是Web用户身份验证的漏洞，即，简单的身份验证智能保证请求是来自该用户的浏览器（不是其他人在另一个浏览器伪造），但是并不能保证请求是用户本身自愿发出的。</li>
-<li>同源政策将会确保网站a拒绝来自网站b的请求。</li>
-</ol>
-<h3 id="三、为何又需要跨域呢"><a href="#三、为何又需要跨域呢" class="headerlink" title="三、为何又需要跨域呢"></a>三、为何又需要跨域呢</h3><blockquote>
-<p>前后端分离</p>
-</blockquote>
-<p>当前端框架兴起之后，前后端彻底分离的开发方式渐渐流行。前端和后端往往部署在不同的域名之上。前端通过访问后端的API获取数据，渲染前端界面，甚至进行路由跳转。这通常意味着前后端会出现不同源的问题。因为即使部署在同一台主机上，二者也属于不同的端口。那么我们就需要某种策略使得跨域请求能够通过。</p>
-<h3 id="四、跨域请求过程"><a href="#四、跨域请求过程" class="headerlink" title="四、跨域请求过程"></a>四、跨域请求过程</h3><blockquote>
-<p>浏览器将CORS请求分成两类：简单请求（simple request）和非简单请求（not-so-simple request）。</p>
-</blockquote>
-<h5 id="1-简单请求的跨域过程"><a href="#1-简单请求的跨域过程" class="headerlink" title="1. 简单请求的跨域过程"></a>1. 简单请求的跨域过程</h5><ul>
-<li>1.1. 简单请求是什么</li>
-</ul>
-<blockquote>
-<ol>
-<li>请求方法是以下三种方法之一（简单方法）：HEAD，GET，POST</li>
-<li>HTTP的头信息不超出以下几种字段（简单头）：Accept，Accept-Language，Content-Language，Last-Event-ID，Content-Type：只限于三个值application/x-www-form-urlencoded、multipart/form-data、text/plain</li>
-</ol>
-</blockquote>
-<ul>
-<li>1.2. 跨域过程</li>
-</ul>
-<blockquote>
-<ol>
-<li>浏览器检测到这是一个简单请求，会自动在Header中添加Origin字段，该字段描述了协议，域名以及端口的信息。</li>
-<li>服务器会检查Origin，如果不在许可范围内（allow-origin），就会返回一个正常的HTTP回应，浏览器会抛出异常。如果在，服务器会返回响应，响应Header中会怎加几个头信息字段。<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Origin:* <span class="comment">//服务器接收的origin</span></span><br><span class="line">Access-Control-Allow-Credentials: <span class="literal">true</span> <span class="comment">// 服务器是否允许CORS请求中发送Cookie。</span></span><br><span class="line"><span class="comment">//如果想实现发送Cookie的话，还需要在浏览器端设置withCredentials = true;</span></span><br><span class="line">Access-Control-Expose-Headers: <span class="comment">// ResponsHeader中暴露的字段</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</blockquote>
-<h5 id="2-非简单请求的跨域过程"><a href="#2-非简单请求的跨域过程" class="headerlink" title="2. 非简单请求的跨域过程"></a>2. 非简单请求的跨域过程</h5><blockquote>
-<p>比如请求方法是PUT或DELETE，或者Content-Type字段的类型是application/json，含有自定义的请求头等。</p>
-</blockquote>
-<ul>
-<li>Step.1. 预检请求Preflight</li>
-</ul>
-<blockquote>
-<p>旨在确保服务器对 CORS 标准知情，以保护不支持 CORS 的旧服务器</p>
-<ol>
-<li>浏览器发现是非简单请求，会在正式的通信之前，先向服务器询问当前网页所在的域名是否在服务器的许可名单中，以及可以使用哪些HTTP动词。</li>
-<li>预检请求是一个OPTION请求，会携带Access-Control-Request-Method（指明该跨域请求的Method），Access-Control-Request-Headers（该跨域请求额外会发送的头信息字段，比如认证字段）以及Origin信息。</li>
-<li>服务器检查以上三个字段，确认允许后就会做出回应。（服务器在设置跨域请求的时候不能忘记对预检请求的处理）。回应Header包括Access-Control-Allow-Methods，Access-Control-Allow-Headers，Access-Control-Allow-Credentials等。</li>
-</ol>
-</blockquote>
-<ul>
-<li>Step.2. 预检成功后再发起跨域请求</li>
-</ul>
-<blockquote>
-<p>预检通过之后，浏览器会像简单请求一样，再发送正式的CORS请求。<br><img src="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/cros-yujian.png" alt="d"></p>
-</blockquote>
-<h3 id="五、服务器配置CORS"><a href="#五、服务器配置CORS" class="headerlink" title="五、服务器配置CORS"></a>五、服务器配置CORS</h3><p>以nodejs koa为例，如下为koa corszho</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> URL = require(<span class="string">'url'</span>);</span><br><span class="line"><span class="comment"><span class="markdown">/**</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>关键点：</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>1、如果需要支持 cookies,</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> *    </span>Access-Control-Allow-Origin 不能设置为 *,</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> *    </span>并且 Access-Control-Allow-Credentials 需要设置为 true</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> *    </span>(注意前端请求需要设置 withCredentials = true)</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>2、当 method = OPTIONS 时, 属于预检(复杂请求), 当为预检时, 可以直接返回空响应体, 对应的 http 状态码为 204</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>3、通过 Access-Control-Max-Age 可以设置预检结果的缓存, 单位(秒)</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>4、通过 Access-Control-Allow-Headers 设置需要支持的跨域请求头</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet"> * </span>5、通过 Access-Control-Allow-Methods 设置需要支持的跨域请求方法</span></span></span><br><span class="line"><span class="comment"><span class="markdown"> */</span></span></span><br><span class="line">module.exports = <span class="keyword">async</span> function (ctx, next) &#123;</span><br><span class="line">    <span class="keyword">const</span> origin = URL.parse(ctx.<span class="keyword">get</span>(<span class="string">'origin'</span>) || ctx.<span class="keyword">get</span>(<span class="string">'referer'</span>) || <span class="string">''</span>);</span><br><span class="line">    <span class="keyword">if</span> (origin.protocol &amp;&amp; origin.host) &#123;</span><br><span class="line">        ctx.<span class="keyword">set</span>(<span class="string">'Access-Control-Allow-Origin'</span>, `$&#123;origin.protocol&#125;<span class="comment">//$&#123;origin.host&#125;`);</span></span><br><span class="line">        ctx.<span class="keyword">set</span>(<span class="string">'Access-Control-Allow-Methods'</span>, <span class="string">'POST, GET, OPTIONS, DELETE, PUT'</span>);</span><br><span class="line">        ctx.<span class="keyword">set</span>(<span class="string">'Access-Control-Allow-Headers'</span>, <span class="string">'X-Requested-With, User-Agent, Referer, Content-Type, Cache-Control,accesstoken'</span>);</span><br><span class="line">        ctx.<span class="keyword">set</span>(<span class="string">'Access-Control-Max-Age'</span>, <span class="string">'86400'</span>);</span><br><span class="line">        ctx.<span class="keyword">set</span>(<span class="string">'Access-Control-Allow-Credentials'</span>, <span class="string">'true'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (ctx.method !== <span class="string">'OPTIONS'</span>) &#123;</span><br><span class="line">        <span class="comment">// 如果请求类型为非预检请求，则进入下一个中间件（包括路由中间件等）</span></span><br><span class="line">        <span class="keyword">await</span> next();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 当为预检时，直接返回204,代表空响应体</span></span><br><span class="line">        ctx.body = <span class="string">''</span>;</span><br><span class="line">        ctx.status = <span class="number">204</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>在开发前端的过程中CROS问题总是让自己很头痛，前期花费了大量时间解决CROS问题。再了解了CROS的原理和过程后，对跨域问题不再畏惧。</p>
-<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><ol>
-<li><a href="https://segmentfault.com/a/1190000015017666" target="_blank" rel="noopener">https://segmentfault.com/a/1190000015017666</a></li>
-<li><a href="http://www.ruanyifeng.com/blog/2016/04/cors.html" target="_blank" rel="noopener">跨域资源共享 CORS 详解</a></li>
-<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS" target="_blank" rel="noopener">HTTP访问控制（CORS）</a></li>
-</ol>
-
+        
       
 
       
@@ -1577,43 +881,10 @@
 </blockquote>
 <h4 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h4><p>能够通过gitlab.domain.cn访问绑定在82端口上的gitlab服务，通过jenkins.domain.cn访问绑定在9090端口上的jenkins服务。</p>
 <h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><ul>
-<li><p>1.在域名的解析中分别添加gitlab, jenkins,以及www三个记录，指向均为实验室服务器的IP地址。</p>
-</li>
-<li><p>2.使用Nginx作为代理服务器，监听80端口，通过server_name进行匹配，将请求转发到对应的应用服务器。(这应该属于Nginx的反向代理功能，即为多个服务提供代理服务)</p>
-<h4 id="实际解决"><a href="#实际解决" class="headerlink" title="实际解决"></a>实际解决</h4></li>
-<li><p>1.编辑Nginx配置信息（Ubuntu）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置文件路径：/etc/nginx/conf.d/domain.conf，（没有的话需要创建）</span></span><br><span class="line"><span class="comment"># Nginx会自动include /etc/nginx/conf.d 目录下所有以.conf结尾的配置到主配置文件nginx.conf中.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 起一个服务，端口80</span></span><br><span class="line">server &#123;</span><br><span class="line">        listen 80;  <span class="comment"># 设置Nginx对外监听80端口</span></span><br><span class="line">        server_name *.domain.cn;  <span class="comment"># 绑定到该服务器的域名</span></span><br><span class="line">        <span class="keyword">if</span> ( <span class="variable">$http_host</span> ~* <span class="string">"^(.*?)\.domain\.cn"</span> ) &#123;  <span class="comment"># 对http_host进行正则匹配，解析domain</span></span><br><span class="line">                <span class="built_in">set</span> <span class="variable">$domain</span> <span class="variable">$1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        location / &#123;</span><br><span class="line">                proxy_set_header        X-Real-IP       <span class="variable">$remote_addr</span>;</span><br><span class="line">                proxy_set_header        Host            <span class="variable">$http_host</span>;</span><br><span class="line">                <span class="comment"># 分别处理各个domain</span></span><br><span class="line">                <span class="keyword">if</span> ( <span class="variable">$domain</span> ~* <span class="string">"www"</span> ) &#123;</span><br><span class="line">                        proxy_pass http://localhost:82;  <span class="comment"># 通过proxy_pass 进行代理转发</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> ( <span class="variable">$domain</span> ~* <span class="string">"gitlab"</span> ) &#123;</span><br><span class="line">                        proxy_pass http://localhost:82;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> ( <span class="variable">$domain</span> ~* <span class="string">"jenkins"</span> ) &#123;</span><br><span class="line">                        proxy_pass http://localhost:9090;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>2.检查配置文件合法性</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 需要将nginx添加到环境变量中</span></span><br><span class="line">sudo nginx -t</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>3.更新Nginx配置</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nginx -s reload</span><br></pre></td></tr></table></figure>
-
-</li>
+<li>1.在域名的解析中分别添加gitlab, jenkins,以及www三个记录，指向均为实验室服务器的IP地址。</li>
+<li>2.使用Nginx作为代理服务器，监听80端口，通过server_name进行匹配，将请求转发到对应的应用服务器。(这应该属于Nginx的反向代理功能，即为多个服务提供代理服务)</li>
 </ul>
-<h4 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h4><ul>
-<li>可以为多个相同的后端服务在反向代理的同时实现负载均衡</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置jenkins负载均衡</span></span><br><span class="line">upstream jenkins &#123;      <span class="comment"># 默认负载均衡规则为轮询 </span></span><br><span class="line">      server      http://localhost:9090 weight = 5;      <span class="comment"># 可以设置权重</span></span><br><span class="line">      server      http://10.10.x.x:9090 weight = 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">        listen 80;  <span class="comment"># 设置Nginx对外监听80端口</span></span><br><span class="line">        server_name *.domain.cn;  <span class="comment"># 绑定到该服务器的域名，server也可以是正则表达式</span></span><br><span class="line">        <span class="keyword">if</span> ( <span class="variable">$http_host</span> ~* <span class="string">"^(.*?)\.domain\.cn"</span> ) &#123;  <span class="comment"># 对http_host进行正则匹配，解析domain</span></span><br><span class="line">                <span class="built_in">set</span> <span class="variable">$domain</span> <span class="variable">$1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        location / &#123;</span><br><span class="line">                proxy_set_header        X-Real-IP       <span class="variable">$remote_addr</span>;</span><br><span class="line">                proxy_set_header        Host            <span class="variable">$http_host</span>;     <span class="comment"># 不可缺，否则无法代理</span></span><br><span class="line">                <span class="comment"># 分别处理各个domain</span></span><br><span class="line">                <span class="keyword">if</span> ( <span class="variable">$domain</span> ~* <span class="string">"gitlab"</span> ) &#123;</span><br><span class="line">                        proxy_pass http://jenkins;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> ( <span class="variable">$domain</span> ~* <span class="string">"jenkins"</span> ) &#123;</span><br><span class="line">                        proxy_pass http://localhost:9090;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h4><p>最开始的思路是在Nginx中配置多个server块，再每个块中再配置proxy_pass来实现，配置文件如下。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># jenkins.domain.cn.conf</span></span><br><span class="line">server &#123;</span><br><span class="line">        listen 80;  <span class="comment"># 设置Nginx对外监听80端口</span></span><br><span class="line">        server_name jenkins.domain.cn;  </span><br><span class="line">        proxy_pass http://localhost:9090;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># gitlab.domain.cn.conf</span></span><br><span class="line">server &#123;</span><br><span class="line">        listen 80;  <span class="comment"># 设置Nginx对外监听80端口</span></span><br><span class="line">        server_name gitlab.domain.cn;  </span><br><span class="line">        proxy_pass http://localhost:82;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Reload Nginx之后发现，二级域名是失效的，两个域名均指向的是gitlab，无法实现想要的效果。分析应该是gitlab.domain.cn.conf先被include到nginx.conf中（和文件顺序有关），所以生效的是gitlab吧。<br>不确定，还需要进一步研究。<br>2019.12.12，问题解决，（果然是按照配置文件顺序匹配的）</p>
-<ul>
-<li>当时咋想的，两个server listen同一个端口</li>
-<li>另外，Nginx 中server的匹配顺序如下<ul>
-<li>1.精确匹配</li>
-<li>2.匹配*.zwboy.cn这样的泛域名</li>
-<li>3.按照文件顺序匹配</li>
-<li>4.都没匹配，则匹配第一个，或者listen设置为default的server<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4>Nginx是个强大的工具，可以作为Web服务器，文件服务器，代理服务器，反向代理服务器，直播服务器，负载均衡服务器等等，值得深入学习。</li>
-</ul>
-</li>
-</ul>
-
+        
       
 
       
@@ -1712,7 +983,7 @@
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
-		open_in_new: false,
+		open_in_new: true,
 		toc_hide_index: true,
 		root: "/",
 		innerArchive: true,

@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="ZWboy的站点">
 <meta property="og:description" content="背景之前的整个视频云项目都是直接部署在实验室的服务器上，前端直接通过Nginx进行部署（运用反向代理）。现在需要将开发完成的项目整体迁移到阿里云上进行部署，能够通过外网IP和域名进行访问。 为什么要前端Docker化在进行选型的时候，选择了阿里云提供的Kubernetes容器计算服务，因为相比直接购买ECS云主机或者轻量云服务器，更适合我们项目前期的低使用率以及后期的可扩展性需求，不必花费几千元仅">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-27T05:30:46.835Z">
+<meta property="og:updated_time" content="2020-01-06T07:29:33.897Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React前端项目的Docker化">
 <meta name="twitter:description" content="背景之前的整个视频云项目都是直接部署在实验室的服务器上，前端直接通过Nginx进行部署（运用反向代理）。现在需要将开发完成的项目整体迁移到阿里云上进行部署，能够通过外网IP和域名进行访问。 为什么要前端Docker化在进行选型的时候，选择了阿里云提供的Kubernetes容器计算服务，因为相比直接购买ECS云主机或者轻量云服务器，更适合我们项目前期的低使用率以及后期的可扩展性需求，不必花费几千元仅">
@@ -173,6 +173,8 @@
       
         <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>之前的整个视频云项目都是直接部署在实验室的服务器上，前端直接通过Nginx进行部署（运用反向代理）。现在需要将开发完成的项目整体迁移到阿里云上进行部署，能够通过外网IP和域名进行访问。</p>
 <h3 id="为什么要前端Docker化"><a href="#为什么要前端Docker化" class="headerlink" title="为什么要前端Docker化"></a>为什么要前端Docker化</h3><p>在进行选型的时候，选择了阿里云提供的Kubernetes容器计算服务，因为相比直接购买ECS云主机或者轻量云服务器，更适合我们项目前期的低使用率以及后期的可扩展性需求，不必花费几千元仅购买了个性能较强的云主机。并且将服务拆分为一个个小小的Docker中也更便于项目的运维和部署。</p>
+<a id="more"></a>
+
 <h3 id="前端Docker化思路"><a href="#前端Docker化思路" class="headerlink" title="前端Docker化思路"></a>前端Docker化思路</h3><h5 id="1-前端镜像形式"><a href="#1-前端镜像形式" class="headerlink" title="1. 前端镜像形式"></a>1. 前端镜像形式</h5><ul>
 <li>以Nginx为基础镜像</li>
 <li>将前端打包完成后的build内容copy到镜像中</li>
@@ -394,7 +396,7 @@
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
-		open_in_new: false,
+		open_in_new: true,
 		toc_hide_index: true,
 		root: "/",
 		innerArchive: true,

@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/kuayu.png">
 <meta property="og:image" content="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/csrf.png">
 <meta property="og:image" content="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/cros-yujian.png">
-<meta property="og:updated_time" content="2019-09-28T05:39:34.678Z">
+<meta property="og:updated_time" content="2020-01-06T07:28:14.351Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="搞定跨域资源共享CORS（笔记整理）">
 <meta name="twitter:description" content="当从一个域向另一个不同的域或者端口请求资源的时候，会产生跨域请求。  一、什么是跨域 同源政策（same origin policy）：协议，主机名和端口号要相同，否则就会产生跨域请求。 通常的错误形式：Access to XMLHttpRequest at XXX has been blocked by CORS policy: No ‘Access-Control-Allow-Origin’">
@@ -185,6 +185,8 @@
 <li>出于安全原因，浏览器限制从脚本内发起的跨源HTTP请求（或者跨域响应被拦截）。比如XMLHttpRequest和Fetch API都需要遵循同源策略。</li>
 <li>实现CORS必须要在服务器端实现CORS接口，即响应报文包含了正确CORS响应头。</li>
 </ol>
+<a id="more"></a>
+
 <h3 id="二、为何要限制跨域"><a href="#二、为何要限制跨域" class="headerlink" title="二、为何要限制跨域"></a>二、为何要限制跨域</h3><blockquote>
 <p>跨站请求攻击CSRF<br><img src="http://zwboy.oss-cn-beijing.aliyuncs.com/blog/csrf.png" alt="CSRF.png"></p>
 </blockquote>
@@ -436,7 +438,7 @@
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
-		open_in_new: false,
+		open_in_new: true,
 		toc_hide_index: true,
 		root: "/",
 		innerArchive: true,

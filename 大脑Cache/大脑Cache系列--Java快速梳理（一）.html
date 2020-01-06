@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://zwboy.cn">
-  <title>ZWboy的站点</title>
+  <title>大脑Cache系列--Java快速梳理，方便随时load到大脑，减少低级bug (一) | ZWboy的站点</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="杰克机会jackchance">
-<meta name="keywords" content="Code，Ideas, Thinking, and Solutions">
-<meta property="og:type" content="website">
-<meta property="og:title" content="ZWboy的站点">
-<meta property="og:url" content="http://zwboy.cn/index.html">
+  <meta name="description" content="背景  Java程序常常会遇到一些蛋疼的bug，最后发现，都是在一些很基础的方面造成的。大量的时间花在调试代码找低级bug上是十分没有性价比的。所以，再系统梳理下Java，是十分必要的。 已经反复学习和使用Java多次了，但只要有段时间没用Java之后，每次使用前都想要重头再梳理一遍。本文章将更注重Java只是的系统性，而不是细节性。 本文是本人大脑的专属Cache，所以逻辑上可能只有我自己能够看">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大脑Cache系列--Java快速梳理，方便随时load到大脑，减少低级bug (一)">
+<meta property="og:url" content="http://zwboy.cn/大脑Cache/大脑Cache系列--Java快速梳理（一）.html">
 <meta property="og:site_name" content="ZWboy的站点">
-<meta property="og:description" content="杰克机会jackchance">
+<meta property="og:description" content="背景  Java程序常常会遇到一些蛋疼的bug，最后发现，都是在一些很基础的方面造成的。大量的时间花在调试代码找低级bug上是十分没有性价比的。所以，再系统梳理下Java，是十分必要的。 已经反复学习和使用Java多次了，但只要有段时间没用Java之后，每次使用前都想要重头再梳理一遍。本文章将更注重Java只是的系统性，而不是细节性。 本文是本人大脑的专属Cache，所以逻辑上可能只有我自己能够看">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-06T07:37:34.894Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ZWboy的站点">
-<meta name="twitter:description" content="杰克机会jackchance">
+<meta name="twitter:title" content="大脑Cache系列--Java快速梳理，方便随时load到大脑，减少低级bug (一)">
+<meta name="twitter:description" content="背景  Java程序常常会遇到一些蛋疼的bug，最后发现，都是在一些很基础的方面造成的。大量的时间花在调试代码找低级bug上是十分没有性价比的。所以，再系统梳理下Java，是十分必要的。 已经反复学习和使用Java多次了，但只要有段时间没用Java之后，每次使用前都想要重头再梳理一遍。本文章将更注重Java只是的系统性，而不是细节性。 本文是本人大脑的专属Cache，所以逻辑上可能只有我自己能够看">
   
     <link rel="alternative" href="/atom.xml" title="ZWboy的站点" type="application/atom+xml">
   
@@ -150,16 +151,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-大脑Cache系列--Java快速梳理（一）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-大脑Cache系列--Java快速梳理（一）" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/大脑Cache/大脑Cache系列--Java快速梳理（一）.html">大脑Cache系列--Java快速梳理，方便随时load到大脑，减少低级bug (一)</a>
+    <h1 class="article-title" itemprop="name">
+      大脑Cache系列--Java快速梳理，方便随时load到大脑，减少低级bug (一)
     </h1>
   
 
@@ -184,9 +183,298 @@
 <li>基础语句语法</li>
 <li>类与对象</li>
 </ul>
-        
+<a id="more"></a>
+
+<h3 id="二、语法"><a href="#二、语法" class="headerlink" title="二、语法"></a>二、语法</h3><blockquote>
+<ul>
+<li>虽然没那么重要，但既然系统学Java技术了，就得了解下吧。</li>
+<li>其实还是有很多基础知识，是自己平时写代码的时候没有注意到的，而这很容易导致一些低级bug，耗费大量的调试时间。</li>
+</ul>
+</blockquote>
+<h5 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h5><ul>
+<li>编译命令: javac Main.java</li>
+<li>运行:java Main </li>
+<li>版本：java -version</li>
+</ul>
+<h5 id="8种基本类型"><a href="#8种基本类型" class="headerlink" title="8种基本类型"></a>8种基本类型</h5><ul>
+<li>整数：byte，short，int，long</li>
+<li>浮点：float，double</li>
+<li>Unicode编码的char字符类型</li>
+<li>boolean</li>
+</ul>
+<h5 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h5><ul>
+<li>java的整形均是有符号的，需要会计算整型的数据范围</li>
+<li><strong>注意：在java中，为了保障移植性，整型的范围与实际的机器无关（C和C++中整型范围和目标平台是相关的），JVM解决了不同机器整型之间的差别。</strong></li>
+<li>byte：1字节，一般很少用，用在底层文件处理，或者占用存储空间的大数组</li>
+<li>short：2字节，和byte用处类似</li>
+<li>int：4字节，最常用</li>
+<li>long：8字节，比如需要表示星球上的居住人数，可以使用long，后缀可以加一个L或者l标识</li>
+<li>更易读的整数方式：1_000_000, java编译器会自动去除这些下划线。</li>
+</ul>
+<h5 id="浮点类型"><a href="#浮点类型" class="headerlink" title="浮点类型"></a>浮点类型</h5><ul>
+<li>float 4字节，有效位6-7位 </li>
+<li>double 8字节，有效位15位</li>
+<li><strong>默认为double，一般也很少用float（float的精度一般很难满足需求），除非在需要处理或者存储大量数据</strong></li>
+<li>double后缀D或d，float后缀F或者f</li>
+<li>特殊浮点数值（一般用不到）<ul>
+<li>正无穷大：Double.POSITIVE_INFINITY</li>
+<li>负无穷大: Double.NEGATIVE_INFINITY</li>
+<li>非数字: Double.NaN, 判断用Double.isNaN(n),不能用 == 号（所有非数值都是不相等的）</li>
+</ul>
+</li>
+</ul>
+<h5 id="字符类型char"><a href="#字符类型char" class="headerlink" title="字符类型char"></a>字符类型char</h5><ul>
+<li>Java的char采用Unicode编码</li>
+<li>‘a’,”A”的区别</li>
+<li>码点与代码单元</li>
+</ul>
+<h5 id="boolean"><a href="#boolean" class="headerlink" title="boolean"></a>boolean</h5><ul>
+<li><strong>和C++不一样，整型和boolean之间不能相互转换</strong></li>
+</ul>
+<h5 id="大数值-BigInteger-BigDecimal"><a href="#大数值-BigInteger-BigDecimal" class="headerlink" title="大数值 BigInteger BigDecimal"></a>大数值 BigInteger BigDecimal</h5><ul>
+<li>不是一个java类型，而是一个java对象，可以表示任意精度的整型和浮点数</li>
+<li>无法通过运算符计算，需要通过方法进行运算</li>
+</ul>
+<h5 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h5><ul>
+<li>声明-&gt;初始化-&gt;使用</li>
+<li>Java变量在使用之前必须要进行初始化，否则会编译报错</li>
+</ul>
+<h5 id="常量与类常量"><a href="#常量与类常量" class="headerlink" title="常量与类常量"></a>常量与类常量</h5><ul>
+<li>final表示常量，只能被赋值一次，且声明的时候必须初始化</li>
+<li>常量名推荐使用全大写,<code>final int NUMBER = 10;</code></li>
+<li>static final，类常量，可以在类中额多个方法中使用</li>
+<li>注意：与C++不同，常量不是通过const声明的，Java中const是保留字，但没有实际作用。</li>
+</ul>
+<h5 id="常用的Math静态方法"><a href="#常用的Math静态方法" class="headerlink" title="常用的Math静态方法"></a>常用的Math静态方法</h5><ul>
+<li>平方根：<code>double result = Math.sqrt(double x);</code></li>
+<li>幂运算：<code>double result = Math.pow(x,a);</code></li>
+<li>四舍五入：<code>long n = Math.round(double x);</code></li>
+<li>随机数: <code>Math.random()</code>,返回0-1之间的随机浮点数，比如要取0 - n-1之间的随机数，<code>int result = (int)(Math.random() * n)</code>.</li>
+</ul>
+<h5 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h5><ul>
+<li>强制类型转换会导致结果被截断成一个完全不同的值，比如(byte)300 的值为 44</li>
+<li>不要将boolean与任何类型之间做类型转换。</li>
+</ul>
+<h5 id="枚举类型"><a href="#枚举类型" class="headerlink" title="枚举类型"></a>枚举类型</h5><ul>
+<li>自定义枚举类型</li>
+</ul>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Size</span> &#123;</span></span><br><span class="line">  SMALL, LARGE, EXTRA_LARGE</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用</li>
+</ul>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Size</span> <span class="built_in">size</span> = <span class="built_in">Size</span>.SMALL;</span><br></pre></td></tr></table></figure>
+
+<h5 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h5><ul>
+<li>不是一个基础类型，而是一个预定义类</li>
+<li><strong>Java 的字符串是不可变的，对字符串的修改，实际上是创建了一个新的String对象，目的是为了复用共享字符串</strong></li>
+<li>对字符串修改的需求没有对字符串进行比较的需求大</li>
+<li><strong>和C++不同，Java中的String不是字符数组，而是一个对象，可以理解为char*指针</strong></li>
+<li>字符串比较：一定要使用equal(str)方法，而不能使用 == 来判断<ul>
+<li>因为Java没有像C++那样，重载了==运算符，==判断的是两个字符串变量是否引用的是同一个位置的。</li>
+<li>所以 == 判断的结果是未知的，常常会导致隐藏bug</li>
+</ul>
+</li>
+<li>字符串判空,<strong>区分空串和Null串</strong><ul>
+<li>if(str != null &amp;&amp; str.length()!=0)</li>
+</ul>
+</li>
+<li>码点与代码单元<ul>
+<li>str.length()返回的是代码单元个数</li>
+<li>str.codePointCount(0,str.length()),统计的是码点数量</li>
+<li>str.charAt(n),获取n位置的代码单元</li>
+<li><strong>最好避免直接操作char，这太底层了</strong></li>
+<li>关于代码单元与码点：</li>
+</ul>
+</li>
+</ul>
+<h5 id="常用的String-API"><a href="#常用的String-API" class="headerlink" title="常用的String API"></a>常用的String API</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span> <span class="title">charAt</span><span class="params">(<span class="keyword">int</span> index)</span></span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span></span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">equalsIgnoreCase</span><span class="params">(String str)</span></span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">startsWith</span><span class="params">(String prefix)</span>，判断是否是以prefix为前缀</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">endsWith</span><span class="params">(String suffix)</span>，判断是否以suffix为后缀</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">indexof</span><span class="params">(String str)</span>, 找到字串str第一次出现的位置，没有则返回-1</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">length</span><span class="params">()</span>,字符串长度</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">codePointCount</span><span class="params">(<span class="keyword">int</span> startIndex, <span class="keyword">int</span> endIndex)</span>,统计代码点数目</span></span><br><span class="line"><span class="function">String <span class="title">substring</span><span class="params">(<span class="keyword">int</span> begin , <span class="keyword">int</span> end)</span></span>;</span><br><span class="line"><span class="function">String <span class="title">toLowerCase</span><span class="params">()</span>, <span class="title">toUpperCase</span><span class="params">()</span></span></span><br><span class="line"><span class="function">Stirng <span class="title">trim</span><span class="params">()</span>, 删除字符串开始和结尾的空格</span></span><br><span class="line"><span class="function">String <span class="title">join</span><span class="params">(<span class="string">'divider'</span>,CharSequence...emements)</span></span></span><br></pre></td></tr></table></figure>
+
+<h5 id="StringBuilder字符串构造"><a href="#StringBuilder字符串构造" class="headerlink" title="StringBuilder字符串构造"></a>StringBuilder字符串构造</h5><ul>
+<li>在构造字符串的时候，每次连接字符串都需要构建一个新的String对象，效率比较低，推荐使用StringBuilder</li>
+<li>使用方式</li>
+</ul>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">String builder = <span class="keyword">new</span> <span class="constructor">StringBuilder()</span>; <span class="comment">// 创建一个构造器</span></span><br><span class="line">builder.append(<span class="string">"hello"</span>);</span><br><span class="line">builder.append(<span class="string">"world"</span>); <span class="comment">// 追加字符或者字符串</span></span><br><span class="line">String str = builder.<span class="keyword">to</span><span class="constructor">String()</span>; <span class="comment">// 构造String对象</span></span><br><span class="line"><span class="comment">// 其他api</span></span><br><span class="line">builder.set<span class="constructor">CharAt(<span class="params">index</span>,<span class="params">char</span>)</span></span><br><span class="line">builder.delete(start,<span class="keyword">end</span>)</span><br><span class="line">builder.insert(offset,<span class="built_in">string</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>StringBuilder的前身是StringBuffer，但是StringBuffer的效率要低一些，因为它是线程安全的，允许多线程操作</li>
+<li>而StringBuilder是非线程安全的，一般在单线程的应用中使用StringBuilder</li>
+<li>他们的API是一样的</li>
+</ul>
+<h5 id="读取输入"><a href="#读取输入" class="headerlink" title="读取输入"></a>读取输入</h5><ul>
+<li>从控制台读取基础数据类型</li>
+</ul>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Scanner <span class="built_in">scan</span> = new Scanner(System.<span class="keyword">in</span>); //创建scanner，并与标准输入关联,System.<span class="keyword">in</span>的类型为InputStream</span><br><span class="line"><span class="built_in">scan</span>.nextLine();</span><br><span class="line"><span class="built_in">scan</span>.next();</span><br><span class="line"><span class="built_in">scan</span>.nextInt();</span><br><span class="line"><span class="built_in">scan</span>.nextDouble();</span><br><span class="line"><span class="built_in">scan</span>.hasNext();</span><br><span class="line"><span class="built_in">scan</span>.hasNextInt();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>从控制台读取密码</li>
+</ul>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// java se 6 提供了Console类实现读取密码</span></span><br><span class="line">Console console = <span class="module-access"><span class="module"><span class="identifier">System</span>.</span></span>console<span class="literal">()</span>;</span><br><span class="line">Stirng userName = console.read<span class="constructor">Line(<span class="string">"UserName:"</span>)</span>;</span><br><span class="line"><span class="built_in">char</span> <span class="literal">[]</span> psd = console.read<span class="constructor">Password(<span class="string">"Password:"</span>)</span>;</span><br></pre></td></tr></table></figure>
+
+<h5 id="字符文件输入输出"><a href="#字符文件输入输出" class="headerlink" title="字符文件输入输出"></a>字符文件输入输出</h5><ul>
+<li>读取字符文件</li>
+</ul>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Scanner scan = <span class="keyword">new</span> <span class="constructor">Scanner(Path.<span class="params">get</span>(<span class="string">"pathstring"</span>)</span>,<span class="string">"UTF-8"</span>); <span class="comment">// 路径是相对于Java虚拟机启动路径的相对位置</span></span><br><span class="line">scan.read<span class="constructor">Line()</span>....等一系列方法</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>写字符文件</li>
+</ul>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PrintWriter <span class="keyword">out</span> = <span class="keyword">new</span> PrintWriter(<span class="string">"filename.txt"</span>,<span class="string">"UTF-8"</span>);</span><br><span class="line"><span class="keyword">out</span>.println(<span class="string">"hhh"</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>对于处理文件的Scanner以及PrintWriter，需要在方法中处理异常</li>
+</ul>
+<h5 id="Java的块作用域"><a href="#Java的块作用域" class="headerlink" title="Java的块作用域"></a>Java的块作用域</h5><ul>
+<li><strong>和C++不一样，Java不允许在嵌套块中重复定义一个变量，会编译错误</strong></li>
+</ul>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="built_in">int</span> <span class="built_in">n</span>;</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">int</span> <span class="built_in">n</span>; // 这种写法在java中是编译不过的</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="switch-case-break"><a href="#switch-case-break" class="headerlink" title="switch case break"></a>switch case break</h5><ul>
+<li>虽然很简单，但周围很多人都会用错</li>
+<li>break的意思是，本case如果命中了，在执行结束之后，中断之后的case检查，直接返回。</li>
+<li>多个case可以公用同一个处理函数</li>
+<li>case标签的类型可以是char，4种整型，枚举常量，以及字符串常量（Java7开始支持）</li>
+</ul>
+<h5 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h5><ul>
+<li><p>数组声明：int [] array;</p>
+</li>
+<li><p>数组初始化： array = new int [100];</p>
+<ul>
+<li>需要指定数组初始大小，可以是整型n变量，数组创建之后大小无法更改。（如果需要，使用数组列表）</li>
+<li>整型数组所有元素初始化为0，boolean初始化为false，对象类型初始化为null</li>
+</ul>
+</li>
+<li><p>数组元素个数：array.length</p>
+</li>
+<li><p>数组for循环：for(int item : array)</p>
+</li>
+<li><p>数组拷贝</p>
+<ul>
+<li>浅拷贝：直接将一个数据变量的值赋值给另一个数组变量，两个数组变量引用的是堆中的同一个数组，对一个的修改会影响到另一个</li>
+<li>深拷贝：在原来的基础上，新创建一个一模一样的数组，或者更长的数组。Array提供了copyOf方法<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> [] newArray = Array.copyOf(array,array.length+<span class="number">10</span>); <span class="comment">// 拷贝array数组，长度加10</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>Java中的数据是在堆上创建的，相当于C++中的<code>int * a = new int[30];</code>,而不是<code>int a[10];</code>,这是在栈中的数组。</p>
+</li>
+<li><p>多维数组：数组的元素还是数组而已，且Java还支持不规则的数组（行列不一定要求是整齐的），C++是不支持的</p>
+</li>
+</ul>
+<h3 id="类与对象"><a href="#类与对象" class="headerlink" title="类与对象"></a>类与对象</h3><ul>
+<li>类与对象的关系：模板，实例</li>
+<li>面向对象编程的含义：封装</li>
+<li>类之间的三种关系</li>
+<li>对象与对象变量之间的关系</li>
+<li>预定义类（String，Date，LocalDate）与自定义类</li>
+<li>Java多源文件的使用：Java编译器内置了类似UNIX的make功能，在编译的时候，能够自动查找需要依赖的其他类，有class文件就直接使用，没有则查找java文件并编译。</li>
+<li>Java中，所有的方法都必须包含在类中</li>
+<li>private私有域，只有属于同一个类的对象（本身，其他同类对象）才可以访问。</li>
+<li>final常量、final方法：</li>
+<li>静态变量、静态常量、静态方法</li>
+<li>静态方法中不能访问非静态实例域，但可以访问静态域。</li>
+<li>main()方法是一个静态方法，它不对任何对象进行操作，负责在程序启动的时候创建对象。</li>
+<li>每个类都可以实现一个main方法，用来进行单元测试，在执行完整Application时候，每个单元中的main并不会执行。</li>
+</ul>
+<h5 id="对象构造"><a href="#对象构造" class="headerlink" title="对象构造"></a>对象构造</h5><ul>
+<li>构造函数：Java的对象都是在堆上构造的，通过new操作符在堆上创建新对象。构造函数在new对象的时候被调用。</li>
+<li>与C++中对象的构造做区分，C++中支持在栈和堆上创建对象，Java对象与后者类似。</li>
+</ul>
+<h5 id="对象域的初始化"><a href="#对象域的初始化" class="headerlink" title="对象域的初始化"></a>对象域的初始化</h5><ul>
+<li>三种域初始化方式：在构造器中初始化，声明中初始化，在初始化块</li>
+<li>在用户没给构造函数的时候，系统会自动提供一个无参构造函数，一旦用户提供了，系统就不再提供无参构造函数。</li>
+<li>对象中的域，默认被初始化为0，false，以及null</li>
+<li>域的初始化也可以直接在声明时进行，好习惯是在声明变量域的时候，就给个安全的初始值。（C++中是不允许的，只能通过构造函数初始化域）</li>
+<li>初始化块：一个或多个代码块，只要构造类对象，这些初始化块就一定会执行，一般用于初始化比较复杂的情况。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span></span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 初始化块</span></span><br><span class="line">  <span class="keyword">static</span></span><br><span class="line">  &#123;</span><br><span class="line">    Random generator = <span class="keyword">new</span> Random(); </span><br><span class="line">    id = generator.nextInt(<span class="number">1000</span>); <span class="comment">// 生成0-999的随机数</span></span><br><span class="line">    System.out.println(<span class="string">"hello"</span>); <span class="comment">//也可以执行非初始化语句的</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>具体的域初始化步骤<ul>
+<li>1.所有数据域被初始化为0，false、null</li>
+<li>2.按照类中各个数据域声明出现的前后顺序，执行各自的初始化语句以及初始化块。</li>
+<li>3.执行构造器内容</li>
+</ul>
+</li>
+</ul>
+<h5 id="对象析构-finalize方法"><a href="#对象析构-finalize方法" class="headerlink" title="对象析构 finalize方法"></a>对象析构 finalize方法</h5><ul>
+<li>Java有自动的垃圾回收器，所以不像C++，没有显式的析构器。</li>
+<li>可以为类添加一个finalize方法，该方法在对象被清楚之前调用。</li>
+<li><strong>实际应用中，避免在finalize中去释放资源，因为finalize什么时候被执行是无法确定的</strong></li>
+<li>对于一些资源的使用，要提供一个close方法，在使用完毕后调用。</li>
+<li>可以通过Runtime.addShutdownHook 方法来添加关闭钩子的方式更好的实现。</li>
+</ul>
+<h5 id="方法参数传递"><a href="#方法参数传递" class="headerlink" title="方法参数传递"></a>方法参数传递</h5><ul>
+<li>Java的参数传递是<strong>传值调用</strong>的，方法得到的是参数的拷贝，且<strong>方法内无法修改传递进来的参数</strong>。</li>
+<li>对于基本数据类型，直接传入的是数据拷贝，而对于对象，传入的是对象引用的拷贝（<strong>容易理解为传引用调用，但实际是通过传值调用实现的，只是这里的值是对象引用</strong>）。<ul>
+<li>对于基本数据类型参数，参数传递不会改变参数变量的值。</li>
+<li>对于对象引用参数，方法内可以通过对象应用去修改对象内容。</li>
+<li>对于对象引用参数，无法将对象引用参数指向另一个新对象。</li>
+</ul>
+</li>
+</ul>
+<h5 id="重载"><a href="#重载" class="headerlink" title="重载"></a>重载</h5><ul>
+<li>重载：overloading，多个方法，有相同的名字，但有不同的参数列表。</li>
+<li>重载解析：编译器负责根据参数列表，匹配正确的函数。</li>
+<li>函数签名：函数名+参数列表，<strong>注意，返回类型不属于函数签名，不能通过不同的返回类型来重载</strong></li>
+</ul>
+<h5 id="包-package"><a href="#包-package" class="headerlink" title="包 package"></a>包 package</h5><ul>
+<li>通过包来组织类，文件目录方式，避免重名</li>
+<li>import导入类、静态导入</li>
+<li>将类放入包中：<ul>
+<li>1.类源代码开头添加 package path; （没有该行，则该类属于默认包）</li>
+<li>2.将类源文件放在package对应的问价夹中</li>
+</ul>
+</li>
+<li><strong>编译器在编译文件的时候是不关注目录结构的，但定位一个类的时候，通过包名和类名来定位。所以，必须将类源代码放在package对应的文件夹下，否则虚拟机找不到类</strong></li>
+<li>包作用域：不添加public和private时，默认的作用域。同一个包中都可以访问。</li>
+</ul>
+<h5 id="类路径"><a href="#类路径" class="headerlink" title="类路径"></a>类路径</h5><ul>
+<li>从三个地方加载类<ul>
+<li>1.JRE中的JAR文件</li>
+<li>2.第三方JAR文件</li>
+<li>3.用户源程序目录</li>
+</ul>
+</li>
+<li>通过<code>java -classpath</code>或者设置<code>CLASSPATH</code>环境变量来设置类路径。</li>
+</ul>
+<h5 id="类注释"><a href="#类注释" class="headerlink" title="类注释"></a>类注释</h5><ul>
+<li>javadoc，由源文件生成html</li>
+<li>类注释</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  类注释</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">hhh</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>方法注释</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* desc hh</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> id</span></span><br><span class="line"><span class="comment">* <span class="doctag">@return</span> void</span></span><br><span class="line"><span class="comment">* <span class="doctag">@throws</span></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">hh</span><span class="params">(<span class="keyword">int</span> id)</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>域注释</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* desc</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">int</span> id;</span><br></pre></td></tr></table></figure>
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -221,16 +509,75 @@
 
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/大脑Cache/大脑Cache系列--Java快速梳理（一）.html">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://zwboy.cn/大脑Cache/大脑Cache系列--Java快速梳理（一）.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/技术/update-alternatives-让多个版本库共存.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">update-alternatives 让多个版本库共存</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -250,896 +597,14 @@
 
 
 
-
-  
-    <article id="post-update-alternatives-让多个版本库共存" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/技术/update-alternatives-让多个版本库共存.html">update-alternatives 让多个版本库共存</a>
-    </h1>
-  
-
-        
-        <a href="/技术/update-alternatives-让多个版本库共存.html" class="archive-article-date">
-  	<time datetime="2019-12-16T02:16:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>记录在解决Ubuntu系统python2.7与python3.4共存的问题，使用update-alternatives在两个版本之间进行切换</p>
-</blockquote>
-<h3 id="update-alternatives"><a href="#update-alternatives" class="headerlink" title="update-alternatives"></a>update-alternatives</h3><h5 id="检查update-alternatives是否已经检测到两个版本的python"><a href="#检查update-alternatives是否已经检测到两个版本的python" class="headerlink" title="检查update-alternatives是否已经检测到两个版本的python"></a>检查update-alternatives是否已经检测到两个版本的python</h5><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span>-alternatives --<span class="keyword">list</span> <span class="keyword">python</span></span><br></pre></td></tr></table></figure>
-
-<p>如果出现以下错误，则说明未添加</p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span>-alternative<span class="variable">s:</span> error: <span class="keyword">no</span> alternatives <span class="keyword">for</span> <span class="keyword">python</span></span><br></pre></td></tr></table></figure>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/技术/update-alternatives-让多个版本库共存.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-nginx-配置允许跨域" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/技术/nginx-配置允许跨域.html">Nginx日常使用中的配置积累</a>
-    </h1>
-  
-
-        
-        <a href="/技术/nginx-配置允许跨域.html" class="archive-article-date">
-  	<time datetime="2019-11-25T07:23:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="配置https"><a href="#配置https" class="headerlink" title="配置https"></a>配置https</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">listen</span>        <span class="number">443</span>;</span><br><span class="line">  <span class="attribute">server_name</span>   zwboy.cn;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">ssl</span>           <span class="literal">on</span>;</span><br><span class="line">  <span class="attribute">ssl_certificate_key</span>   ./cert/zwboy.cn.prikey.key</span><br><span class="line">  ssl_certificate       ./cert/zwboy.cn.pem;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">location</span> / &#123;</span><br><span class="line">    <span class="attribute">proxy_pass</span> http://localhost:8080;</span><br><span class="line">    <span class="attribute">proxy_set_header</span> HOST <span class="variable">$host</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># http跳转到https</span></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">listen</span> <span class="number">80</span> default_server;</span><br><span class="line">  <span class="attribute">listen</span> [::]:<span class="number">80</span> default_server; <span class="comment"># ip访问</span></span><br><span class="line">  <span class="attribute">server_name</span> zwboy.cn;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">return</span> <span class="number">302</span> https://<span class="variable">$server_name</span><span class="variable">$request_uri</span>; <span class="comment"># 302跳转到https</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Nginx</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/技术/nginx-配置允许跨域.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-高性能服务器：实现简单的TCP-UDP-server，以及对应的Client" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/技术/高性能服务器：实现简单的TCP-UDP-server，以及对应的Client.html">高性能服务器：实现简单的TCP/UDP server，以及对应的Client</a>
-    </h1>
-  
-
-        
-        <a href="/技术/高性能服务器：实现简单的TCP-UDP-server，以及对应的Client.html" class="archive-article-date">
-  	<time datetime="2019-11-20T11:57:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>有兴趣搞一搞高性能流媒体服务器，这些得了解，学习过程中记录一下，方便未来回顾。</p>
-</blockquote>
-<h3 id="一、实现一个TCP-Server"><a href="#一、实现一个TCP-Server" class="headerlink" title="一、实现一个TCP Server"></a>一、实现一个TCP Server</h3><h5 id="Server端步骤"><a href="#Server端步骤" class="headerlink" title="Server端步骤"></a>Server端步骤</h5><ul>
-<li>socker():创建socket，指定使用TCP协议</li>
-<li>bind():将socket与地址和端口进行绑定</li>
-<li>listen():侦听端口</li>
-<li>accept():创建新的socket</li>
-<li>recv():使用recv接收数据</li>
-<li>send():使用send发送数据</li>
-<li>close():使用close关闭连接</li>
-</ul>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">高性能服务器</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/技术/高性能服务器：实现简单的TCP-UDP-server，以及对应的Client.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-高性能服务器：linux下的信号与后台守护进程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/技术/高性能服务器：linux下的信号与后台守护进程.html">高性能服务器：Linux下的信号与后台守护进程</a>
-    </h1>
-  
-
-        
-        <a href="/技术/高性能服务器：linux下的信号与后台守护进程.html" class="archive-article-date">
-  	<time datetime="2019-11-20T11:47:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>有兴趣搞一搞高性能流媒体服务器了，这些得了解，学习过程中记录一下，方便未来回顾。</p>
-</blockquote>
-<h3 id="一、Linux-下的几个重要信号"><a href="#一、Linux-下的几个重要信号" class="headerlink" title="一、Linux 下的几个重要信号"></a>一、Linux 下的几个重要信号</h3><ul>
-<li>SIGPIPE：管道终止信号，当写入无人读取的管道时产生该信号，默认终止进程，需要我们去处理<ul>
-<li>网络程序必须要处理，否则Client端断开连接之后，会导致Server Crash</li>
-</ul>
-</li>
-<li>SIGCHLD：子进程结束或者停止发送时候<ul>
-<li>容易产生僵尸进程（一个早已死亡的进程，但是在进程表中还存在）</li>
-<li>子进程结束的时候，他并没有完全销毁，因为父进程还需要使用它的消息。</li>
-<li>父进程没有处理SIGCHLD信号，或者没有调用wait/waitpid等待子进程结束，就会出现僵尸进程。</li>
-</ul>
-</li>
-<li>SIGALRM: 定时信号，秒为单位，默认会终止进程，所以需要我们去处理（捕获，然后忽略）</li>
-<li>SIGINT: 键盘输入的退出信号</li>
-<li>SIGQUIT： 键盘输入的退出信号</li>
-<li>SIGHUP：控制终端挂起信号</li>
-</ul>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">高性能服务器</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/技术/高性能服务器：linux下的信号与后台守护进程.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-一次基于OAuth-2-0的第三方登录实践-2019-11-01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/技术/一次基于OAuth-2-0的第三方登录实践-2019-11-01.html">一次基于OAuth 2.0的第三方登录实践总结</a>
-    </h1>
-  
-
-        
-        <a href="/技术/一次基于OAuth-2-0的第三方登录实践-2019-11-01.html" class="archive-article-date">
-  	<time datetime="2019-11-01T08:56:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>OAuth 2.0 是目前最流行的授权机制，用来授权第三方应用，获取用户数据。</p>
-</blockquote>
-<h3 id="一、背景"><a href="#一、背景" class="headerlink" title="一、背景"></a>一、背景</h3><ul>
-<li>最近在视频云项目的ToC观看端想引入用户登录功能。从用户需求的角度考虑，用户不喜欢仅为了发送一个弹幕或者评论而需要进行复杂的注册流程。目前很多网站都引入了第三方登录的方式，这样即解决了用户会忘记密码的问题，也简化了用户的登录流程，提高参与度。</li>
-<li>OAuth是目前主流的授权方式，值得系统学习下。</li>
-</ul>
-<h3 id="二、OAuth-2-0"><a href="#二、OAuth-2-0" class="headerlink" title="二、OAuth 2.0"></a>二、OAuth 2.0</h3><h5 id="1-令牌"><a href="#1-令牌" class="headerlink" title="1. 令牌"></a>1. 令牌</h5><ul>
-<li>OAuth中授权使用的是token，而不是密码。<ul>
-<li>token具有时效性，可以随时被撤销，且权限范围受限</li>
-<li>相比于密码的方式，在实现授权给第三方的同时，具有较好的可控性。</li>
-</ul>
-</li>
-</ul>
-<h5 id="2-角色"><a href="#2-角色" class="headerlink" title="2. 角色"></a>2. 角色</h5><ul>
-<li>客户端：想要通过第三方登录的软件系统</li>
-<li>资源所有者：授权方</li>
-</ul>
-<h5 id="3-授权层"><a href="#3-授权层" class="headerlink" title="3. 授权层"></a>3. 授权层</h5><ul>
-<li>OAuth引入了授权层，来隔离这两个用户</li>
-</ul>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">OAuth</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/技术/一次基于OAuth-2-0的第三方登录实践-2019-11-01.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Linux的一些进阶技能-2019-11-01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/技术/Linux的一些进阶技能-2019-11-01.html">Linux的一些进阶技能</a>
-    </h1>
-  
-
-        
-        <a href="/技术/Linux的一些进阶技能-2019-11-01.html" class="archive-article-date">
-  	<time datetime="2019-11-01T06:26:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>好好学学Linux，以后用得到 </p>
-</blockquote>
-<h3 id="一些关于Linxu想知道的疑问解决"><a href="#一些关于Linxu想知道的疑问解决" class="headerlink" title="一些关于Linxu想知道的疑问解决"></a>一些关于Linxu想知道的疑问解决</h3><h5 id="1-服务Service与Demand的区别"><a href="#1-服务Service与Demand的区别" class="headerlink" title="1. 服务Service与Demand的区别"></a>1. 服务Service与Demand的区别</h5><p>我的理解，服务是能够常驻在系统后台并提供一些系统的或者网络功能。服务其实是能够提供某个功能的意思，但是既然是一个功能，那一定需要有个程序去执行吧。Demand意思是守护的意思，它便是达成这个service的程序，Demand其实和Service也不需要完全区分。</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/技术/Linux的一些进阶技能-2019-11-01.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-linux-解压命令汇总-2019-11-01" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/技术/linux-解压命令汇总-2019-11-01.html">linux 解压命令汇总</a>
-    </h1>
-  
-
-        
-        <a href="/技术/linux-解压命令汇总-2019-11-01.html" class="archive-article-date">
-  	<time datetime="2019-11-01T01:24:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>搞定Linux文件打包、解压、压缩</p>
-</blockquote>
-<h3 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h3><ul>
-<li>解包：tar xvf FileName.tar</li>
-<li>打包：tar cvf FileName.tar DirName</li>
-<li>（注：tar是打包，不是压缩！）</li>
-</ul>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/技术/linux-解压命令汇总-2019-11-01.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-web-rtc技术基础-2019-10-30" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/技术/web-rtc技术基础-2019-10-30.html">web-rtc技术基础</a>
-    </h1>
-  
-
-        
-        <a href="/技术/web-rtc技术基础-2019-10-30.html" class="archive-article-date">
-  	<time datetime="2019-10-30T10:26:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>背景<br>5G时代，是时候玩玩WebRTC了吧</p>
-</blockquote>
-<h3 id="一、-WebRTC基础"><a href="#一、-WebRTC基础" class="headerlink" title="一、 WebRTC基础"></a>一、 WebRTC基础</h3><h5 id="1-关于WebRTC的关键词"><a href="#1-关于WebRTC的关键词" class="headerlink" title="1. 关于WebRTC的关键词"></a>1. 关于WebRTC的关键词</h5><ul>
-<li>Google开源，跨平台，多媒体框架</li>
-<li>音视频处理+即时通讯的开源库</li>
-<li>浏览器之间端到端之间实时数据传输</li>
-<li>音视频引擎：编码、采集等</li>
-</ul>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">音视频</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">WebRTC</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/技术/web-rtc技术基础-2019-10-30.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-FFmpeg-二次开发-2019-10-30" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/技术/FFmpeg-二次开发-2019-10-30.html">FFmpeg 二次开发</a>
-    </h1>
-  
-
-        
-        <a href="/技术/FFmpeg-二次开发-2019-10-30.html" class="archive-article-date">
-  	<time datetime="2019-10-30T06:41:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="一、FFmpeg"><a href="#一、FFmpeg" class="headerlink" title="一、FFmpeg"></a>一、FFmpeg</h3><h5 id="1-代码结构"><a href="#1-代码结构" class="headerlink" title="1. 代码结构"></a>1. 代码结构</h5><ul>
-<li>libacvdec<ul>
-<li>提供了一系列编码器的实现</li>
-<li>如果需要提供自己的编码，在此基础上进行二次开发</li>
-</ul>
-</li>
-<li>libavformat<ul>
-<li>实现在流协议、容器格式以及基本的IO访问</li>
-</ul>
-</li>
-<li>libavutil<ul>
-<li>提供了Hash器，解码器和各种工具函数</li>
-</ul>
-</li>
-<li>libavfilter<ul>
-<li>提供各种音视频过滤器</li>
-</ul>
-</li>
-<li>libavdevice<ul>
-<li>提供捕获设别的接口</li>
-</ul>
-</li>
-<li>libswresample<ul>
-<li>实现混音和重采样</li>
-</ul>
-</li>
-<li>libswscale<ul>
-<li>实现了色彩转换和缩放功能</li>
-</ul>
-</li>
-</ul>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">音视频</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">FFmpeg</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/技术/FFmpeg-二次开发-2019-10-30.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -1162,8 +627,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
