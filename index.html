@@ -152,6 +152,205 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-bug-Build-React-项目中出现的Failed-to-minify-the-code-from-this-file错误" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/技术/bug-Build-React-项目中出现的Failed-to-minify-the-code-from-this-file错误.html">[bug] Build React 项目中出现的Failed to minify the code from this file错误</a>
+    </h1>
+  
+
+        
+        <a href="/技术/bug-Build-React-项目中出现的Failed-to-minify-the-code-from-this-file错误.html" class="archive-article-date">
+  	<time datetime="2020-01-14T12:54:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>在React项目中运用到了flv.js以及three.js，通过yarn安装依赖，在开发环境下一切正常，但当执行yarn build打生产环境包时，出现了如下错误。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Failed to minify the code <span class="keyword">from</span> <span class="keyword">this</span> file:</span><br><span class="line">./node_modules/flv.js/src/utils/logger.js:<span class="number">21</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>问题出在了库的引入上，原本代码为：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> flv.js <span class="keyword">from</span> <span class="string">'flv.js'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>更改为</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> flv.js <span class="keyword">from</span> <span class="string">'flv.js/dist/flv.min.js'</span>;</span><br></pre></td></tr></table></figure>
+
+<p>然后build就可以通过</p>
+        
+          <a class="article-more-a" href="/技术/bug-Build-React-项目中出现的Failed-to-minify-the-code-from-this-file错误.html#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">BUG</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/技术/bug-Build-React-项目中出现的Failed-to-minify-the-code-from-this-file错误.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-大脑Cache系列-Java快速梳理，方便随时load到大脑，减少低级bug（二）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/技术/大脑Cache系列-Java快速梳理，方便随时load到大脑，减少低级bug（二）.html">大脑Cache系列 -- Java快速梳理，方便随时load到大脑，减少低级bug（二） </a>
+    </h1>
+  
+
+        
+        <a href="/技术/大脑Cache系列-Java快速梳理，方便随时load到大脑，减少低级bug（二）.html" class="archive-article-date">
+  	<time datetime="2020-01-06T07:50:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><blockquote>
+<ul>
+<li>Java程序常常会遇到一些蛋疼的bug，最后发现，都是在一些很基础的方面造成的。大量的时间花在调试代码找低级bug上是十分没有性价比的。所以，再系统梳理下Java，是十分必要的。</li>
+<li>已经反复学习和使用Java多次了，但只要有段时间没用Java之后，每次使用前都想要重头再梳理一遍。本文章将更注重Java只是的系统性，而不是细节性。</li>
+<li>本文是本人大脑的专属Cache，所以逻辑上可能只有我自己能够看懂，见谅。</li>
+</ul>
+</blockquote>
+<h3 id="一、目录"><a href="#一、目录" class="headerlink" title="一、目录"></a>一、目录</h3><ul>
+<li>Java继承</li>
+<li>Java反射</li>
+<li>Java接口</li>
+<li>Lambda表达式</li>
+<li>Java异常</li>
+<li>Java并发</li>
+</ul>
+        
+          <a class="article-more-a" href="/技术/大脑Cache系列-Java快速梳理，方便随时load到大脑，减少低级bug（二）.html#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">未知</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/技术/大脑Cache系列-Java快速梳理，方便随时load到大脑，减少低级bug（二）.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-大脑Cache系列--Java快速梳理（一）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -184,6 +383,8 @@
 <li>基础语句语法</li>
 <li>类与对象</li>
 </ul>
+        
+          <a class="article-more-a" href="/大脑Cache/大脑Cache系列--Java快速梳理（一）.html#more">more >></a>
         
       
 
@@ -280,6 +481,8 @@
 <p>如果出现以下错误，则说明未添加</p>
 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span>-alternative<span class="variable">s:</span> error: <span class="keyword">no</span> alternatives <span class="keyword">for</span> <span class="keyword">python</span></span><br></pre></td></tr></table></figure>
         
+          <a class="article-more-a" href="/技术/update-alternatives-让多个版本库共存.html#more">more >></a>
+        
       
 
       
@@ -364,6 +567,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="配置https"><a href="#配置https" class="headerlink" title="配置https"></a>配置https</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">listen</span>        <span class="number">443</span>;</span><br><span class="line">  <span class="attribute">server_name</span>   zwboy.cn;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">ssl</span>           <span class="literal">on</span>;</span><br><span class="line">  <span class="attribute">ssl_certificate_key</span>   ./cert/zwboy.cn.prikey.key</span><br><span class="line">  ssl_certificate       ./cert/zwboy.cn.pem;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">location</span> / &#123;</span><br><span class="line">    <span class="attribute">proxy_pass</span> http://localhost:8080;</span><br><span class="line">    <span class="attribute">proxy_set_header</span> HOST <span class="variable">$host</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># http跳转到https</span></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">listen</span> <span class="number">80</span> default_server;</span><br><span class="line">  <span class="attribute">listen</span> [::]:<span class="number">80</span> default_server; <span class="comment"># ip访问</span></span><br><span class="line">  <span class="attribute">server_name</span> zwboy.cn;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">return</span> <span class="number">302</span> https://<span class="variable">$server_name</span><span class="variable">$request_uri</span>; <span class="comment"># 302跳转到https</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/技术/nginx-配置允许跨域.html#more">more >></a>
         
       
 
@@ -460,6 +665,8 @@
 <li>send():使用send发送数据</li>
 <li>close():使用close关闭连接</li>
 </ul>
+        
+          <a class="article-more-a" href="/技术/高性能服务器：实现简单的TCP-UDP-server，以及对应的Client.html#more">more >></a>
         
       
 
@@ -567,6 +774,8 @@
 <li>SIGQUIT： 键盘输入的退出信号</li>
 <li>SIGHUP：控制终端挂起信号</li>
 </ul>
+        
+          <a class="article-more-a" href="/技术/高性能服务器：linux下的信号与后台守护进程.html#more">more >></a>
         
       
 
@@ -677,6 +886,8 @@
 <li>OAuth引入了授权层，来隔离这两个用户</li>
 </ul>
         
+          <a class="article-more-a" href="/技术/一次基于OAuth-2-0的第三方登录实践-2019-11-01.html#more">more >></a>
+        
       
 
       
@@ -764,6 +975,8 @@
 <p>好好学学Linux，以后用得到 </p>
 </blockquote>
 <h3 id="一些关于Linxu想知道的疑问解决"><a href="#一些关于Linxu想知道的疑问解决" class="headerlink" title="一些关于Linxu想知道的疑问解决"></a>一些关于Linxu想知道的疑问解决</h3><h5 id="1-服务Service与Demand的区别"><a href="#1-服务Service与Demand的区别" class="headerlink" title="1. 服务Service与Demand的区别"></a>1. 服务Service与Demand的区别</h5><p>我的理解，服务是能够常驻在系统后台并提供一些系统的或者网络功能。服务其实是能够提供某个功能的意思，但是既然是一个功能，那一定需要有个程序去执行吧。Demand意思是守护的意思，它便是达成这个service的程序，Demand其实和Service也不需要完全区分。</p>
+        
+          <a class="article-more-a" href="/技术/Linux的一些进阶技能-2019-11-01.html#more">more >></a>
         
       
 
@@ -857,6 +1070,8 @@
 <li>（注：tar是打包，不是压缩！）</li>
 </ul>
         
+          <a class="article-more-a" href="/技术/linux-解压命令汇总-2019-11-01.html#more">more >></a>
+        
       
 
       
@@ -891,222 +1106,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/技术/linux-解压命令汇总-2019-11-01.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-web-rtc技术基础-2019-10-30" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/技术/web-rtc技术基础-2019-10-30.html">web-rtc技术基础</a>
-    </h1>
-  
-
-        
-        <a href="/技术/web-rtc技术基础-2019-10-30.html" class="archive-article-date">
-  	<time datetime="2019-10-30T10:26:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>背景<br>5G时代，是时候玩玩WebRTC了吧</p>
-</blockquote>
-<h3 id="一、-WebRTC基础"><a href="#一、-WebRTC基础" class="headerlink" title="一、 WebRTC基础"></a>一、 WebRTC基础</h3><h5 id="1-关于WebRTC的关键词"><a href="#1-关于WebRTC的关键词" class="headerlink" title="1. 关于WebRTC的关键词"></a>1. 关于WebRTC的关键词</h5><ul>
-<li>Google开源，跨平台，多媒体框架</li>
-<li>音视频处理+即时通讯的开源库</li>
-<li>浏览器之间端到端之间实时数据传输</li>
-<li>音视频引擎：编码、采集等</li>
-</ul>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">音视频</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">WebRTC</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/技术/web-rtc技术基础-2019-10-30.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-FFmpeg-二次开发-2019-10-30" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/技术/FFmpeg-二次开发-2019-10-30.html">FFmpeg 二次开发</a>
-    </h1>
-  
-
-        
-        <a href="/技术/FFmpeg-二次开发-2019-10-30.html" class="archive-article-date">
-  	<time datetime="2019-10-30T06:41:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="一、FFmpeg"><a href="#一、FFmpeg" class="headerlink" title="一、FFmpeg"></a>一、FFmpeg</h3><h5 id="1-代码结构"><a href="#1-代码结构" class="headerlink" title="1. 代码结构"></a>1. 代码结构</h5><ul>
-<li>libacvdec<ul>
-<li>提供了一系列编码器的实现</li>
-<li>如果需要提供自己的编码，在此基础上进行二次开发</li>
-</ul>
-</li>
-<li>libavformat<ul>
-<li>实现在流协议、容器格式以及基本的IO访问</li>
-</ul>
-</li>
-<li>libavutil<ul>
-<li>提供了Hash器，解码器和各种工具函数</li>
-</ul>
-</li>
-<li>libavfilter<ul>
-<li>提供各种音视频过滤器</li>
-</ul>
-</li>
-<li>libavdevice<ul>
-<li>提供捕获设别的接口</li>
-</ul>
-</li>
-<li>libswresample<ul>
-<li>实现混音和重采样</li>
-</ul>
-</li>
-<li>libswscale<ul>
-<li>实现了色彩转换和缩放功能</li>
-</ul>
-</li>
-</ul>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">音视频</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">FFmpeg</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/技术//" class="article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/技术/FFmpeg-二次开发-2019-10-30.html">展开全文 >></a>
         </p>
       
 
@@ -1233,15 +1232,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">React</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">BUG</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1253,15 +1252,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">前端</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CSS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1285,15 +1284,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">微服务</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">未知</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
             
             <div class="clearfix"></div>

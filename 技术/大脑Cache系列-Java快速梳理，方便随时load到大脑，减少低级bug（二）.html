@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://zwboy.cn">
-  <title>在一台服务器上通过Nginx反向代理配置多个二级域名映射多个不同端口的应用 | ZWboy的站点</title>
+  <title>大脑Cache系列 -- Java快速梳理，方便随时load到大脑，减少低级bug（二）  | ZWboy的站点</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="背景：需要在实验室服务器上部署gitlab，jira，jenkins等等Server服务，这些服务工作在不同的端口，无法直接通过http的80端口访问，所以之前是通过IP+端口号的方式进行访问。在申请了自己的一个域名之后，想要通过多个二级域名来访问。  需求能够通过gitlab.domain.cn访问绑定在82端口上的gitlab服务，通过jenkins.domain.cn访问绑定在9090端口">
-<meta name="keywords" content="Nginx,反向代理">
+  <meta name="description" content="背景  Java程序常常会遇到一些蛋疼的bug，最后发现，都是在一些很基础的方面造成的。大量的时间花在调试代码找低级bug上是十分没有性价比的。所以，再系统梳理下Java，是十分必要的。 已经反复学习和使用Java多次了，但只要有段时间没用Java之后，每次使用前都想要重头再梳理一遍。本文章将更注重Java只是的系统性，而不是细节性。 本文是本人大脑的专属Cache，所以逻辑上可能只有我自己能够看">
+<meta name="keywords" content="未知">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在一台服务器上通过Nginx反向代理配置多个二级域名映射多个不同端口的应用">
-<meta property="og:url" content="http://zwboy.cn/技术/在一台服务器上通过Nginx配置多个二级域名映射多个不同端口的应用.html">
+<meta property="og:title" content="大脑Cache系列 -- Java快速梳理，方便随时load到大脑，减少低级bug（二） ">
+<meta property="og:url" content="http://zwboy.cn/技术/大脑Cache系列-Java快速梳理，方便随时load到大脑，减少低级bug（二）.html">
 <meta property="og:site_name" content="ZWboy的站点">
-<meta property="og:description" content="背景：需要在实验室服务器上部署gitlab，jira，jenkins等等Server服务，这些服务工作在不同的端口，无法直接通过http的80端口访问，所以之前是通过IP+端口号的方式进行访问。在申请了自己的一个域名之后，想要通过多个二级域名来访问。  需求能够通过gitlab.domain.cn访问绑定在82端口上的gitlab服务，通过jenkins.domain.cn访问绑定在9090端口">
+<meta property="og:description" content="背景  Java程序常常会遇到一些蛋疼的bug，最后发现，都是在一些很基础的方面造成的。大量的时间花在调试代码找低级bug上是十分没有性价比的。所以，再系统梳理下Java，是十分必要的。 已经反复学习和使用Java多次了，但只要有段时间没用Java之后，每次使用前都想要重头再梳理一遍。本文章将更注重Java只是的系统性，而不是细节性。 本文是本人大脑的专属Cache，所以逻辑上可能只有我自己能够看">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-06T07:28:46.366Z">
+<meta property="og:updated_time" content="2020-01-15T14:32:22.536Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在一台服务器上通过Nginx反向代理配置多个二级域名映射多个不同端口的应用">
-<meta name="twitter:description" content="背景：需要在实验室服务器上部署gitlab，jira，jenkins等等Server服务，这些服务工作在不同的端口，无法直接通过http的80端口访问，所以之前是通过IP+端口号的方式进行访问。在申请了自己的一个域名之后，想要通过多个二级域名来访问。  需求能够通过gitlab.domain.cn访问绑定在82端口上的gitlab服务，通过jenkins.domain.cn访问绑定在9090端口">
+<meta name="twitter:title" content="大脑Cache系列 -- Java快速梳理，方便随时load到大脑，减少低级bug（二） ">
+<meta name="twitter:description" content="背景  Java程序常常会遇到一些蛋疼的bug，最后发现，都是在一些很基础的方面造成的。大量的时间花在调试代码找低级bug上是十分没有性价比的。所以，再系统梳理下Java，是十分必要的。 已经反复学习和使用Java多次了，但只要有段时间没用Java之后，每次使用前都想要重头再梳理一遍。本文章将更注重Java只是的系统性，而不是细节性。 本文是本人大脑的专属Cache，所以逻辑上可能只有我自己能够看">
   
     <link rel="alternative" href="/atom.xml" title="ZWboy的站点" type="application/atom+xml">
   
@@ -151,70 +151,321 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-在一台服务器上通过Nginx配置多个二级域名映射多个不同端口的应用" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-大脑Cache系列-Java快速梳理，方便随时load到大脑，减少低级bug（二）" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      在一台服务器上通过Nginx反向代理配置多个二级域名映射多个不同端口的应用
+      大脑Cache系列 -- Java快速梳理，方便随时load到大脑，减少低级bug（二） 
     </h1>
   
 
         
-        <a href="/技术/在一台服务器上通过Nginx配置多个二级域名映射多个不同端口的应用.html" class="archive-article-date">
-  	<time datetime="2019-09-21T15:35:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-21</time>
+        <a href="/技术/大脑Cache系列-Java快速梳理，方便随时load到大脑，减少低级bug（二）.html" class="archive-article-date">
+  	<time datetime="2020-01-06T07:50:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-06</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>背景：需要在实验室服务器上部署gitlab，jira，jenkins等等Server服务，这些服务工作在不同的端口，无法直接通过http的80端口访问，所以之前是通过IP+端口号的方式进行访问。在申请了自己的一个域名之后，想要通过多个二级域名来访问。</p>
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><blockquote>
+<ul>
+<li>Java程序常常会遇到一些蛋疼的bug，最后发现，都是在一些很基础的方面造成的。大量的时间花在调试代码找低级bug上是十分没有性价比的。所以，再系统梳理下Java，是十分必要的。</li>
+<li>已经反复学习和使用Java多次了，但只要有段时间没用Java之后，每次使用前都想要重头再梳理一遍。本文章将更注重Java只是的系统性，而不是细节性。</li>
+<li>本文是本人大脑的专属Cache，所以逻辑上可能只有我自己能够看懂，见谅。</li>
+</ul>
 </blockquote>
-<h4 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h4><p>能够通过gitlab.domain.cn访问绑定在82端口上的gitlab服务，通过jenkins.domain.cn访问绑定在9090端口上的jenkins服务。</p>
-<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><ul>
-<li>1.在域名的解析中分别添加gitlab, jenkins,以及www三个记录，指向均为实验室服务器的IP地址。</li>
-<li>2.使用Nginx作为代理服务器，监听80端口，通过server_name进行匹配，将请求转发到对应的应用服务器。(这应该属于Nginx的反向代理功能，即为多个服务提供代理服务)</li>
+<h3 id="一、目录"><a href="#一、目录" class="headerlink" title="一、目录"></a>一、目录</h3><ul>
+<li>Java继承</li>
+<li>Java反射</li>
+<li>Java接口</li>
+<li>Lambda表达式</li>
+<li>Java异常</li>
+<li>Java并发</li>
 </ul>
 <a id="more"></a>
 
-<h4 id="实际解决"><a href="#实际解决" class="headerlink" title="实际解决"></a>实际解决</h4><ul>
-<li><p>1.编辑Nginx配置信息（Ubuntu）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置文件路径：/etc/nginx/conf.d/domain.conf，（没有的话需要创建）</span></span><br><span class="line"><span class="comment"># Nginx会自动include /etc/nginx/conf.d 目录下所有以.conf结尾的配置到主配置文件nginx.conf中.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 起一个服务，端口80</span></span><br><span class="line">server &#123;</span><br><span class="line">        listen 80;  <span class="comment"># 设置Nginx对外监听80端口</span></span><br><span class="line">        server_name *.domain.cn;  <span class="comment"># 绑定到该服务器的域名</span></span><br><span class="line">        <span class="keyword">if</span> ( <span class="variable">$http_host</span> ~* <span class="string">"^(.*?)\.domain\.cn"</span> ) &#123;  <span class="comment"># 对http_host进行正则匹配，解析domain</span></span><br><span class="line">                <span class="built_in">set</span> <span class="variable">$domain</span> <span class="variable">$1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        location / &#123;</span><br><span class="line">                proxy_set_header        X-Real-IP       <span class="variable">$remote_addr</span>;</span><br><span class="line">                proxy_set_header        Host            <span class="variable">$http_host</span>;</span><br><span class="line">                <span class="comment"># 分别处理各个domain</span></span><br><span class="line">                <span class="keyword">if</span> ( <span class="variable">$domain</span> ~* <span class="string">"www"</span> ) &#123;</span><br><span class="line">                        proxy_pass http://localhost:82;  <span class="comment"># 通过proxy_pass 进行代理转发</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> ( <span class="variable">$domain</span> ~* <span class="string">"gitlab"</span> ) &#123;</span><br><span class="line">                        proxy_pass http://localhost:82;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> ( <span class="variable">$domain</span> ~* <span class="string">"jenkins"</span> ) &#123;</span><br><span class="line">                        proxy_pass http://localhost:9090;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>2.检查配置文件合法性</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 需要将nginx添加到环境变量中</span></span><br><span class="line">sudo nginx -t</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>3.更新Nginx配置</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nginx -s reload</span><br></pre></td></tr></table></figure>
-
-</li>
+<h3 id="二、Java继承"><a href="#二、Java继承" class="headerlink" title="二、Java继承"></a>二、Java继承</h3><h5 id="Java与C-继承"><a href="#Java与C-继承" class="headerlink" title="Java与C++继承"></a>Java与C++继承</h5><ul>
+<li>子类 extends 父类，而C++是：符号</li>
+<li>Java只有公有继承，C++有公有继承和私有继承</li>
+<li>Java只支持单继承，多继承通过接口实现</li>
+<li>子类从父类继承所有的数据域和方法，但有一些不一定能够访问到。</li>
+<li>此外，子类只能通过覆盖来修改，以及增加方法，但绝对无法删除父类的任何方法和数据域。</li>
 </ul>
-<h4 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h4><ul>
-<li>可以为多个相同的后端服务在反向代理的同时实现负载均衡</li>
+<h5 id="覆盖方法"><a href="#覆盖方法" class="headerlink" title="覆盖方法"></a>覆盖方法</h5><ul>
+<li>覆盖：子类方法重写父类的方法，父类方法将会被覆盖，区别重载（本类方法之间）</li>
+<li>覆盖时，子类和父类要严格一致（访问类型，返回值，方法名，参数列表）<ul>
+<li>可以通过@Override来对子类的覆盖方法进行标记，来保障子类该方法成功覆盖了一个父类的方法，而不是定义了一个毫无相关的方法（没有匹配父类方法的时候，会编译报错）</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置jenkins负载均衡</span></span><br><span class="line">upstream jenkins &#123;      <span class="comment"># 默认负载均衡规则为轮询 </span></span><br><span class="line">      server      http://localhost:9090 weight = 5;      <span class="comment"># 可以设置权重</span></span><br><span class="line">      server      http://10.10.x.x:9090 weight = 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">        listen 80;  <span class="comment"># 设置Nginx对外监听80端口</span></span><br><span class="line">        server_name *.domain.cn;  <span class="comment"># 绑定到该服务器的域名，server也可以是正则表达式</span></span><br><span class="line">        <span class="keyword">if</span> ( <span class="variable">$http_host</span> ~* <span class="string">"^(.*?)\.domain\.cn"</span> ) &#123;  <span class="comment"># 对http_host进行正则匹配，解析domain</span></span><br><span class="line">                <span class="built_in">set</span> <span class="variable">$domain</span> <span class="variable">$1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        location / &#123;</span><br><span class="line">                proxy_set_header        X-Real-IP       <span class="variable">$remote_addr</span>;</span><br><span class="line">                proxy_set_header        Host            <span class="variable">$http_host</span>;     <span class="comment"># 不可缺，否则无法代理</span></span><br><span class="line">                <span class="comment"># 分别处理各个domain</span></span><br><span class="line">                <span class="keyword">if</span> ( <span class="variable">$domain</span> ~* <span class="string">"gitlab"</span> ) &#123;</span><br><span class="line">                        proxy_pass http://jenkins;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> ( <span class="variable">$domain</span> ~* <span class="string">"jenkins"</span> ) &#123;</span><br><span class="line">                        proxy_pass http://localhost:9090;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>被覆盖的父类方法依然可以通过super方法调用。</li>
+<li>super并不是像this那样是一个对象引用，<strong>super只是一个指示编译器调用父类方法的特殊关键字，所以不能将super赋值给另一个变量。</strong></li>
+<li>super()调用父类的构造器</li>
+</ul>
+<h5 id="多态与动态绑定"><a href="#多态与动态绑定" class="headerlink" title="多态与动态绑定"></a>多态与动态绑定</h5><ul>
+<li>多态：父类对象变量可以引用子类对象，且能够通过父类对象正确调用该对象的方法。</li>
+<li>动态绑定：在运行时，能够自动选择调用哪个方法。</li>
+<li>用途：有一组不同类型的对象数据，可以直接通过他们父类类型的数组来统一组织</li>
+<li>不能将父类引用赋值给子类变量，但是可以将子类引用赋值给父类对象，且不需要强制类型转换。</li>
+</ul>
+<h5 id="方法调用的过程"><a href="#方法调用的过程" class="headerlink" title="方法调用的过程"></a>方法调用的过程</h5><ul>
+<li><strong>对象在调用方法的时候，除了方法显式的参数之外，还有一个隐式参数，那便是对象本身，隐式参数不属于函数签名</strong></li>
+<li>1.根据方法名，选出本类和父类中所有候选方法（父类中的方法需要是public的）</li>
+<li>2.根据参数列表，进行重载解析，获得调用方法名字和参数类型，即函数签名（考虑子类覆盖父类）</li>
+<li>3.如果该方法是private、static、final、或者构造器，那么编辑器就可以确定调用哪个方法了，这个称为静态绑定</li>
+<li>4.可能存在多态的情况时，虚拟机会考虑到隐式参数对象的实际类型，选择调用对应类中的方法。依次实现运行时的动态绑定。</li>
+</ul>
+<h5 id="阻止继承-final类和方法"><a href="#阻止继承-final类和方法" class="headerlink" title="阻止继承 final类和方法"></a>阻止继承 final类和方法</h5><ul>
+<li>final类，不允许被继承</li>
+<li>final方法，子类不允许覆盖这个方法，final类中的所有方法都是final的。</li>
+</ul>
+<h5 id="对象强制类型转换"><a href="#对象强制类型转换" class="headerlink" title="对象强制类型转换"></a>对象强制类型转换</h5><ul>
+<li>只能在继承链上进行类型转换</li>
+<li>在将父类转成子类之前，最好使用instanceof检查是否转换错误</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(child <span class="keyword">instanceof</span> Manager)&#123; <span class="comment">// 不需要判null</span></span><br><span class="line">  manager = child;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="踩坑"><a href="#踩坑" class="headerlink" title="踩坑"></a>踩坑</h4><p>最开始的思路是在Nginx中配置多个server块，再每个块中再配置proxy_pass来实现，配置文件如下。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># jenkins.domain.cn.conf</span></span><br><span class="line">server &#123;</span><br><span class="line">        listen 80;  <span class="comment"># 设置Nginx对外监听80端口</span></span><br><span class="line">        server_name jenkins.domain.cn;  </span><br><span class="line">        proxy_pass http://localhost:9090;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># gitlab.domain.cn.conf</span></span><br><span class="line">server &#123;</span><br><span class="line">        listen 80;  <span class="comment"># 设置Nginx对外监听80端口</span></span><br><span class="line">        server_name gitlab.domain.cn;  </span><br><span class="line">        proxy_pass http://localhost:82;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Reload Nginx之后发现，二级域名是失效的，两个域名均指向的是gitlab，无法实现想要的效果。分析应该是gitlab.domain.cn.conf先被include到nginx.conf中（和文件顺序有关），所以生效的是gitlab吧。<br>不确定，还需要进一步研究。<br>2019.12.12，问题解决，（果然是按照配置文件顺序匹配的）</p>
 <ul>
-<li>当时咋想的，两个server listen同一个端口</li>
-<li>另外，Nginx 中server的匹配顺序如下<ul>
-<li>1.精确匹配</li>
-<li>2.匹配*.zwboy.cn这样的泛域名</li>
-<li>3.按照文件顺序匹配</li>
-<li>4.都没匹配，则匹配第一个，或者listen设置为default的server<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4>Nginx是个强大的工具，可以作为Web服务器，文件服务器，代理服务器，反向代理服务器，直播服务器，负载均衡服务器等等，值得深入学习。</li>
+<li>在一些参数传递的时候可能会使用</li>
+</ul>
+<h5 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h5><ul>
+<li>为了进一步提升父类的通用能力</li>
+<li>抽象类：含有一个或者多个抽象方法的类，就是抽象类<ul>
+<li>抽象类和抽象方法需要使用abstract来修饰</li>
+<li>抽象类中是可以存在具体数据和具体方法的，可以存在一个抽象方法</li>
+</ul>
+</li>
+<li>抽象类是可以不包含抽象方法的</li>
+<li><strong>抽象类不能被实例化</strong>，必须通过子类实现所有的抽象方法才可以。</li>
+<li>虽然抽象类不能实例化，但可以通过抽象类变量引用子类对象（这是正常的父类子类特点）。</li>
+</ul>
+<h5 id="受保护的访问"><a href="#受保护的访问" class="headerlink" title="受保护的访问"></a>受保护的访问</h5><ul>
+<li>private：仅对本类可见</li>
+<li>public：对所有类可见，无限制</li>
+<li>protected：对本类和子类，以及本包类可见<ul>
+<li><strong>如果想一个方法或者数据能够被子类访问，需要设置protected修饰符</strong></li>
+</ul>
+</li>
+<li>默认情况：对本包类可见，<strong>对子类不可见</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">修饰符</th>
+<th align="center">本类</th>
+<th align="center">本包</th>
+<th align="center">子类</th>
+<th align="center">其他包</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">public</td>
+<td align="center">yes</td>
+<td align="center">yes</td>
+<td align="center">yes</td>
+<td align="center">yes</td>
+</tr>
+<tr>
+<td align="center">private</td>
+<td align="center">yes</td>
+<td align="center">no</td>
+<td align="center">no</td>
+<td align="center">no</td>
+</tr>
+<tr>
+<td align="center">protected</td>
+<td align="center">yes</td>
+<td align="center">yes</td>
+<td align="center">yes</td>
+<td align="center">no</td>
+</tr>
+<tr>
+<td align="center">default</td>
+<td align="center">yes</td>
+<td align="center">yes</td>
+<td align="center"><strong>no</strong></td>
+<td align="center">no</td>
+</tr>
+</tbody></table>
+<h5 id="Object类"><a href="#Object类" class="headerlink" title="Object类"></a>Object类</h5><ul>
+<li>所有类的超类</li>
+<li>Java中只有基本类型不是对象，其他都是对象，都具有Object的方法和数据</li>
+<li>equals():判断两个对象是否是否有相同的引用（<strong>同一个new出来的对象</strong>）<ul>
+<li><strong>在没重写的情况下，与==的效果是一致的，判断的是不内容上的相等。</strong></li>
+<li>String，Integer等类已经对equals()进行重写了。</li>
+<li>我们在实现自己类的时候，需要自己来实现equals。（很套路，很多IDE是支持一键自动生成的）</li>
+</ul>
+</li>
+<li>Class getClass()：获得该对象所属于的类<ul>
+<li>class.getName获得类名</li>
+</ul>
+</li>
+<li>hashcode(): 返回对象的散列值<ul>
+<li>重要的是：<strong>两个对象，如果equals为正，那么hashcode一定要保证相同</strong></li>
+<li>Object中值为对象的存储地址(因为Object的equals就是判断地址的呀)</li>
+<li>字符串的散列码是由字符串内容导出的（因为String的equals参考了内容呀）</li>
+<li>一般的hashcode都是综合参考了存储地址和对象数据的</li>
+<li>因此<strong>当自己实现equals的时候，对应的也要实现hashcode，来保证重要规则</strong></li>
+<li><strong>两个相等的对象必须要返回相同的hashcode码，但是相等的hashcode不一定是相等的变量</strong>，（再判断一下equals嘛）</li>
+<li>java对象的hashcode设计是为了配合基于散列的集合,添加元素的时候，通过hashcode和equals来快速判断对象是否已经存在（比纯equals循环要好多了）</li>
+</ul>
+</li>
+<li>toString():将对象以字符串形式输出，常用于日志之类。Object中默认的为类名+Hash值</li>
+</ul>
+<h5 id="重写equals-Object-obj-方法（了解即可，可以IDE自动生成的，hh）"><a href="#重写equals-Object-obj-方法（了解即可，可以IDE自动生成的，hh）" class="headerlink" title="重写equals(Object obj)方法（了解即可，可以IDE自动生成的，hh）"></a>重写equals(Object obj)方法（了解即可，可以IDE自动生成的，hh）</h5><ul>
+<li>1.引用的是同一个对象吗</li>
+<li>2.obj为null吗？</li>
+<li>3.两个是同一个类吗</li>
+<li>4.obj强制转化成本类</li>
+<li>5.一次判断各个数据域是否相等</li>
+<li><strong>记得还要检查下hashcode是否要也要重写哦</strong></li>
+</ul>
+<h5 id="泛型数组-ArrayList"><a href="#泛型数组-ArrayList" class="headerlink" title="泛型数组 ArrayList"></a>泛型数组 ArrayList<type></type></h5><ul>
+<li>普通数组无法再运行时更改数组的大小，可以使用泛型数组库，ArrayList</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;MyClass&gt; arrayList = <span class="keyword">new</span> ArrayList();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Java老版本中的Vector也可以实现动态数组，但没ArrayList有效。</li>
+<li>add(),向数组中添加一个元素，如果容量不够，会自动扩展</li>
+<li>ArrayList不支持数组的[]访问方式</li>
+<li>get(index),获取数组中index位置的元素</li>
+<li>set(index,item),替换数组中的某个元素</li>
+<li>size()，类似数组的length</li>
+<li>arrayList.ensureCapacity(100),预分配100大小的数组</li>
+<li>trimToSize(),当保证不再向数组中添加元素了，调用将释放多余分配的空间</li>
+<li>arrayList.toArray(array),为了方便数组的访问，可以通过ArrayList构造，然后转换成普通数组并处理</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 一种很好的实践</span></span><br><span class="line">ArrayList&lt;X&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="comment">// add item to list</span></span><br><span class="line">X[] a = <span class="keyword">new</span> X[list.size()];</span><br><span class="line">list.toArray(a);</span><br></pre></td></tr></table></figure>
+
+<h5 id="对象包装器与自动装箱"><a href="#对象包装器与自动装箱" class="headerlink" title="对象包装器与自动装箱"></a>对象包装器与自动装箱</h5><ul>
+<li>基本类型都有对应的类，Integer, Double,Boolean,Character，Void等</li>
+<li>他们的超类为Number</li>
+<li><strong>一旦包装器创建了，就不允许更改包装在其中的值了</strong></li>
+<li>自动装箱和自动拆箱：能在基础类型和对应的类之间自动转换，这是由Java编译器实现的，添加了装箱拆箱语句</li>
+<li><strong>Java的==号检测的是两个变量指向的地址是否相同</strong>，所以不同于基础类型，装箱后要用equals方法来判断值是否相等（他们重写了equals方法）</li>
+<li>字符串Int转换：<code>int x = Integer.paseInt(&quot;1&quot;)</code>或者<code>Integer.valueOf(&quot;100&quot;)</code></li>
+</ul>
+<h5 id="参数可变的方法"><a href="#参数可变的方法" class="headerlink" title="参数可变的方法"></a>参数可变的方法</h5><ul>
+<li>Java方法的参数数目可以是可变的</li>
+<li>省略号<code>...</code>,可以出现在参数列表的最后，<strong>其实和数组的效果的类似的</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printf(String fmt, Object...args);</span><br></pre></td></tr></table></figure>
+
+<h3 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h3><blockquote>
+<p>Java反射机制能够在程序运行时，对于任意一个类，都能够知道这个类的所有属性和方法。对于任意一个对象，在有权限的情况下，能够调用方法和属性。即，动态获取信息以及动态调用对象方法的机制。</p>
+<ul>
+<li>反射，能够分析类能力，能够动态操纵Java代码</li>
+<li>主要用户工具构造，在实际的应用中使用不多(也不建议在应用应用开发中过多使用)</li>
+<li>Class类，Java运行时系统为每个类维护一个Class类</li>
+<li>getClass(),Name.class</li>
+</ul>
+</blockquote>
+<h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><ul>
+<li>接口，用来描述类具有什么功能，不需要具体实现方法</li>
+<li>但如果某个类尊从了某个接口，那么就必须要履行对应的服务（实现接口）</li>
+<li><strong>接口中所有方法都自动是public，不需要额外加public修饰符（但在实现接口的类中，方法前必须加public）</strong>，因为要能被任意类实现呀</li>
+<li>接口中<strong>不能含有实例域（接口没有实例）</strong>，但可以含有<strong>常量</strong>，对于方法，<strong>接口中不能提供实现</strong></li>
+<li>接口不是类，不能通过new被实例化。</li>
+<li>但是存在<strong>接口变量，且接口变量可以引用实现了它的类的对象</strong>。</li>
+<li>接口之间也是支持继承的</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Comparable</span> </span>&#123; <span class="comment">// java.lang.Comparable</span></span><br><span class="line">  <span class="function"><span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Object obj)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> Test implements Comparable &#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Object obj)</span> </span>&#123; <span class="comment">// 实现类时候，需要public</span></span><br><span class="line">    <span class="keyword">return</span> Double.compare(salary,obj.salary); <span class="comment">// 相减比较不适合浮点数</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>Java常用的内置接口</p>
+<ul>
+<li>Compalrable</li>
+<li>Cloneable</li>
+</ul>
+</li>
+<li><p>接口的意义在于统一服务的对外接口：Java是一种强类型语言，使用接口来解决类型的问题，编译器不需要再执行的时候进行类型检查（因为编译器认为只要这个类实现了这个接口，就一定能处理）</p>
+</li>
+<li><p>接口与继承（抽象类）</p>
+<ul>
+<li>Java不支持多继承，因为多继承会使语言更复杂</li>
+<li>Java通过接口来实现多继承，一个类可以实现多个接口</li>
+</ul>
+</li>
+<li><p>Java8之后，接口中可以存在静态方法并实现之了，目的是，这样就可以避免某些工具类必须要提供伴随类了。</p>
+</li>
+<li><p>默认方法：</p>
+<ul>
+<li>在我们实现接口的时候，很多时候只需要实现部分方法，默认方法为接口中的方法提供一个默认的实现。</li>
+<li>用default修饰符，然后就可以在接口中简单实现这些方法了。</li>
 </ul>
 </li>
 </ul>
+<h3 id="Lambda表达式"><a href="#Lambda表达式" class="headerlink" title="Lambda表达式"></a>Lambda表达式</h3><ul>
+<li>将一个代码块像参数一样传递到另一个对象中（定时器，响应等），这个代码块会在未来的某个时刻会被调用。</li>
+<li>对比通过传入对象来实现，Lambda表达式更优雅，使得Java支持函数式编程。</li>
+<li><code>(参数列表) -&gt; {代码块}</code>，Lambda没有返回类型</li>
+<li><strong>函数式接口</strong>：只含有一个抽象方法的接口，可以把Lambda赋值给一个函数式接口变量</li>
+</ul>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@FunctionalInterface <span class="comment">// 可选，用于编译检查是否只有一个抽象方法，类似Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="symbol">FunctionalInterface</span>&lt;<span class="symbol">T</span>&gt;&#123;</span><br><span class="line">	<span class="built_in">void</span> accept(T t);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<ul>
+<li>Lambda表达式可以转化为对应的接口形式</li>
+<li>Lambda表达式实际上是一个<strong>函数</strong>，传入之后会在某处会被执行，而不是一个对象。</li>
+<li>所以不能将一个Lambda表达式赋值给一个Object变量，因为Object不是一个函数式接口</li>
+<li>当我们想使用Lambda的时候，需要为其提供一个函数式接口</li>
+<li>方法引用:<code>rrays.sort(strings,String::compareToIgnoreCase)</code>,其实也很好理解，因为Lambda是函数</li>
+<li>Comparator函数式接口</li>
+</ul>
+<h5 id="Lambda表达式的变量作用域"><a href="#Lambda表达式的变量作用域" class="headerlink" title="Lambda表达式的变量作用域"></a>Lambda表达式的变量作用域</h5><ul>
+<li>Lambda中的变量<ul>
+<li>代码块中声明的，自己的</li>
+<li>参数传入的</li>
+<li><strong>自由变量</strong>，如何保证Lambda执行的时候，这些外部的变量还存在，没有被销毁？</li>
+</ul>
+</li>
+<li>捕获，闭包：Lambda会存储自由变量的值，称为捕获。Lambda的代码块以及自由变量组成一个<strong>闭包</strong></li>
+<li><strong>Lambda中只能引用值不会改变的变量/常量</strong></li>
+<li><strong>Lambda的体和块有相同的作用域</strong>，所以块中不能定义与Lambda同一块中的已有变量。</li>
+</ul>
+<h3 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h3><blockquote>
+<p><a href="https://www.cnblogs.com/dolphin0520/p/3811445.html" target="_blank" rel="noopener">博客</a></p>
+</blockquote>
+<h5 id="成员内部类"><a href="#成员内部类" class="headerlink" title="成员内部类"></a>成员内部类</h5><ul>
+<li>定义在另一个类中的类。</li>
+<li><strong>并不是每个外部类的对象实例都有一个内部类实例</strong>，内部类实例对象是由外部类的方法来触发创建的。</li>
+<li>特点：<ul>
+<li><strong>内部类可以访问外部类的实例域</strong>，因为内部类具有外部类的引用。<ul>
+<li>访问的外部实例域必须是final，这个和Lambda类似。</li>
+<li>内部类对象中有一个隐式引用，它指向创建它的外部类对象（在内部类的构造函数中记录）。</li>
+</ul>
+</li>
+<li>局部内部类对同一个包中的其他类不可见</li>
+<li>创建内部类的前提是必须先创建外部类</li>
+</ul>
+</li>
+</ul>
+<h5 id="局部内部类"><a href="#局部内部类" class="headerlink" title="局部内部类"></a>局部内部类</h5><ul>
+<li>定义在一个方法或者一个作用域里面的类，它和成员内部类的区别在于局部内部类的访问仅限于方法内或者该作用域内。</li>
+<li>和局部变量一样，不能有public、protected、private以及static修饰符的。</li>
+</ul>
+<h5 id="匿名内部类"><a href="#匿名内部类" class="headerlink" title="匿名内部类"></a>匿名内部类</h5><ul>
+<li>只创建这个类的对象，但并没有为该类提供名字。</li>
+<li>使用的最多，在编写事件监听的代码时使用匿名内部类不但方便，而且使代码更加容易维护。</li>
+<li>一般只用在事件监听，接口回调等</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ActionListener listener = <span class="keyword">new</span> AcitonListener() &#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent event)</span></span>&#123;</span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>类似的，在安卓SDK，Swing中用的很多，能够简化代码。但有了Lambda，还能够更简化。</li>
+</ul>
+<h5 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h5><ul>
+<li>多一个static关键字，不需要依附外部类而存在。</li>
+</ul>
+<h5 id="对比Lambda表达式和匿名内部类"><a href="#对比Lambda表达式和匿名内部类" class="headerlink" title="对比Lambda表达式和匿名内部类"></a>对比Lambda表达式和匿名内部类</h5><ul>
+<li>匿名内部类仍然是类，编译会生成.class文件，Lambda通过invokedynamic指令插入到主类对应的位置执行</li>
+<li>对于匿名类，关键词 this 解读为匿名类，而对于 Lambda 表达式，关键词 this 解读为写就 Lambda 的外部类。</li>
+<li>Java 编译器编译 Lambda 表达式并将他们转化为类里面的私有函数</li>
+</ul>
+<h3 id="Java异常"><a href="#Java异常" class="headerlink" title="Java异常"></a>Java异常</h3>
       
 
       
@@ -248,11 +499,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Nginx</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">反向代理</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">未知</a>
         		</li>
       		
 		</ul>
@@ -319,7 +566,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://zwboy.cn/技术/在一台服务器上通过Nginx配置多个二级域名映射多个不同端口的应用.html" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://zwboy.cn/技术/大脑Cache系列-Java快速梳理，方便随时load到大脑，减少低级bug（二）.html" alt="微信分享二维码">
     </div>
 </div>
 
@@ -333,15 +580,20 @@
   
 <nav id="article-nav">
   
-    <a href="/技术/搞定跨域资源共享CORS（笔记整理）-2019-09-23.html" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/技术/bug-Build-React-项目中出现的Failed-to-minify-the-code-from-this-file错误.html" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          搞定跨域资源共享CORS（笔记整理）
+          [bug] Build React 项目中出现的Failed to minify the code from this file错误
         
       </div>
     </a>
   
+  
+    <a href="/大脑Cache/大脑Cache系列--Java快速梳理（一）.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">大脑Cache系列--Java快速梳理，方便随时load到大脑，减少低级bug (一)</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
