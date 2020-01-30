@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="ZWboy的站点">
 <meta property="og:description" content="背景  Java程序常常会遇到一些蛋疼的bug，最后发现，都是在一些很基础的方面造成的。大量的时间花在调试代码找低级bug上是十分没有性价比的。所以，再系统梳理下Java，是十分必要的。 已经反复学习和使用Java多次了，但只要有段时间没用Java之后，每次使用前都想要重头再梳理一遍。本文章将更注重Java只是的系统性，而不是细节性。 本文是本人大脑的专属Cache，所以逻辑上可能只有我自己能够看">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-27T12:13:50.705Z">
+<meta property="og:updated_time" content="2020-01-30T14:03:22.038Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大脑Cache系列 -- Java快速梳理，方便随时load到大脑，减少低级bug（三）">
 <meta name="twitter:description" content="背景  Java程序常常会遇到一些蛋疼的bug，最后发现，都是在一些很基础的方面造成的。大量的时间花在调试代码找低级bug上是十分没有性价比的。所以，再系统梳理下Java，是十分必要的。 已经反复学习和使用Java多次了，但只要有段时间没用Java之后，每次使用前都想要重头再梳理一遍。本文章将更注重Java只是的系统性，而不是细节性。 本文是本人大脑的专属Cache，所以逻辑上可能只有我自己能够看">
@@ -186,7 +186,54 @@
 </ul>
 <a id="more"></a>
 
-<h3 id="Java泛型"><a href="#Java泛型" class="headerlink" title="Java泛型"></a>Java泛型</h3><h3 id="Java集合"><a href="#Java集合" class="headerlink" title="Java集合"></a>Java集合</h3>
+<h3 id="Java泛型"><a href="#Java泛型" class="headerlink" title="Java泛型"></a>Java泛型</h3><ul>
+<li>在不支持泛型之前，Java是通过继承实现对不同类型数据的支持，缺点是每次都需要进行格式转换</li>
+<li>泛型：<strong>类型参数</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 泛型类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span>, <span class="title">U</span>&gt; </span>&#123; <span class="comment">// 类型参数，支持多个</span></span><br><span class="line">  <span class="keyword">private</span> T first;</span><br><span class="line">  <span class="keyword">private</span> T second;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 泛型方法，</span></span><br><span class="line">  <span class="keyword">public</span> &lt;T&gt; <span class="function">T <span class="title">getFirst</span><span class="params">()</span> </span>&#123; <span class="comment">// 类型参数放在修饰符后边，返回类型前边 </span></span><br><span class="line">    <span class="keyword">return</span> first;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>泛型方法可以定义在泛型类中，也可以定义在普通类中</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">int</span> first;</span><br><span class="line">  <span class="keyword">public</span> &lt;T&gt; <span class="function">T <span class="title">getFirst</span><span class="params">()</span></span>&#123; <span class="comment">// 泛型方法可以定义在普通类中</span></span><br><span class="line">    <span class="keyword">return</span> first;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>类型变量的限定</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span> &lt;<span class="title">T</span> <span class="keyword">extends</span> <span class="title">BindType1</span> &amp; <span class="title">BindType2</span>&gt; // <span class="title">T</span>必须是绑定类型的子类，对类型变量做了限定</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="泛型的虚拟机实现——类型擦除"><a href="#泛型的虚拟机实现——类型擦除" class="headerlink" title="泛型的虚拟机实现——类型擦除"></a>泛型的虚拟机实现——类型擦除</h5><ul>
+<li><p><strong>虚拟机中并没有泛型类的对象，所有的对象都属于普通类</strong></p>
+</li>
+<li><p><strong>类型擦除</strong></p>
+<ul>
+<li><strong>原始类型</strong>：每一个泛型类型，都提供一个相应的原始类型。</li>
+<li>原始类型名为泛型类删除类型参数</li>
+<li>擦除类中的类型变量，替换为限定类型(第一个限定类型)，没有限定则为Object类型</li>
+<li>比如Pair<t>类的原始类型为<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> Object first;</span><br><span class="line">  <span class="function"><span class="keyword">private</span> Object <span class="title">getFirst</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> first;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</t></li>
+</ul>
+</li>
+<li><p>程序调用泛型方法的时候，在虚拟机层面实际执行两条指令，多出来的一条为插入的类型转换指令，目的是回复擦除的类型。</p>
+<ul>
+<li>多出来的虚拟机指令是编译器添加的，在字节码中添加</li>
+</ul>
+</li>
+</ul>
+<h5 id="泛型的注意点"><a href="#泛型的注意点" class="headerlink" title="泛型的注意点"></a>泛型的注意点</h5><ul>
+<li><strong>不能用基本类型作为类型参数</strong>，比如int,double，而要改用Integer，Double</li>
+<li><strong>不对泛型类型对象做类型检查</strong><ul>
+<li><strong>getClass返回的总是原始类型，而不是泛型类型</strong></li>
+<li>同样的<strong>a instanceof Pair<string></string></strong>，编译错误</li>
+</ul>
+</li>
+<li><strong>不能实例化创建参数化类型的数组</strong><ul>
+<li><code>Pair&lt;String&gt; [] table = new Pair&lt;String&gt;[10]; // error</code><h5 id="泛型类型的继承规则"><a href="#泛型类型的继承规则" class="headerlink" title="泛型类型的继承规则"></a>泛型类型的继承规则</h5></li>
+</ul>
+</li>
+<li><code>Pair&lt;Employee&gt;</code>和<code>Pair&lt;Manager&gt;</code>之间没有继承关系。</li>
+</ul>
+<h3 id="Java集合"><a href="#Java集合" class="headerlink" title="Java集合"></a>Java集合</h3>
       
 
       
