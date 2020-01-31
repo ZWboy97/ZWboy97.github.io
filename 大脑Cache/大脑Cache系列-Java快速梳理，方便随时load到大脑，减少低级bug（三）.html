@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="ZWboy的站点">
 <meta property="og:description" content="背景  Java程序常常会遇到一些蛋疼的bug，最后发现，都是在一些很基础的方面造成的。大量的时间花在调试代码找低级bug上是十分没有性价比的。所以，再系统梳理下Java，是十分必要的。 已经反复学习和使用Java多次了，但只要有段时间没用Java之后，每次使用前都想要重头再梳理一遍。本文章将更注重Java只是的系统性，而不是细节性。 本文是本人大脑的专属Cache，所以逻辑上可能只有我自己能够看">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-30T14:03:22.038Z">
+<meta property="og:updated_time" content="2020-01-31T14:08:59.712Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大脑Cache系列 -- Java快速梳理，方便随时load到大脑，减少低级bug（三）">
 <meta name="twitter:description" content="背景  Java程序常常会遇到一些蛋疼的bug，最后发现，都是在一些很基础的方面造成的。大量的时间花在调试代码找低级bug上是十分没有性价比的。所以，再系统梳理下Java，是十分必要的。 已经反复学习和使用Java多次了，但只要有段时间没用Java之后，每次使用前都想要重头再梳理一遍。本文章将更注重Java只是的系统性，而不是细节性。 本文是本人大脑的专属Cache，所以逻辑上可能只有我自己能够看">
@@ -233,7 +233,146 @@
 </li>
 <li><code>Pair&lt;Employee&gt;</code>和<code>Pair&lt;Manager&gt;</code>之间没有继承关系。</li>
 </ul>
-<h3 id="Java集合"><a href="#Java集合" class="headerlink" title="Java集合"></a>Java集合</h3>
+<h3 id="Java集合框架"><a href="#Java集合框架" class="headerlink" title="Java集合框架"></a>Java集合框架</h3><ul>
+<li>传统的支持：Vector,Stack,HashTable,BitSet,Enumeration接口等</li>
+</ul>
+<h5 id="Java集合框架将集合的接口与实现分离"><a href="#Java集合框架将集合的接口与实现分离" class="headerlink" title="Java集合框架将集合的接口与实现分离"></a>Java集合框架将集合的接口与实现分离</h5><ul>
+<li>队列接口Queue(interface)<ul>
+<li>队尾添加元素，队头删除元素，先进先出，且能够获得队列元素数目</li>
+<li>接口方法：add(E element),remove(),size()</li>
+<li>集合实现这个接口就可以实现一个队列</li>
+</ul>
+</li>
+<li>Collection集合接口<ul>
+<li>Java集合类的<strong>基本接口</strong>，主要有两个重要的方法</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Collection</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E element)</span></span>; <span class="comment">// 添加元素，不允许重复</span></span><br><span class="line">  <span class="function">Iterator&lt;E&gt; <span class="title">iterator</span><span class="params">()</span></span>; <span class="comment">// 返回实现了迭代器接口的对象，通过该迭代器对象可以依次访问集合中的元素</span></span><br><span class="line">  <span class="function"><span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span>; <span class="comment">// 返回元素数目</span></span><br><span class="line">  <span class="function"><span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span></span>; </span><br><span class="line">  <span class="function"><span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(Object obj)</span></span>; <span class="comment">// 集合中是否存在该元素</span></span><br><span class="line">  <span class="function"><span class="keyword">boolean</span> <span class="title">remove</span><span class="params">(Object obj)</span></span>; <span class="comment">// 如果存在obj，则删除</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>; <span class="comment">// 情况集合内容</span></span><br><span class="line">  Object[] toArray(); <span class="comment">// 将集合转化为数组</span></span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>迭代器Iterator<ul>
+<li>for each循环需要集合实现iterator接口</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Iterator</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">  <span class="comment">// 类比编辑软件的光标、插入以及删除效果</span></span><br><span class="line">  <span class="function">E <span class="title">next</span><span class="params">()</span></span>; <span class="comment">// 越过当前元素，迭代到下一个（光标后移），并返回越过元素的内容</span></span><br><span class="line">  <span class="function"><span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span></span>; <span class="comment">// 判断是否能够越过当前元素</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">remove</span><span class="params">()</span></span>; <span class="comment">// 删除光标之前的元素</span></span><br><span class="line">  <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">forEachRemaining</span><span class="params">(Consumer&lt;? <span class="keyword">super</span> E&gt; action)</span></span>; <span class="comment">// Java8</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 使用,比如foreach的实际实现</span></span><br><span class="line">Collection&lt;String&gt; str = ...</span><br><span class="line">Iterator&lt;String&gt; iter = str.iterator();</span><br><span class="line"><span class="keyword">while</span>(iter.hasNext())&#123;</span><br><span class="line">  String element = iter.next();</span><br><span class="line">  dosomething...</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Java8中直接通过forEachRemaining和lamabda表达式实现</span></span><br><span class="line">itertor.forEachRemaining(element -&gt; &#123;</span><br><span class="line">  <span class="keyword">do</span> something with element</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>元素的迭代顺序由具体的集合来决定</li>
+<li>与C++中的迭代器不同（基于索引下标，不需要查找操作，直接通过索引i++），Java中的迭代器是<strong>查找操作与位置变更是紧密相连的，查找一个元素的唯一方法是调用next(),在执行查找操作的同时，迭代器已经就指向下一个元素了，返回上一个元素</strong></li>
+<li><strong>next和remove方法的调用具有互相依赖性，在调用remove之前，如果没有调用next，将会抛出一个非法异常</strong></li>
+<li><strong>删除两个相邻的元素的元素不能直接连续remove，必须调用next越到下一个元素</strong></li>
+</ul>
+<ul>
+<li>Java集合框架中各种集合接口的关系</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- Iterable        可迭代接口</span><br><span class="line">  - Collection    集合类的基础类</span><br><span class="line">    - List        有序集合，能够有序访问和随机访问</span><br><span class="line">    - Set </span><br><span class="line">      - SortSet</span><br><span class="line">    - Queue</span><br><span class="line">      - Deque</span><br><span class="line">- Map             key value 映射</span><br><span class="line">  - SortedMap</span><br><span class="line">- Iterator</span><br><span class="line">  - ListIterator  针对于List的迭代器</span><br></pre></td></tr></table></figure>
+
+<h5 id="Java中的具体集合类"><a href="#Java中的具体集合类" class="headerlink" title="Java中的具体集合类"></a>Java中的具体集合类</h5><ul>
+<li>以Map结尾的都实现了Map接口，没有的都实现了Collection接口</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">- AbstractCollection</span><br><span class="line">  - AbstractList        有序集合</span><br><span class="line">    - ArrayList         支持动态增长和缩减的索引序列</span><br><span class="line">    - LinkedList        链表类，支持高效插入和删除</span><br><span class="line">  - AbstractSet         数学中的集合，没有重复元素</span><br><span class="line">    - HashSet           没有重复元素的无序集合</span><br><span class="line">      - LinkedHashSet   可以记住元素插入顺序的集合</span><br><span class="line">    - TreeSet           有序集合</span><br><span class="line">    - EnumSet           包含枚举类型值的集合</span><br><span class="line">  - AbstractQueue</span><br><span class="line">    - PriorityQueue     优先级队列，高效删除最小元素的集合</span><br><span class="line">    - ArrayDequeue      循环数组实现的双端队列</span><br><span class="line">- AbstractMap           映射表</span><br><span class="line">  - HashMap             普通常用的键值对</span><br><span class="line">    - LinkedHashMap     在能记录键值对的添加次序</span><br><span class="line">  - TreeMap             键值有序排列</span><br><span class="line">  - EnumMap             键值为枚举类型的映射表</span><br><span class="line">  - WeakHashMap         一种当其值无用武之地的时候，可以被垃圾回收器回收的引射表</span><br><span class="line">  - IdentityHashMap     一种用===而不是queals比较键值的映射表</span><br></pre></td></tr></table></figure>
+
+<h5 id="链表LinkedList"><a href="#链表LinkedList" class="headerlink" title="链表LinkedList"></a>链表LinkedList</h5><ul>
+<li>数组Array和数组列表类对象ArrayList有个缺陷，在数组中间位置添加和删除的代价很大</li>
+<li>Java的链表实际上是<strong>双向链表</strong>，有找到前向和后继的引用</li>
+<li>链表实现了Collection接口，但Collection接口的add()方法只支持向链表最后添加元素，不支持链表的任意位置添加元素</li>
+<li>在中间位置插入元素，通过ListIterator接口提供的方法实现。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 面向LinkedList链表的迭代器</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ListIterator</span> <span class="keyword">extends</span> <span class="title">Iterator</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(E element)</span></span>; <span class="comment">// 链表的插入方式，在当前迭代位置后加入一个元素</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="function">E <span class="title">previous</span><span class="params">()</span></span>; <span class="comment">// 反向遍历链表，访问上一个元素</span></span><br><span class="line">  <span class="function"><span class="keyword">boolean</span> <span class="title">hasPrevious</span><span class="params">()</span></span>; <span class="comment">// 与hasNext()类似</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 使用链表，并从中间加入元素</span></span><br><span class="line">List&lt;String&gt; staff = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">staff.add(<span class="string">"1"</span>);</span><br><span class="line">staff.add(<span class="string">"3"</span>);</span><br><span class="line">staff.add(<span class="string">"4"</span>);</span><br><span class="line">ListIterator&lt;String&gt; iter = staff.listIterator();</span><br><span class="line">iter.next(); <span class="comment">// 跳过第一个元素，没有next的话，就是作为链表头</span></span><br><span class="line">iter.add(<span class="string">"2"</span>); <span class="comment">// 最终的结果，1234</span></span><br><span class="line"><span class="comment">// n长度的链表，有n+1个插入位置</span></span><br><span class="line">|ABC</span><br><span class="line">A|BC</span><br><span class="line">AB|C</span><br><span class="line">ABC|</span><br><span class="line"><span class="comment">// 链表提供了一个set()方法来替换值，不用先删除再添加了</span></span><br><span class="line">ListIteartor&lt;String&gt; iter = <span class="keyword">new</span> ListIteartor&lt;&gt;();</span><br><span class="line">String oldValue = iter.next(); <span class="comment">// 得到第一个元素</span></span><br><span class="line">iter.set(newvalue); <span class="comment">// 将第一个元素赋予新值</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>可以创建多个链表迭代器，比如用于并发，但是同时只能有一个迭代器用来修改链表集合，其他迭代器只能读取，多个迭代器同时修改会抛出异常。</li>
+<li>链表作为一个List，也是支持有序访问和通过索引访问的的，但对于链表不推荐使用get(i)和set(i,value)</li>
+</ul>
+<h5 id="数组列表ArrayList"><a href="#数组列表ArrayList" class="headerlink" title="数组列表ArrayList"></a>数组列表ArrayList</h5><ul>
+<li>有序列表，动态扩展和收缩</li>
+<li>ArrayList不是同步的，是线程不安全的，适合在非并发的时候使用</li>
+<li>Vector是同步的，线程安全的，但是同步操作上会耗费大量的时间，只在并发的时候使用</li>
+</ul>
+<h5 id="散列集HashSet"><a href="#散列集HashSet" class="headerlink" title="散列集HashSet"></a>散列集HashSet</h5><ul>
+<li>不关注元素的顺序，只想要能够快速查找到元素，且无重复元素的集合Set</li>
+<li>通过散列表来实现，散列表为每个对象计算一个散列码HashCode，对象的hashCode()方法在这个时候使用</li>
+<li>装填因子，散列函数，桶，散列冲突等概念</li>
+<li>对散列集的遍历顺序是随机的</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Set&lt;String&gt; words = <span class="keyword">new</span> HashSet&lt;String&gt;();</span><br><span class="line">words.add(<span class="string">"hello"</span>);</span><br><span class="line">Iterator&lt;String&gt; iter = words.iterator();</span><br><span class="line">iter.hasNext();</span><br><span class="line">String word = iter.next();</span><br></pre></td></tr></table></figure>
+
+<h5 id="树集TreeSet"><a href="#树集TreeSet" class="headerlink" title="树集TreeSet"></a>树集TreeSet</h5><ul>
+<li>有序集合，内部是树结构，按照树的顺序进行遍历（红黑树）</li>
+<li>每次添加元素，都将元素添加到树中的正确位置。</li>
+</ul>
+<h5 id="队列Queue与双端队列ArrayDeque"><a href="#队列Queue与双端队列ArrayDeque" class="headerlink" title="队列Queue与双端队列ArrayDeque"></a>队列Queue与双端队列ArrayDeque</h5><ul>
+<li>Queue</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 队尾添加</span></span><br><span class="line">- <span class="function"><span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E element)</span> </span></span><br><span class="line"><span class="function">- <span class="keyword">boolean</span> <span class="title">offer</span><span class="params">(E element)</span> </span></span><br><span class="line"><span class="function"><span class="comment">// 对首删除并返回</span></span></span><br><span class="line"><span class="function">- E <span class="title">remove</span><span class="params">()</span></span></span><br><span class="line"><span class="function">- E <span class="title">poll</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="comment">// 只返回对首元素，不删除</span></span></span><br><span class="line"><span class="function">- E <span class="title">element</span><span class="params">()</span></span></span><br><span class="line"><span class="function">- E <span class="title">peek</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Deque</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addFirst</span><span class="params">(E element)</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addLast</span><span class="params">(E element)</span></span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">offerFirst</span><span class="params">(E element)</span></span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">offerLast</span><span class="params">(E element)</span></span></span><br><span class="line"><span class="function">E <span class="title">removeFirst</span><span class="params">()</span></span></span><br><span class="line"><span class="function">...</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="优先级队列PriorityQueue"><a href="#优先级队列PriorityQueue" class="headerlink" title="优先级队列PriorityQueue"></a>优先级队列PriorityQueue</h5><ul>
+<li>支持任意顺序的插入，而每次remove，返回的都是队列中的最小值</li>
+<li>内部通过堆来实现，是一个能够自我调整的二叉树，在对树进行add和remove操作中，能始终保证最小的元素移动到根</li>
+<li>优先级队列用于任务调度</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// E 必须是支持比较的元素类型</span></span><br><span class="line">PriorityQueue&lt;E&gt; queue = <span class="keyword">new</span> PriorityQueue&lt;&gt;();</span><br><span class="line">queue.add(element1); <span class="comment">// 按照随机顺序加入，自动调整排序</span></span><br><span class="line">queue.add(element2);</span><br><span class="line">queue.add(element3);</span><br><span class="line">E min = queue.remove(); <span class="comment">// 返回最小值</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="映射Map"><a href="#映射Map" class="headerlink" title="映射Map"></a>映射Map</h5><ul>
+<li>HashSet是以对象副本来查找元素，不好用</li>
+<li>映射通过键值对来查找元素</li>
+<li>有<code>HashMap</code>和<code>TreeMap</code>两种<ul>
+<li><code>HashMap</code>，通过对键进行散列，进而访问值</li>
+<li><code>TreeMap</code>，利用键的顺序，对元素进行排序</li>
+</ul>
+</li>
+<li>和集合一样，散列稍微快一些，如果不需要按照排列顺序访问键，推荐使用散列映射</li>
+<li>Map的键使用的是字符串</li>
+<li>添加键值对：<code>V put(K key,V value)</code><ul>
+<li>重复用同一个key添加，会覆盖之前添加的值,返回之前的值</li>
+<li>添加一个新的键，返回的值为null</li>
+</ul>
+</li>
+<li>查找键值对:<code>V get(Object key)</code><ul>
+<li>如果不存在该key，则返回null</li>
+<li><code>V getOrDefault(Object key, V defaultValue)</code></li>
+</ul>
+</li>
+<li>删除键值对：<code>remove(Object key)</code></li>
+<li>判断是否有键：<code>boolean containsKey(Object key)</code></li>
+<li>判断是否有值：<code>boolean containerValue(Object value)</code></li>
+<li>遍历键值对：<code>hashMap.forEach((k,v)={do...})</code></li>
+<li>三个视图View: keySet,valueSet,entrySet</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">HashMap&lt;String,E&gt; hashMap = <span class="keyword">new</span> HashMap&lt;String,E&gt;();</span><br><span class="line">hashMap.put(<span class="string">"first"</span>,element1);</span><br><span class="line">hashMap.put(<span class="string">"second"</span>,element2);</span><br><span class="line">hashMap.get(<span class="string">"first"</span>);</span><br><span class="line">Set&lt;String&gt; keySet = hashMap.keySet();<span class="comment">// &#123;first,second&#125;</span></span><br><span class="line">Set&lt;E&gt; valueSet = hashMap.valueSet();</span><br><span class="line">Set&lt;Map.Entry&lt;String,E&gt;&gt; entrySet = hashMap.entrySet();</span><br></pre></td></tr></table></figure>
+
+<h5 id="弱散列集合WeakHashMap"><a href="#弱散列集合WeakHashMap" class="headerlink" title="弱散列集合WeakHashMap"></a>弱散列集合WeakHashMap</h5><ul>
+<li>能够自动回收那些无用的键值对</li>
+<li>如果有一个值，对应的键已经不再使用了，那么该键值对将无法从Map中删除</li>
+<li>对于长期存活的Map，需要手动删除，或者直接使用WeakHashMap</li>
+<li>内部实现中，WeakHashMap使用的弱引用(wek references)来保存键。<ul>
+<li>弱引用对象将引用保存到另外一个对象中，在这里，就是散列键</li>
+<li>如果某个对象，只有WeakReference引用，那么垃圾回收器可以回收它。</li>
+</ul>
+</li>
+</ul>
+<h5 id="链接散列集与映射LinkedHashSet与LinkedHashMap"><a href="#链接散列集与映射LinkedHashSet与LinkedHashMap" class="headerlink" title="链接散列集与映射LinkedHashSet与LinkedHashMap"></a>链接散列集与映射LinkedHashSet与LinkedHashMap</h5><ul>
+<li>在实现HashSet与HashMap的基础上，还能够记录元素的添加顺序，即迭代遍历顺序</li>
+<li>实现方式是在Hash表的基础上，再通过链表的方式将添加的元素顺序链接起来。</li>
+</ul>
+<h5 id="枚举集与映射EnumSet"><a href="#枚举集与映射EnumSet" class="headerlink" title="枚举集与映射EnumSet"></a>枚举集与映射EnumSet</h5><ul>
+<li>如果key的类型为枚举，那么可以使用EnumSet</li>
+<li>使用位序列进行了优化</li>
+</ul>
+<h5 id="表示散列映射IdentityHashMap"><a href="#表示散列映射IdentityHashMap" class="headerlink" title="表示散列映射IdentityHashMap"></a>表示散列映射IdentityHashMap</h5><ul>
+<li>特殊用途：<strong>兑现遍历算法</strong></li>
+<li>hash计算不再通过对象的hashCode计算，而是通过System.identityHashCode计算，返回的是根据对象的内存地址计算的Hash值</li>
+<li>所以不能用equal()来判断相等了，而是用==号来判断</li>
+<li><strong>不同的键值对，即便内容一样，也被视为不一样的对象</strong></li>
+</ul>
+
       
 
       
