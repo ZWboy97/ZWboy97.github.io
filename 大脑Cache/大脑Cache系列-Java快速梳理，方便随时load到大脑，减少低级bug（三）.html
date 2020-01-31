@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="ZWboy的站点">
 <meta property="og:description" content="背景  Java程序常常会遇到一些蛋疼的bug，最后发现，都是在一些很基础的方面造成的。大量的时间花在调试代码找低级bug上是十分没有性价比的。所以，再系统梳理下Java，是十分必要的。 已经反复学习和使用Java多次了，但只要有段时间没用Java之后，每次使用前都想要重头再梳理一遍。本文章将更注重Java只是的系统性，而不是细节性。 本文是本人大脑的专属Cache，所以逻辑上可能只有我自己能够看">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-31T14:08:59.712Z">
+<meta property="og:updated_time" content="2020-01-31T14:12:10.120Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大脑Cache系列 -- Java快速梳理，方便随时load到大脑，减少低级bug（三）">
 <meta name="twitter:description" content="背景  Java程序常常会遇到一些蛋疼的bug，最后发现，都是在一些很基础的方面造成的。大量的时间花在调试代码找低级bug上是十分没有性价比的。所以，再系统梳理下Java，是十分必要的。 已经反复学习和使用Java多次了，但只要有段时间没用Java之后，每次使用前都想要重头再梳理一遍。本文章将更注重Java只是的系统性，而不是细节性。 本文是本人大脑的专属Cache，所以逻辑上可能只有我自己能够看">
@@ -367,7 +367,7 @@
 <li>使用位序列进行了优化</li>
 </ul>
 <h5 id="表示散列映射IdentityHashMap"><a href="#表示散列映射IdentityHashMap" class="headerlink" title="表示散列映射IdentityHashMap"></a>表示散列映射IdentityHashMap</h5><ul>
-<li>特殊用途：<strong>兑现遍历算法</strong></li>
+<li>特殊用途：<strong>对象遍历算法</strong></li>
 <li>hash计算不再通过对象的hashCode计算，而是通过System.identityHashCode计算，返回的是根据对象的内存地址计算的Hash值</li>
 <li>所以不能用equal()来判断相等了，而是用==号来判断</li>
 <li><strong>不同的键值对，即便内容一样，也被视为不一样的对象</strong></li>
