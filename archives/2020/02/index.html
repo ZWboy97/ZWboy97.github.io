@@ -6,20 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://zwboy.cn">
-  <title>FFmpeg 技术基础 | ZWboy的站点</title>
+  <title>Archives: 2020/2 | ZWboy的站点</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="番外格式工厂居然被FFmpeg拉黑名单了，因为没有遵守开源协议，转身就把它卸载了。 一、FFmpeg基础1. FFmpeg处理音视频的流程 解复用(demuxer)：带封装格式的输入文件-&amp;gt;编码数据包（音频，视频，字幕等） 解码(decoder)：编码数据包-&amp;gt;解码后的数据帧 处理（processer）：对数据帧进行处理，比如转码、转分辨率、转帧率、加滤镜等 编码（encoder）：解">
-<meta name="keywords" content="音视频,FFmpeg">
-<meta property="og:type" content="article">
-<meta property="og:title" content="FFmpeg 技术基础">
-<meta property="og:url" content="http://zwboy.cn/技术/FFmpeg-技术基础-2019-10-27.html">
+  <meta name="description" content="杰克机会jackchance">
+<meta name="keywords" content="Code，Ideas, Thinking, and Solutions">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ZWboy的站点">
+<meta property="og:url" content="http://zwboy.cn/archives/2020/02/index.html">
 <meta property="og:site_name" content="ZWboy的站点">
-<meta property="og:description" content="番外格式工厂居然被FFmpeg拉黑名单了，因为没有遵守开源协议，转身就把它卸载了。 一、FFmpeg基础1. FFmpeg处理音视频的流程 解复用(demuxer)：带封装格式的输入文件-&amp;gt;编码数据包（音频，视频，字幕等） 解码(decoder)：编码数据包-&amp;gt;解码后的数据帧 处理（processer）：对数据帧进行处理，比如转码、转分辨率、转帧率、加滤镜等 编码（encoder）：解">
+<meta property="og:description" content="杰克机会jackchance">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-06T07:29:16.827Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="FFmpeg 技术基础">
-<meta name="twitter:description" content="番外格式工厂居然被FFmpeg拉黑名单了，因为没有遵守开源协议，转身就把它卸载了。 一、FFmpeg基础1. FFmpeg处理音视频的流程 解复用(demuxer)：带封装格式的输入文件-&amp;gt;编码数据包（音频，视频，字幕等） 解码(decoder)：编码数据包-&amp;gt;解码后的数据帧 处理（processer）：对数据帧进行处理，比如转码、转分辨率、转帧率、加滤镜等 编码（encoder）：解">
+<meta name="twitter:title" content="ZWboy的站点">
+<meta name="twitter:description" content="杰克机会jackchance">
   
     <link rel="alternative" href="/atom.xml" title="ZWboy的站点" type="application/atom+xml">
   
@@ -151,163 +150,52 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-FFmpeg-技术基础-2019-10-27" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      FFmpeg 技术基础
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2020" class="archive-year">2020</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/技术/【笔记】Three-js学习.html" class="archive-article-date">
+  	<time datetime="2020-02-13T07:23:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-13</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/技术/【笔记】Three-js学习.html">【学习笔记】Three.js以及三维技术学习</a>
     </h1>
   
 
-        
-        <a href="/技术/FFmpeg-技术基础-2019-10-27.html" class="archive-article-date">
-  	<time datetime="2019-10-27T15:26:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="番外"><a href="#番外" class="headerlink" title="番外"></a>番外</h3><p>格式工厂居然被FFmpeg拉黑名单了，因为没有遵守开源协议，转身就把它卸载了。</p>
-<h3 id="一、FFmpeg基础"><a href="#一、FFmpeg基础" class="headerlink" title="一、FFmpeg基础"></a>一、FFmpeg基础</h3><h5 id="1-FFmpeg处理音视频的流程"><a href="#1-FFmpeg处理音视频的流程" class="headerlink" title="1. FFmpeg处理音视频的流程"></a>1. FFmpeg处理音视频的流程</h5><ul>
-<li>解复用(demuxer)：带封装格式的输入文件-&gt;编码数据包（音频，视频，字幕等）</li>
-<li>解码(decoder)：编码数据包-&gt;解码后的数据帧</li>
-<li>处理（processer）：对数据帧进行处理，比如转码、转分辨率、转帧率、加滤镜等</li>
-<li>编码（encoder）：解码数据帧-&gt;编码数据包</li>
-<li>复用（muxer）：编码数据包-&gt;输出带封装格式的文件</li>
-<li>注意：<ul>
-<li>对于转封装这样的操作，不需要进行处理操作，所以不需要进行解码和编码操作，demuxer之后直接muxer就可以。</li>
-</ul>
-</li>
-</ul>
-<a id="more"></a>
-
-<h3 id="常用FFmpeg命令"><a href="#常用FFmpeg命令" class="headerlink" title="常用FFmpeg命令"></a>常用FFmpeg命令</h3><h5 id="1-基本信息查询类"><a href="#1-基本信息查询类" class="headerlink" title="1. 基本信息查询类"></a>1. 基本信息查询类</h5><figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">-version</span></span><br><span class="line"><span class="deletion">-devices:显示可用设备</span></span><br><span class="line"><span class="deletion">-formats：支持的文件</span></span><br><span class="line"><span class="deletion">-muxer -demuxer：支持的封装和解封装</span></span><br><span class="line"><span class="deletion">-codecs -decoders：编解码器</span></span><br><span class="line"><span class="deletion">-filters：支持的所有过滤器</span></span><br></pre></td></tr></table></figure>
-
-<h5 id="2-FFmpeg录制命令"><a href="#2-FFmpeg录制命令" class="headerlink" title="2. FFmpeg录制命令"></a>2. FFmpeg录制命令</h5><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// MAC 平台录制视频</span></span><br><span class="line">ffmpeg -f avfoundation -<span class="selector-tag">i</span> <span class="number">1</span> -r <span class="number">30</span> out.yuv</span><br><span class="line"><span class="comment">// 参数用法</span></span><br><span class="line">-f <span class="comment">// 格式，采用mac提供的avfoundation库来采集视频</span></span><br><span class="line">-<span class="selector-tag">i</span> <span class="comment">// 指定从哪里采集数据，1为屏幕设备的索引值，屏幕为1，摄像头为0</span></span><br><span class="line">-r <span class="comment">// 指定帧率，这里为30帧</span></span><br><span class="line"><span class="comment">// 播放录制的视频</span></span><br><span class="line">ffplay -video_size <span class="number">2560</span>x1600 -pix_fmt yuv420p out.yuv</span><br><span class="line"><span class="comment">// 录制声音</span></span><br><span class="line">ffmpeg -f avfoundation -<span class="selector-tag">i</span> :<span class="number">1</span> out.wav</span><br><span class="line"><span class="comment">// 播放录制的声音</span></span><br><span class="line">ffplay out.wav</span><br></pre></td></tr></table></figure>
-
-<h5 id="3-FFmpeg-分解与复用处理（媒体格式转换）"><a href="#3-FFmpeg-分解与复用处理（媒体格式转换）" class="headerlink" title="3. FFmpeg 分解与复用处理（媒体格式转换）"></a>3. FFmpeg 分解与复用处理（媒体格式转换）</h5><ul>
-<li>一般的封装格式转换转换，比如.mp4转.flv</li>
-</ul>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// mp4转flv,这个的处理速度会非常的快</span></span><br><span class="line">ffmpeg -<span class="selector-tag">i</span> <span class="selector-tag">input</span><span class="selector-class">.mp4</span> -vcodec copy -acodec copy out.flv</span><br><span class="line"><span class="comment">//参数介绍</span></span><br><span class="line">-vcodec copy <span class="comment">// 视频编解码直接拷贝，不做更改</span></span><br><span class="line">-acodec copy <span class="comment">// 音频编解码也不做更改</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>从视频中仅抽取视频或者音频</li>
-</ul>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 抽取已有视频流和音频流</span></span><br><span class="line">ffmpeg -<span class="selector-tag">i</span> <span class="selector-tag">input</span><span class="selector-class">.mp4</span> -an -vcodec copy out.h254</span><br><span class="line">ffmpeg -<span class="selector-tag">i</span> <span class="selector-tag">input</span><span class="selector-class">.mp4</span> -vn -acodec copy out<span class="selector-class">.aac</span> <span class="comment">// 格式需要和视频中音频流的格式相同</span></span><br><span class="line"><span class="comment">// 参数介绍</span></span><br><span class="line">-an: <span class="selector-tag">audio</span> no,不要音频</span><br><span class="line">-vn: <span class="selector-tag">video</span> no,不要视频</span><br></pre></td></tr></table></figure>
-
-<h5 id="4-FFmpeg处理原始数据命令"><a href="#4-FFmpeg处理原始数据命令" class="headerlink" title="4. FFmpeg处理原始数据命令"></a>4. FFmpeg处理原始数据命令</h5><ul>
-<li>原始数据<ul>
-<li>视频原始数据：YUV数据</li>
-<li>音频原视数据：PCM数据</li>
-</ul>
-</li>
-<li>原始数据的提取是之后对音视频进行进一步处理的基础</li>
-<li>提取YUV数据<ul>
-<li>这个过程会有些长，因为涉及到编解码了</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 提取YUV数据</span></span><br><span class="line">ffmpeg -<span class="selector-tag">i</span> <span class="selector-tag">input</span><span class="selector-class">.mp4</span> -an -c:v rawvideo -pix_fmt yuv420p out.yuv</span><br><span class="line"><span class="comment">// 参数意义</span></span><br><span class="line">-c:v rawvideo     <span class="comment">// 指定视频的编码器，选择rawvideo编解码器，得到YUV</span></span><br><span class="line">-pix_fmt yuv420p  <span class="comment">// 指定像素格式，这里一般指定为yuv420p （YUV4：2：0格式）</span></span><br><span class="line"><span class="comment">// 播放YUV数据</span></span><br><span class="line">ffplay -video_size <span class="number">2560</span>x1600 -pix_fmt yuv420p out.yuv</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>提取PCM音频原视数据</li>
-</ul>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 提取PCM</span></span><br><span class="line">ffmpeg -i input.mp4 -vn -ar <span class="number">44100</span> -ac <span class="number">2</span> -f s16le <span class="keyword">out</span>.pcm</span><br><span class="line"><span class="comment">// 参数意义</span></span><br><span class="line">-ar <span class="number">44100</span>   <span class="comment">// 设置音频采样率，常用的采样率，44.1kHZ，48kHZ，32kHZ，16kHZ</span></span><br><span class="line">-ac <span class="number">2</span>       <span class="comment">// 设置声道</span></span><br><span class="line">-f s16le    <span class="comment">// 指定pcm数据的存储格式</span></span><br><span class="line"><span class="comment">// 播放PCM</span></span><br><span class="line">ffplay -ar <span class="number">44100</span> -ac <span class="number">2</span> -f s16le <span class="keyword">out</span>.pcm</span><br></pre></td></tr></table></figure>
-
-<h5 id="5-FFmpeg滤镜命令"><a href="#5-FFmpeg滤镜命令" class="headerlink" title="5. FFmpeg滤镜命令"></a>5. FFmpeg滤镜命令</h5><ul>
-<li>基于avfilter组件，多用于多媒体的处理与编辑</li>
-<li>可以实现加水印，去水印，画中画，裁剪，倍速播放</li>
-<li>滤镜的工作原理<ul>
-<li>对解码后的数据帧再进行过滤（处理）</li>
-<li>对过滤后的帧再进行编码</li>
-</ul>
-</li>
-<li>视频裁剪命令</li>
-</ul>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -<span class="selector-tag">i</span> <span class="selector-tag">input</span><span class="selector-class">.mp4</span> -vf crop=in_w-<span class="number">200</span>:in_h-<span class="number">200</span> -c:v libx264 -c:<span class="selector-tag">a</span> copy out</span><br><span class="line"><span class="comment">// 参数使用</span></span><br><span class="line">-vf crop=in_w-<span class="number">200</span>:in_h-<span class="number">200</span>  <span class="comment">// 指定滤镜名字为裁剪，之后为该滤镜的参数，宽高为200</span></span><br><span class="line">-c:v libx264                <span class="comment">// 指定视频处理的编码器</span></span><br><span class="line">-c:<span class="selector-tag">a</span> copy                   <span class="comment">// 音频不做处理</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>视频加水印命令</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// movie滤镜，添加水印</span><br><span class="line">ffmpeg -i input.flv -preset veryslow -c:v libx264 -c:a copy -vf "movie=pic.png[<span class="string">wm</span>];[<span class="string">in</span>][<span class="symbol">wm</span>] overlay=100:100[out]" overlay.flv</span><br><span class="line">// 参数使用</span><br><span class="line">-preset veryslow  // 慢模式，最终视频质量损失较低</span><br></pre></td></tr></table></figure>
-
-<h5 id="6-FFmpeg裁剪与合并命令"><a href="#6-FFmpeg裁剪与合并命令" class="headerlink" title="6. FFmpeg裁剪与合并命令"></a>6. FFmpeg裁剪与合并命令</h5><ul>
-<li>视频裁剪命令</li>
-</ul>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基于开始时间和时长进行裁剪</span></span><br><span class="line">ffmpeg -i input.flv -ss <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> -t <span class="number">10</span> <span class="keyword">out</span>.ts</span><br><span class="line"><span class="comment">// 参数使用</span></span><br><span class="line">-ss <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span>  <span class="comment">// 指定开始裁剪的时间，时：分：秒</span></span><br><span class="line">-t  <span class="number">10</span>        <span class="comment">// 裁剪的时长，以秒为单位</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>视频拼接命令</li>
-</ul>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 视频拼接命令</span></span><br><span class="line">ffmpeg -f concat -<span class="selector-tag">i</span> <span class="selector-tag">input</span><span class="selector-class">.txt</span> out.flv</span><br><span class="line"><span class="comment">// 参数</span></span><br><span class="line">-f concat       <span class="comment">// 指定为拼接</span></span><br><span class="line">-<span class="selector-tag">i</span> inputs<span class="selector-class">.txt</span>   <span class="comment">//指定视频列表的文件</span></span><br><span class="line"><span class="comment">// input.txt文件内容</span></span><br><span class="line">file <span class="string">'1.ts'</span></span><br><span class="line">file <span class="string">'2.ts'</span></span><br></pre></td></tr></table></figure>
-
-<h5 id="7-图片-视频互转"><a href="#7-图片-视频互转" class="headerlink" title="7. 图片/视频互转"></a>7. 图片/视频互转</h5><ul>
-<li>视频转图片</li>
-</ul>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 视频转多张图片序列</span></span><br><span class="line">ffmpeg -i input.flv -r <span class="number">1</span> -f image2 image-%<span class="number">3</span>d.jpeg</span><br><span class="line"><span class="comment">// 参数使用</span></span><br><span class="line">-r <span class="number">1</span>    <span class="comment">// 指定转换图片的频率，每秒转出一张</span></span><br><span class="line">-f image2 <span class="comment">//  指定图片的输出格式</span></span><br><span class="line">image-%<span class="number">3</span>d.jepg  <span class="comment">// 文件名以image-加三个动态数字</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>多张图片序列转视频</li>
-</ul>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 图片转视频</span></span><br><span class="line">ffmpeg -i image-%<span class="number">3</span>d.jpeg -r <span class="number">1</span> <span class="keyword">out</span>.mp4</span><br></pre></td></tr></table></figure>
-
-<h5 id="8-直播相关的命令"><a href="#8-直播相关的命令" class="headerlink" title="8. 直播相关的命令"></a>8. 直播相关的命令</h5><ul>
-<li>直播推流</li>
-</ul>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -re -<span class="selector-tag">i</span> <span class="selector-tag">input</span><span class="selector-class">.mp4</span> -c copy -f flv rtmp:<span class="comment">//ip:1935/live/stream_name</span></span><br><span class="line"><span class="comment">//参数</span></span><br><span class="line">-re   <span class="comment">// 减慢推流帧率速度, 如果不加的话，ffmpeg会把所有数据一股脑的把所有的数据推出去。本来一个2分钟的视频 他可能几秒钟就推完了</span></span><br><span class="line">-f flv 需要指定输出的格式为rtmp</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -<span class="selector-tag">i</span> rtmp:<span class="comment">//ip:1935/live/stream_name -c copy video.flv</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>内容</p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">音视频</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">前端</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">FFmpeg</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Three.js</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -320,113 +208,17 @@
 	</div>
 
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://zwboy.cn/技术/FFmpeg-技术基础-2019-10-27.html" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/技术/vim-编辑器-2019-10-30.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          vim 编辑器
-        
-      </div>
-    </a>
   
   
-    <a href="/技术/React前端项目的Docker化-2019-10-26.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">React前端项目的Docker化</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -449,8 +241,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
