@@ -1,0 +1,1402 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="大脑Cache系列--Java快速梳理，方便随时load到大脑，减少低级bug (一), Code，Ideas, Thinking, and Solutions">
+    <meta name="description" content="杰克机会jackchance">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>大脑Cache系列--Java快速梳理，方便随时load到大脑，减少低级bug (一) | ZWboy</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+</head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZWboy</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZWboy</div>
+        <div class="logo-desc">
+            
+            杰克机会jackchance
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">大脑Cache系列--Java快速梳理，方便随时load到大脑，减少低级bug (一)</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Java/">
+                                <span class="chip bg-color">Java</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/技术/" class="post-category">
+                                技术
+                            </a>
+                        
+                            <a href="/categories/大脑Cache/" class="post-category">
+                                大脑Cache
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-01-02
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3.9k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    14 分
+                </div>
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><blockquote>
+<ul>
+<li>Java程序常常会遇到一些蛋疼的bug，最后发现，都是在一些很基础的方面造成的。大量的时间花在调试代码找低级bug上是十分没有性价比的。所以，再系统梳理下Java，是十分必要的。</li>
+<li>已经反复学习和使用Java多次了，但只要有段时间没用Java之后，每次使用前都想要重头再梳理一遍。本文章将更注重Java知识的系统性，而不是细节性。</li>
+<li>本文是本人大脑的专属Cache，所以逻辑上可能只有我自己能够看懂，见谅。</li>
+</ul>
+</blockquote>
+<h3 id="一、目录"><a href="#一、目录" class="headerlink" title="一、目录"></a>一、目录</h3><ul>
+<li>数据类型，字符串，数组</li>
+<li>基础语句语法</li>
+<li>类与对象</li>
+</ul>
+<a id="more"></a>
+
+<h3 id="二、基础语法"><a href="#二、基础语法" class="headerlink" title="二、基础语法"></a>二、基础语法</h3><blockquote>
+<ul>
+<li>其实还是有很多基础知识，是自己平时写代码的时候没有注意到的，而这很容易导致一些低级bug，耗费大量的调试时间。</li>
+</ul>
+</blockquote>
+<h5 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h5><ul>
+<li>编译命令: javac Main.java，.java代码成为.class字节码。<ul>
+<li>JIT编译器：编译与解释共存，JIT能够将热点代码直接编译成机器码，直接再JVM上执行。</li>
+</ul>
+</li>
+<li>运行:java Main， JVM加载字节码，解释成机器码执行。</li>
+<li>版本：java -version</li>
+</ul>
+<h5 id="8种基本类型"><a href="#8种基本类型" class="headerlink" title="8种基本类型"></a>8种基本类型</h5><ul>
+<li>整数：byte(8)，short(16)，int(32)，long(64)</li>
+<li>浮点：float(32)，double(64)</li>
+<li>Unicode编码的char（16位，两个字节），相当于一个整型值（ASCII）</li>
+<li>boolean（1）</li>
+<li>因为JVM的存在，各数据类型的取值范围与具体的机器是无关的。</li>
+<li>基础数据类型存储在栈中，不存储在堆上。</li>
+</ul>
+<h5 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h5><ul>
+<li>java的整形均是有<strong>符号的</strong>，计算整型的数据范围</li>
+<li>注意：在java中，为了保障移植性，<strong>整型的范围与实际的机器无关（C和C++中整型范围和目标平台是相关的）</strong>，JVM解决了不同机器整型之间的差别。</li>
+<li>byte：1字节，一般很少用，用在底层文件处理，或者占用存储空间的大数组</li>
+<li>short：2字节，和byte用处类似</li>
+<li>int：4字节，最常用</li>
+<li>long：8字节，比如需要表示星球上的居住人数，可以使用long，后缀可以加一个L或者l标识</li>
+<li>更易读的整数方式：1_000_000, java编译器会自动去除这些下划线。</li>
+</ul>
+<h5 id="浮点类型"><a href="#浮点类型" class="headerlink" title="浮点类型"></a>浮点类型</h5><ul>
+<li>float 4字节，有效位6-7位 </li>
+<li>double 8字节，有效位15位</li>
+<li><strong>默认为double，一般也很少用float（float的精度一般很难满足需求），除非在需要处理或者存储大量数据</strong></li>
+<li>double后缀D或d，float后缀F或者f</li>
+<li>特殊浮点数值（一般用不到）<ul>
+<li>正无穷大：Double.POSITIVE_INFINITY</li>
+<li>负无穷大: Double.NEGATIVE_INFINITY</li>
+<li>非数字: Double.NaN, 判断用Double.isNaN(n),不能用 == 号</li>
+</ul>
+</li>
+</ul>
+<h5 id="字符类型char"><a href="#字符类型char" class="headerlink" title="字符类型char"></a>字符类型char</h5><ul>
+<li>Java的char采用Unicode编码</li>
+<li>占用两个字节</li>
+<li>‘A’,”A”的区别：前者是字符类型常量，占两个字节，后者是字符串常量，存储在堆上。</li>
+</ul>
+<h5 id="boolean"><a href="#boolean" class="headerlink" title="boolean"></a>boolean</h5><ul>
+<li><strong>和C++不一样，整型和boolean之间不能相互转换</strong></li>
+</ul>
+<h5 id="大数值-BigInteger-BigDecimal"><a href="#大数值-BigInteger-BigDecimal" class="headerlink" title="大数值 BigInteger BigDecimal"></a>大数值 BigInteger BigDecimal</h5><ul>
+<li>不是一个java基础类型，而是一个java对象，可以表示任意精度的整型和浮点数。</li>
+<li><strong>无法通过运算符计算，需要通过对应的方法进行运算。</strong></li>
+<li>一般可以用在金额的计算。</li>
+</ul>
+<h5 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h5><ul>
+<li>声明-&gt;初始化-&gt;使用</li>
+<li>Java变量在使用之前必须要进行初始化，否则会编译报错。</li>
+</ul>
+<h5 id="常量与类常量（静态常量）"><a href="#常量与类常量（静态常量）" class="headerlink" title="常量与类常量（静态常量）"></a>常量与类常量（静态常量）</h5><ul>
+<li>final表示常量，只能被赋值一次，且声明的时候必须初始化</li>
+<li>常量名推荐使用全大写,<code>final int NUMBER = 10;</code></li>
+<li>static final，类常量，可以在类中多个方法中使用</li>
+<li>注意：与C++不同，常量不是通过const声明的，Java中const是保留字，但没有实际作用。</li>
+</ul>
+<h5 id="常用的Math静态方法"><a href="#常用的Math静态方法" class="headerlink" title="常用的Math静态方法"></a>常用的Math静态方法</h5><ul>
+<li>平方根：<code>double result = Math.sqrt(double x);</code></li>
+<li>幂运算：<code>double result = Math.pow(x,a);</code></li>
+<li>四舍五入：<code>long n = Math.round(double x);</code></li>
+<li>随机数: <code>Math.random()</code>,返回0-1之间的随机浮点数，比如要取0 - n-1之间的随机数，<code>int result = (int)(Math.random() * n)</code>.</li>
+</ul>
+<h5 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h5><ul>
+<li>强制类型转换会导致结果被截断成一个完全不同的值，比如(byte)300 的值为 44</li>
+<li>不要将boolean与任何类型之间做类型转换。</li>
+</ul>
+<h5 id="枚举类型"><a href="#枚举类型" class="headerlink" title="枚举类型"></a>枚举类型</h5><ul>
+<li>自定义枚举类型</li>
+</ul>
+<pre><code>  enum Size {
+    SMALL, LARGE, EXTRA_LARGE
+  };</code></pre><ul>
+<li>使用</li>
+</ul>
+<pre><code>  Size size = Size.SMALL;</code></pre><h5 id="字符串String类型"><a href="#字符串String类型" class="headerlink" title="字符串String类型"></a>字符串String类型</h5><ul>
+<li>不是Java的基础类型，而是一个预定义类。</li>
+<li><strong>和C++不同，Java中的String不是字符数组，而是一个对象，可以理解为char*指针</strong></li>
+<li>Java 的字符串是<strong>不可变的</strong>，对字符串的修改，实际上是创建了一个新的String对象，目的是为了复用和共享存在堆上的字符串**<ul>
+<li>源码中字符串内容有final修饰。</li>
+</ul>
+</li>
+<li>对字符串修改的需求没有对字符串进行比较的需求大。<ul>
+<li>比较：equals</li>
+<li>修改：StringBuffer，StringBuilder</li>
+</ul>
+</li>
+<li>字符串比较：要使用equal(str)方法，而不能使用 == 来判断<ul>
+<li>因Java没有像C++那样，重载了==运算符。</li>
+<li>==实际判断的是两个字符串变量是否引用的是同一个存储位置，而不是内容。</li>
+<li>所以 == 判断的结果是未知的，常常会导致隐藏bug。</li>
+</ul>
+</li>
+<li>字符串判空,<strong>区分空串和Null串</strong><ul>
+<li>if(str != null &amp;&amp; str.length()!=0)</li>
+</ul>
+</li>
+<li>当创建 String 类型的对象时，虚拟机会在常量池中查找有没有已经存在的值和要创建的值相同的对象，如果有就把它赋给当前引用。如果没有就在常量池中重新创建一个 String 对象。</li>
+<li>码点与代码单元<ul>
+<li><strong>最好避免直接操作char，这太底层了</strong></li>
+<li>str.length()返回的是代码单元个数</li>
+<li>str.codePointCount(0,str.length()),统计的是码点数量</li>
+<li>str.charAt(n),获取n位置的代码单元</li>
+<li>关于代码单元与码点：</li>
+</ul>
+</li>
+</ul>
+<h5 id="常用的String-API"><a href="#常用的String-API" class="headerlink" title="常用的String API"></a>常用的String API</h5><pre><code class="java">char charAt(int index)
+boolean equals(Object obj)
+boolean equalsIgnoreCase(String str)
+boolean startsWith(String prefix)，判断是否是以prefix为前缀
+boolean endsWith(String suffix)，判断是否以suffix为后缀
+boolean indexof(String str), 找到字串str第一次出现的位置，没有则返回-1
+int length(),字符串长度
+int codePointCount(int startIndex, int endIndex),统计代码点数目
+String substring(int begin , int end);
+String toLowerCase(), toUpperCase()
+Stirng trim(), 删除字符串开始和结尾的空格
+String join(&#39;divider&#39;,CharSequence...emements)</code></pre>
+<h5 id="StringBuilder，StringBuffer字符串构造"><a href="#StringBuilder，StringBuffer字符串构造" class="headerlink" title="StringBuilder，StringBuffer字符串构造"></a>StringBuilder，StringBuffer字符串构造</h5><ul>
+<li>在有构造字符串或者修改字符串的情况下，不适合使用String，因为是不可变的。</li>
+<li>推荐使用StringBuilder（单线程）或者StringBuffer（多线程）。</li>
+<li>使用方式</li>
+</ul>
+<pre><code>String builder = new StringBuilder(); // 创建一个构造器
+builder.append(&quot;hello&quot;);
+builder.append(&quot;world&quot;); // 追加字符或者字符串
+String str = builder.toString(); // 构造String对象
+// 其他api
+builder.setCharAt(index,char)
+builder.delete(start,end)
+builder.insert(offset,string)</code></pre><ul>
+<li>StringBuilder的前身是StringBuffer，但是StringBuffer的效率要低一些，因为它是线程安全的，允许多线程操作</li>
+<li>而StringBuilder是非线程安全的，一般在单线程的应用。而在并发中使用StringBuffer</li>
+<li>他们的API是一样的</li>
+</ul>
+<h5 id="读取输入"><a href="#读取输入" class="headerlink" title="读取输入"></a>读取输入</h5><ul>
+<li>从控制台读取基础数据类型</li>
+</ul>
+<pre><code>  Scanner scan = new Scanner(System.in); //创建scanner，并与标准输入关联,System.in的类型为InputStream
+  scan.nextLine();
+  scan.next();
+  scan.nextInt();
+  scan.nextDouble();
+  scan.hasNext();
+  scan.hasNextInt();</code></pre><ul>
+<li>从控制台读取密码</li>
+</ul>
+<pre><code>// java se 6 提供了Console类实现读取密码
+Console console = System.console();
+Stirng userName = console.readLine(&quot;UserName:&quot;);
+char [] psd = console.readPassword(&quot;Password:&quot;);</code></pre><h5 id="字符文件输入输出"><a href="#字符文件输入输出" class="headerlink" title="字符文件输入输出"></a>字符文件输入输出</h5><ul>
+<li>读取字符文件</li>
+</ul>
+<pre><code>Scanner scan = new Scanner(Path.get(&quot;pathstring&quot;),&quot;UTF-8&quot;); // 路径是相对于Java虚拟机启动路径的相对位置
+scan.readLine()....等一系列方法</code></pre><ul>
+<li>写字符文件</li>
+</ul>
+<pre><code>PrintWriter out = new PrintWriter(&quot;filename.txt&quot;,&quot;UTF-8&quot;);
+out.println(&quot;hhh&quot;);</code></pre><ul>
+<li>对于处理文件的Scanner以及PrintWriter，需要在方法中处理异常</li>
+</ul>
+<h5 id="Java的块作用域"><a href="#Java的块作用域" class="headerlink" title="Java的块作用域"></a>Java的块作用域</h5><ul>
+<li><strong>和C++不一样，Java不允许在嵌套块中重复定义一个变量，会编译错误</strong></li>
+</ul>
+<pre><code>{
+  int n;
+  {
+    int n; // 这种写法在java中是编译不过的
+  }
+}</code></pre><h5 id="switch-case-break"><a href="#switch-case-break" class="headerlink" title="switch case break"></a>switch case break</h5><ul>
+<li>虽然很简单，但周围很多人都会用错</li>
+<li>break的意思是，本case如果命中了，在执行结束之后，中断之后的case检查，直接返回。</li>
+<li>多个case可以公用同一个处理函数</li>
+<li>case标签的类型可以是char，4种整型，枚举常量，以及字符串常量（Java7开始支持）</li>
+</ul>
+<h5 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h5><ul>
+<li><p>数组声明：int [] array;</p>
+</li>
+<li><p>数组初始化： array = new int [100];</p>
+<ul>
+<li>需要指定数组初始大小，可以是整型n变量，数组创建之后大小无法更改。（如果需要，使用数组列表）</li>
+<li>整型数组所有元素初始化为0，boolean初始化为false，对象类型初始化为null</li>
+</ul>
+</li>
+<li><p>数组元素个数：array.length</p>
+</li>
+<li><p>数组for循环：for(int item : array)</p>
+</li>
+<li><p>数组拷贝</p>
+<ul>
+<li>浅拷贝：直接将一个数据变量的值赋值给另一个数组变量，两个数组变量引用的是堆中的同一个数组，对一个的修改会影响到另一个</li>
+<li>深拷贝：在原来的基础上，新创建一个一模一样的数组，或者更长的数组。Array提供了copyOf方法<pre><code class="java">int [] newArray = Array.copyOf(array,array.length+10); // 拷贝array数组，长度加10</code></pre>
+</li>
+</ul>
+</li>
+<li><p>Java中的数据是在堆上创建的，相当于C++中的<code>int * a = new int[30];</code>,而不是<code>int a[10];</code>,这是在栈中的数组。</p>
+</li>
+<li><p>多维数组：数组的元素还是数组而已，且Java还支持不规则的数组（行列不一定要求是整齐的），C++是不支持的</p>
+</li>
+</ul>
+<h3 id="类与对象"><a href="#类与对象" class="headerlink" title="类与对象"></a>类与对象</h3><ul>
+<li>类与对象的关系：模板，实例</li>
+<li>类之间的三种关系</li>
+<li>对象与对象变量（对象引用）<ul>
+<li>对象实例存储在堆上，对象引用存储在栈中。</li>
+<li>一个对象实例可以被多个变量引用，一个变量可以引用0或1个对象实例。</li>
+</ul>
+</li>
+<li>预定义类（String，Date，LocalDate）与自定义类</li>
+<li>Java多源文件的使用：Java编译器内置了类似UNIX的make功能，在编译的时候，能够自动查找需要依赖的其他类，有class文件就直接使用，没有则查找java文件并编译。</li>
+<li>Java中，所有的方法都必须包含在类中</li>
+<li>private私有域，只有属于同一个类的对象（本身，其他同类对象）才可以访问。</li>
+<li>final常量、final方法：</li>
+<li>静态变量、静态常量、静态方法</li>
+<li>静态方法中不能访问非静态实例域，但可以访问静态域。</li>
+<li>main()方法是一个静态方法，它不对任何对象进行操作，负责在程序启动的时候创建对象。</li>
+<li>每个类都可以实现一个main方法，用来进行单元测试，在执行完整Application时候，每个单元中的main并不会执行。</li>
+</ul>
+<h5 id="对象构造与构造函数"><a href="#对象构造与构造函数" class="headerlink" title="对象构造与构造函数"></a>对象构造与构造函数</h5><ul>
+<li>构造函数：Java的对象都是在堆上构造的，通过new操作符在堆上创建新对象。构造函数在new对象的时候被调用。<ul>
+<li>与C++中对象的构造做区分，C++中支持在栈和堆上创建对象，Java对象与后者类似。</li>
+</ul>
+</li>
+<li>构造函数不允许被重写Override</li>
+<li>推荐在自定义多参数构造函数的时候，提供一个空参数的构造函数<ul>
+<li>因为若子类在构造函数中没有通过super方式调用父类构造函数，Java会默认调用父类的无参数构造函数。若父类没有空构造函数，则会编译错误。</li>
+</ul>
+</li>
+</ul>
+<h5 id="对象域的初始化"><a href="#对象域的初始化" class="headerlink" title="对象域的初始化"></a>对象域的初始化</h5><ul>
+<li>三种域初始化方式：在构造器中初始化，声明中初始化，在初始化块</li>
+<li>在用户没给构造函数的时候，系统会自动提供一个无参构造函数，一旦用户提供了，系统就不再提供无参构造函数。</li>
+<li>对象中的域，默认被初始化为0，false，以及null</li>
+<li>域的初始化也可以直接在声明时进行，好习惯是在声明变量域的时候，就给个安全的初始值。（C++中是不允许的，只能通过构造函数初始化域）</li>
+<li>初始化块：一个或多个代码块，只要构造类对象，这些初始化块就一定会执行，一般用于初始化比较复杂的情况。</li>
+</ul>
+<pre><code class="java">class Employee{
+  private int id;
+
+  // 初始化块
+  static
+  {
+    Random generator = new Random(); 
+    id = generator.nextInt(1000); // 生成0-999的随机数
+    System.out.println(&quot;hello&quot;); //也可以执行非初始化语句的
+  }
+}</code></pre>
+<ul>
+<li>具体的域初始化步骤<ul>
+<li>1.所有数据域被初始化为0，false、null</li>
+<li>2.按照类中各个数据域声明出现的前后顺序，执行各自的初始化语句以及初始化块。</li>
+<li>3.执行构造器内容</li>
+</ul>
+</li>
+</ul>
+<h5 id="对象析构-finalize方法"><a href="#对象析构-finalize方法" class="headerlink" title="对象析构 finalize方法"></a>对象析构 finalize方法</h5><ul>
+<li>Java有自动的垃圾回收器，所以不像C++，没有显式的析构器。</li>
+<li>可以为类添加一个finalize方法，该方法在对象被清楚之前调用。</li>
+<li><strong>实际应用中，避免在finalize中去释放资源，因为finalize什么时候被执行是无法确定的</strong></li>
+<li>对于一些资源的使用，要提供一个close方法，在使用完毕后调用。</li>
+<li>可以通过Runtime.addShutdownHook 方法来添加关闭钩子的方式更好的实现。</li>
+</ul>
+<h5 id="方法参数传递"><a href="#方法参数传递" class="headerlink" title="方法参数传递"></a>方法参数传递</h5><ul>
+<li>Java的参数传递是<strong>传值调用</strong>的，方法得到的是参数的拷贝，且<strong>方法内无法修改传递进来的参数</strong>。</li>
+<li>对于基本数据类型，直接传入的是数据拷贝，而对于对象，传入的是对象引用的拷贝（<strong>容易理解为传引用调用，但实际是通过传值调用实现的，只是这里的值是对象引用</strong>）。<ul>
+<li>对于基本数据类型参数，参数传递不会改变参数变量的值。</li>
+<li>对于对象引用参数，方法内可以通过对象应用去修改对象内容。</li>
+<li>对于对象引用参数，无法将对象引用参数指向另一个新对象。</li>
+</ul>
+</li>
+</ul>
+<h5 id="重载"><a href="#重载" class="headerlink" title="重载"></a>重载</h5><ul>
+<li>重载：overloading，多个方法，有相同的名字，但有不同的参数列表。</li>
+<li>重载解析：编译器负责根据参数列表，匹配正确的函数。</li>
+<li>函数签名：函数名+参数列表，<strong>注意，返回类型不属于函数签名，不能通过不同的返回类型来重载</strong></li>
+</ul>
+<h5 id="包-package"><a href="#包-package" class="headerlink" title="包 package"></a>包 package</h5><ul>
+<li>通过包来组织类，文件目录方式，避免重名</li>
+<li>import导入类、静态导入</li>
+<li>将类放入包中：<ul>
+<li>1.类源代码开头添加 package path; （没有该行，则该类属于默认包）</li>
+<li>2.将类源文件放在package对应的问价夹中</li>
+</ul>
+</li>
+<li><strong>编译器在编译文件的时候是不关注目录结构的，但定位一个类的时候，通过包名和类名来定位。所以，必须将类源代码放在package对应的文件夹下，否则虚拟机找不到类</strong></li>
+<li>包作用域：不添加public和private时，默认的作用域。同一个包中都可以访问。</li>
+</ul>
+<h5 id="类路径"><a href="#类路径" class="headerlink" title="类路径"></a>类路径</h5><ul>
+<li>从三个地方加载类<ul>
+<li>1.JRE中的JAR文件</li>
+<li>2.第三方JAR文件</li>
+<li>3.用户源程序目录</li>
+</ul>
+</li>
+<li>通过<code>java -classpath</code>或者设置<code>CLASSPATH</code>环境变量来设置类路径。</li>
+</ul>
+<h5 id="类注释"><a href="#类注释" class="headerlink" title="类注释"></a>类注释</h5><ul>
+<li>javadoc，由源文件生成html</li>
+<li>类注释</li>
+</ul>
+<pre><code class="java">/**
+  类注释
+*/
+class hhh{}</code></pre>
+<ul>
+<li>方法注释</li>
+</ul>
+<pre><code class="java">/**
+* desc hh
+* @param id
+* @return void
+* @throws
+*/
+private void hh(int id){}</code></pre>
+<ul>
+<li>域注释</li>
+</ul>
+<pre><code class="java">/**
+* desc
+*/
+int id;</code></pre>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>欲知后事如何，且听下回，太长了，逃。</p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZWboy</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://blog.zwboy.cn/da-nao-cache/da-nao-cache-xi-lie-java-kuai-su-shu-li-yi.html">http://blog.zwboy.cn/da-nao-cache/da-nao-cache-xi-lie-java-kuai-su-shu-li-yi.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZWboy</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Java/">
+                                    <span class="chip bg-color">Java</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .mvaline-card {
+        margin: 1.5rem auto;
+    }
+
+    .mvaline-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+</style>
+
+<div class="card mvaline-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="mvcomments" class="card-content" style="display: grid">
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/minivaline/dist/MiniValine.min.js"></script>
+<script>
+    new MiniValine({
+        el: '#mvcomments',
+        appId: 'aigEzx2YaT7pjXQWfOSwL7Tq-gzGzoHsz',
+        appKey: 'q33kn3yCFlSStRS1AQD94Szo',
+        mode: 'DesertsP',
+        placeholder: 'Write a Comment',
+        pathname: window.location.pathname,
+        lang: '',
+        adminEmailMd5: 'FkD4IA7jYrh6JoH8mjIhpWVe',
+        tagMeta: ["管理员", "小伙伴", "访客"],
+        master: ["de8a7aa53d07e6b6bceb45c64027763d"],
+        friends: ["b5bd5d836c7a0091aa8473e79ed4c25e", "adb7d1cd192658a55c0ad22a3309cecf", "3ce1e6c77b4910f1871106cb30dc62b0", "cfce8dc43725cc14ffcd9fb4892d5bfc"],
+        math: true,
+        md: true,
+        enableQQ: false,
+        NoRecordIP: false,
+        visitor: true,
+        maxNest: 6,
+        pageSize: 6,
+        serverURLs: '',
+        emoticonUrl: ["https://cdn.jsdelivr.net/npm/alus@latest", "https://cdn.jsdelivr.net/gh/MiniValine/qq@latest", "https://cdn.jsdelivr.net/gh/MiniValine/Bilibilis@latest", "https://cdn.jsdelivr.net/gh/MiniValine/tieba@latest", "https://cdn.jsdelivr.net/gh/MiniValine/twemoji@latest", "https://cdn.jsdelivr.net/gh/MiniValine/weibo@latest"],
+    });
+</script>
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/da-nao-cache/da-nao-cache-xi-lie-java-kuai-su-shu-li-fang-bian-sui-shi-load-dao-da-nao-jian-shao-di-ji-bug-er.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="大脑Cache系列 -- Java快速梳理，方便随时load到大脑，减少低级bug（二） ">
+                        
+                        <span class="card-title">大脑Cache系列 -- Java快速梳理，方便随时load到大脑，减少低级bug（二） </span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            背景
+
+Java程序常常会遇到一些蛋疼的bug，最后发现，都是在一些很基础的方面造成的。大量的时间花在调试代码找低级bug上是十分没有性价比的。所以，再系统梳理下Java，是十分必要的。
+已经反复学习和使用Java多次了，但只要有段时间没用
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-01-06
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/技术/" class="post-category">
+                                    技术
+                                </a>
+                            
+                            <a href="/categories/大脑Cache/" class="post-category">
+                                    大脑Cache
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/ji-zhu/update-alternatives-rang-duo-ge-ban-ben-ku-gong-cun.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="update-alternatives 让多个版本库共存">
+                        
+                        <span class="card-title">update-alternatives 让多个版本库共存</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+记录在解决Ubuntu系统python2.7与python3.4共存的问题，使用update-alternatives在两个版本之间进行切换
+
+update-alternatives检查update-alternatives是否已经检测到
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-12-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/技术/" class="post-category">
+                                    技术
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/linux/">
+                        <span class="chip bg-color">linux</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+
+<!-- 代码块折行 -->
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="360752083"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align"
+        style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2018</span>
+            <a href="/about" target="_blank">ZWboy</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">32.5k</span>&nbsp;字
+            
+            
+            
+            
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2018";
+                    var startMonth = "1";
+                    var startDate = "28";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            <script>
+                var _hmt = _hmt || [];
+                (function () {
+                    var hm = document.createElement("script");
+                    hm.src = "https://hm.baidu.com/hm.js?855ec9ebdff2265971b6efa346e3f5ec";
+                    var s = document.getElementsByTagName("script")[0];
+                    s.parentNode.insertBefore(hm, s);
+                })();
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link ">
+    <a href="https://github.com/ZWboy97" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:ljc@zwboy.cn" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?855ec9ebdff2265971b6efa346e3f5ec";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

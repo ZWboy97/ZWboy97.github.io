@@ -1,0 +1,1577 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="【学习笔记】Three.js以及三维技术学习, Code，Ideas, Thinking, and Solutions">
+    <meta name="description" content="杰克机会jackchance">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>【学习笔记】Three.js以及三维技术学习 | ZWboy</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+</head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">ZWboy</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">ZWboy</div>
+        <div class="logo-desc">
+            
+            杰克机会jackchance
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">【学习笔记】Three.js以及三维技术学习</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/前端/">
+                                <span class="chip bg-color">前端</span>
+                            </a>
+                        
+                            <a href="/tags/Three-js/">
+                                <span class="chip bg-color">Three.js</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/技术/" class="post-category">
+                                技术
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2020-02-13
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    4.7k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    19 分
+                </div>
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>背景知识</p>
+<ul>
+<li>视频云项目又有了开发XR应用的需求了，就是实现各种AR、VR、全景视频直播等效果。Three.js是Web端进行3D展示的工具库，它对底层的WebGL进行了封装，大大简化了3D的开发。</li>
+<li>Three.js入门学习时候的难点在于对Three.js以及三维建模领域一些关键概念的理解，本文主要以梳理Three.js中的核心概念为主。对于Three.js中的各个核心概念，通过Best Practice的形式快速了解其用途和能力。</li>
+<li>本文追求系统性，不追求细节。旨在快速建立对Three.js整体的概念了解，能够快速看懂和利用好官方文档。</li>
+</ul>
+</blockquote>
+<h3 id="一、基础知识"><a href="#一、基础知识" class="headerlink" title="一、基础知识"></a>一、基础知识</h3><ul>
+<li>场景：scene，其中可以添加object</li>
+<li>相机：camera，对scene中的内容进行拍摄</li>
+<li>渲染器：render，对相机拍到的画面进行渲染</li>
+<li>网格模型：mesh，</li>
+<li>材质：material，</li>
+<li>几何体：geometry，</li>
+<li>点光源：PointLight，</li>
+<li>环境光：AmbientLight，</li>
+</ul>
+<a id="more"></a>
+
+<h5 id="场景Scene"><a href="#场景Scene" class="headerlink" title="场景Scene"></a>场景Scene</h5><ul>
+<li>sence：场景</li>
+</ul>
+<pre><code class="js">    var scene = new THREE.Scene(); // 创建场景
+    scene.add(mesh); //网格模型添加到场景中</code></pre>
+<h5 id="几何体Geometry"><a href="#几何体Geometry" class="headerlink" title="几何体Geometry"></a>几何体Geometry</h5><ul>
+<li>几何框架</li>
+</ul>
+<pre><code class="js">    //立方体 参数：长，宽，高
+    var geometry = new THREE.BoxGeometry(100, 100, 100);
+    // 球体 参数：半径60  经纬度细分数40,40
+    var geometry = new THREE.SphereGeometry(60, 40, 40);
+    //圆柱  参数：圆柱面顶部、底部直径50,50   高度100  圆周分段数
+    var geometry = new THREE.CylinderGeometry(50, 50, 100, 25);
+    // 正八面体
+    var geometry = new THREE.OctahedronGeometry(50);
+    // 正十二面体
+    var geometry = new THREE.DodecahedronGeometry(50);
+    // 正二十面体
+    var geometry = new THREE.IcosahedronGeometry(50);</code></pre>
+<h5 id="材质Material"><a href="#材质Material" class="headerlink" title="材质Material"></a>材质Material</h5><ul>
+<li><p>可以对几何体进行着色</p>
+</li>
+<li><p>本质：顶点着色器，可以被render解析加入计算</p>
+</li>
+<li><p>几种常用材质</p>
+<ul>
+<li>点材质</li>
+<li>线材质</li>
+<li>网格材质</li>
+</ul>
+</li>
+</ul>
+<pre><code class="js">    //基础网格材质对象   不受光照影响  没有棱角感
+    var material = new THREE.MeshBasicMaterial({
+        color: 0x0000ff,
+        wireframe:true,//线条模式渲染，线条编织成网
+    });
+    // 与光照计算  漫反射   产生棱角感
+    var material = new THREE.MeshLambertMaterial({color: 0x0000ff }); 
+    // 与光照计算  高光效果（镜面反射）产生棱角感
+    var material = new THREE.MeshPhongMaterial({
+        color: 0xff0000,
+        specular:0x444444, // 高光部分的颜色
+        shininess:30, // 高光部分的亮度
+      side:THREE.DoubleSide, // 前面FrontSide  背面：BackSide 双面：DoubleSide
+    });
+    // 透明材质
+    var material1 = new THREE.MeshLambertMaterial({
+      color: 0x0000ff,//材质颜色
+      transparent:true,//开启透明度
+      opacity:0.5,//设置透明度具体值
+    });
+    // 点渲染模式
+    var material = new THREE.PointsMaterial({
+      color: 0xff0000,
+      size: 5.0 //点对象像素尺寸
+    });
+    // 线条渲染模式
+    var material=new THREE.LineBasicMaterial({
+        color:0xff0000 //线条颜色
+    });</code></pre>
+<h5 id="渲染模型"><a href="#渲染模型" class="headerlink" title="渲染模型"></a>渲染模型</h5><ul>
+<li>由几何体参数+材质参数组成</li>
+<li>与材质类似，也有三种<ul>
+<li>点模型：Point</li>
+<li>线模型：Line</li>
+<li>网格模型：Mesh</li>
+</ul>
+</li>
+</ul>
+<pre><code class="js">    var mesh = new THREE.Mesh(geometry, material); //网格模型对象Mesh
+    scene.add(mesh); //网格模型添加到场景中
+
+    mesh.rotateY(0.01);         //绕y轴旋转0.01弧度
+    mesh.translateY(120);       //球体网格模型沿Y轴正方向平移120
+    mesh.position.set(120,0,0); //设置mesh3模型对象的xyz坐标为120,0,0
+
+    var point = new THREE.Points(geometry, material);
+    var line = new THREE.Line(geometry, material); //线模型对象</code></pre>
+<ul>
+<li>复制模型</li>
+</ul>
+<pre><code class="js">    var geometry2 = new THREE.BoxGeometry(30, 30, 30); //创建一个立方体几何对象Geometry
+    var material2 = new THREE.MeshLambertMaterial({
+      color: 0xff00ff
+    }); //材质对象Material
+    var newMesh = new THREE.Mesh(geometry2, material2);
+    // 复制mesh的位置、旋转、矩阵等属性(不包含geometry和material属性)
+    newMesh.copy(mesh);
+    //相比mesh而言，在平移
+    newMesh.translateX(-50);
+    scene.add(newMesh)</code></pre>
+<h5 id="相机Camera"><a href="#相机Camera" class="headerlink" title="相机Camera"></a>相机Camera</h5><ul>
+<li>远景相机（PerspectiveCamera），也就是类似于人眼观察的方式<ul>
+<li>4个参数，决定了视椎体，用来裁剪视图，在该视锥体以外的物体将不会被渲染。<ul>
+<li>FOV：视角（field of view）</li>
+<li>aspect_radio:相机拍摄面的长宽比（aspect ratio）,一般使用元素的宽除以高，否则会出现挤压变形。</li>
+<li>near_plane: 近裁剪面</li>
+<li>far_plane: 远裁剪面</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code class="js">    var width = window.innerWidth; //窗口宽度
+    var height = window.innerHeight; //窗口高度
+    var aspect = width / height; //窗口宽高比
+    var s = 200; //三维场景显示范围控制系数，系数越大，显示的范围越大
+    // 创建相机对象
+    var camera = new THREE.OrthographicCamera(-s * k, s * k, s, -s, 1, 1000);
+    // 创建远景相机,参数（FOV，aspect_radio,near_plane,far_plane）
+    var camera = new THREE.PerspectiveCamera( 75, aspect , 0.1, 1000 );
+    camera.position.set(200, 300, 200); //设置相机位置
+    camera.lookAt(scene.position); //设置相机方向(指向的场景对象)</code></pre>
+<h5 id="渲染器Render"><a href="#渲染器Render" class="headerlink" title="渲染器Render"></a>渲染器Render</h5><ul>
+<li>WebGLRenderer为主，也有其他渲染器，但以兼容性为主</li>
+<li>WebGLRenderer，使用GPU进行渲染</li>
+<li>render负责解析数据，然后</li>
+</ul>
+<pre><code class="js">    var renderer = new THREE.WebGLRenderer();
+    //设置渲染区域尺寸
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    //设置背景颜色
+    renderer.setClearColor(0xb9d3ff, 1); 
+    // 把 renderer 元素添加到HTML文档中。这里是一个 &lt;canvas&gt; 元素，渲染器用来显示场景
+    document.body.appendChild(renderer.domElement);
+    //执行渲染操作
+    renderer.render(scene, camera); // 只会渲染一次
+    // 循环渲染
+    function render() {
+      cube.rotation.x += 0.1; // 实现动画
+      cube.rotation.y += 0.1;
+      requestAnimationFrame( render ); // window的函数，以每秒60次的频率来绘制场景
+      renderer.render( scene, camera );
+    }
+    render();</code></pre>
+<ul>
+<li>requestAnimationFrame函数：它用来替代 setInterval， 这个新接口具备多个优点，比如浏览器Tab切换后停止渲染以节约资源、和屏幕刷新同步避免无效刷新、在不支持该接口的浏览器中能安全回退为setInterval</li>
+</ul>
+<h3 id="二、相机控制与交互"><a href="#二、相机控制与交互" class="headerlink" title="二、相机控制与交互"></a>二、相机控制与交互</h3><ul>
+<li>Three.js提供了OrbitControls.js，直接控制相机</li>
+</ul>
+<pre><code class="js">    //创建控件对象  相机对象camera作为参数   控件可以监听鼠标的变化，改变相机对象的属性
+    var controls = new THREE.OrbitControls(camera,renderer.domElement);
+    //监听鼠标事件，触发渲染函数，更新canvas画布渲染效果
+    controls.addEventListener(&#39;change&#39;, render);</code></pre>
+<ul>
+<li>动画与交互同时控制</li>
+</ul>
+<pre><code class="js">    function render() {
+      renderer.render(scene, camera); //执行渲染操作
+      mesh.rotateY(0.01);//每次绕y轴旋转0.01弧度
+      requestAnimationFrame(render);//请求再次执行渲染函数render，渲染下一帧
+    }
+    render();
+    //创建控件对象  相机对象camera作为参数   控件可以监听鼠标的变化，改变相机对象的属性
+    var controls = new THREE.OrbitControls(camera,renderer.domElement);</code></pre>
+<h3 id="三、顶点"><a href="#三、顶点" class="headerlink" title="三、顶点"></a>三、顶点</h3><h5 id="顶点概念"><a href="#顶点概念" class="headerlink" title="顶点概念"></a>顶点概念</h5><ul>
+<li>顶点连接成线，线组成三角面，三角面组成更多类型的面，顶点具有position和color等基础属性</li>
+<li>BufferGeometry是所有几何体的基类，可以为其赋予多种属性，来实现不同的效果。</li>
+<li>主要是通过顶点数据来确定渲染的。</li>
+</ul>
+<pre><code class="js">    var geometry = new THREE.BufferGeometry(); //创建一个Buffer类型几何体对象
+    var vertices = new Float32Array([ //类型数组创建顶点数据
+      0, 0, 0, //顶点1坐标
+      50, 0, 0, //顶点2坐标
+      0, 50, 0, //顶点3坐标
+      0, 0, 10, //顶点4坐标
+      0, 0, 60, //顶点5坐标
+      50, 0, 10, //顶点6坐标
+    ]);
+    // 创建属性缓冲区对象
+    var attribue = new THREE.BufferAttribute(vertices, 3); //3个为一组，表示一个顶点的xyz坐标
+    // 设置几何体attributes属性的位置属性
+    geometry.attributes.position = attribue;
+
+    //类型数组创建顶点颜色color数据
+    var colors = new Float32Array([
+      1, 0, 0, //顶点1颜色
+      0, 1, 0, //顶点2颜色
+      0, 0, 1, //顶点3颜色
+      1, 1, 0, //顶点4颜色
+      0, 1, 1, //顶点5颜色
+      1, 0, 1, //顶点6颜色
+    ]);
+    // 设置几何体attributes属性的颜色color属性
+    geometry.attributes.color = new THREE.BufferAttribute(colors, 3); //3个为一组,表示一个顶点的颜色数据RGB
+      //材质对象
+    var material = new THREE.MeshBasicMaterial({
+      // 使用顶点颜色数据渲染模型，不需要再定义color属性
+      // color: 0xff0000,
+      vertexColors: THREE.VertexColors, //以顶点颜色为准,即试用上边指定的颜色数组
+    });</code></pre>
+<h5 id="顶点法向量"><a href="#顶点法向量" class="headerlink" title="顶点法向量"></a>顶点法向量</h5><ul>
+<li>参与光照的计算，对物体最终所呈现的实际颜色的有影响的。</li>
+<li>法向量对应的属性为normal</li>
+</ul>
+<pre><code class="js">  var normals = new Float32Array([
+      0, 0, 1, //顶点1法向量
+      0, 0, 1, //顶点2法向量
+      0, 0, 1, //顶点3法向量
+
+      0, 1, 0, //顶点4法向量
+      0, 1, 0, //顶点5法向量
+      0, 1, 0, //顶点6法向量
+    ]);
+    // 设置几何体attributes属性的位置normal属性
+    geometry.attributes.normal = new THREE.BufferAttribute(normals, 3); //3个为一组,表示一个顶点的法向量数据</code></pre>
+<h5 id="顶点数据复用与索引"><a href="#顶点数据复用与索引" class="headerlink" title="顶点数据复用与索引"></a>顶点数据复用与索引</h5><ul>
+<li>渲染一个四边形，实际需要6个顶点，是通过两个三角面实现的。</li>
+<li>其中第二个三角面的两个顶点与第一个重合，所以可以复用。</li>
+<li>通过顶点的索引属性来指定，实现顶点数据的复用，对应的属性名为index。</li>
+</ul>
+<pre><code class="js">      // Uint16Array类型数组创建顶点索引数据
+    var indexes = new Uint16Array([
+      0, 1, 2, 0, 2, 3,
+    ])
+    // 索引数据赋值给几何体的index属性
+    geometry.index = new THREE.BufferAttribute(indexes, 1); //1个为一组</code></pre>
+<h5 id="设置Geometry的顶点"><a href="#设置Geometry的顶点" class="headerlink" title="设置Geometry的顶点"></a>设置Geometry的顶点</h5><ul>
+<li>相比BufferGeomerty<ul>
+<li>他们的属性组织架构是不同的，但实现的效果是相同的</li>
+<li>BufferGeomerty是基于缩影的渲染，而Geometry是基于三角面的方式。</li>
+</ul>
+</li>
+<li>属性<ul>
+<li>vertices属性，顶点坐标数据</li>
+<li>colors属性，顶点颜色数据</li>
+</ul>
+</li>
+</ul>
+<pre><code class="js">    var geometry = new THREE.Geometry(); //声明一个几何体对象Geometry
+    // Vector3向量对象表示顶点位置数据
+    var p1 = new THREE.Vector3(50, 0, 0); //顶点1坐标
+    var p2 = new THREE.Vector3(0, 70, 0); //顶点2坐标
+    var p3 = new THREE.Vector3(80, 70, 0); //顶点3坐标
+    //顶点坐标添加到geometry对象
+    geometry.vertices.push(p1, p2, p3);
+    // Color对象表示顶点颜色数据
+    var color1 = new THREE.Color(0x00ff00); //顶点1颜色——绿色
+    var color2 = new THREE.Color(0xff0000); //顶点2颜色——红色
+    var color3 = new THREE.Color(0x0000ff); //顶点3颜色——蓝色
+    //顶点颜色数据添加到geometry对象
+    geometry.colors.push(color1, color2, color3);</code></pre>
+<h5 id="Face3对象"><a href="#Face3对象" class="headerlink" title="Face3对象"></a>Face3对象</h5><ul>
+<li>定义几何体的三角面</li>
+</ul>
+<pre><code class="js">    var geometry = new THREE.Geometry(); //声明一个几何体对象Geometry
+    var p1 = new THREE.Vector3(0, 0, 0); //顶点1坐标
+    var p2 = new THREE.Vector3(0, 100, 0); //顶点2坐标
+    var p3 = new THREE.Vector3(50, 0, 0); //顶点3坐标
+    var p4 = new THREE.Vector3(0, 0, 100); //顶点4坐标
+    //顶点坐标添加到geometry对象
+    geometry.vertices.push(p1, p2, p3, p4);
+    // Color对象表示顶点颜色数据
+    var color1 = new THREE.Color(0x00ff00); //顶点1颜色——绿色
+    var color2 = new THREE.Color(0xff0000); //顶点2颜色——红色
+    var color3 = new THREE.Color(0x0000ff); //顶点3颜色——蓝色
+    var color4 = new THREE.Color(0xffff00); //顶点3颜色——黄色
+    //顶点颜色数据添加到geometry对象
+    geometry.colors.push(color1, color2, color3, color4);
+    // Face3构造函数创建一个三角面
+    var face1 = new THREE.Face3(0, 1, 2);
+    //设置三角面face1每个顶点的法向量
+    var n1 = new THREE.Vector3(0, 0, -1);
+    var n2 = new THREE.Vector3(0, 0, -1);
+    var n3 = new THREE.Vector3(0, 0, -1);
+    // 设置三角面Face3三个顶点的法向量
+    face1.vertexNormals.push(n1, n2, n3);
+    // 设置三角面face1三个顶点的颜色
+    face1.vertexColors = [
+      new THREE.Color(0xffff00),
+      new THREE.Color(0xff00ff),
+      new THREE.Color(0x00ffff),
+    ]
+    // 三角面2
+    var face2 = new THREE.Face3(0, 2, 3);
+    // 设置三角面法向量
+    face2.normal = new THREE.Vector3(0, -1, 0);
+    face2.color = new THREE.Color(0x00ff00);
+    //三角面face1、face2添加到几何体中
+    geometry.faces.push(face1, face2);</code></pre>
+<h5 id="几何体变换"><a href="#几何体变换" class="headerlink" title="几何体变换"></a>几何体变换</h5><ul>
+<li>其实就是对顶点坐标进行变换</li>
+</ul>
+<pre><code class="js">    // 几何体xyz三个方向都放大2倍
+    geometry.scale(2, 2, 2);
+    // 几何体沿着x轴平移50
+    geometry.translate(50, 0, 0);
+    // 几何体绕着x轴旋转45度
+    geometry.rotateX(Math.PI / 4);
+    // 居中：偏移的几何体居中
+    geometry.center();</code></pre>
+<h3 id="四、光源"><a href="#四、光源" class="headerlink" title="四、光源"></a>四、光源</h3><ul>
+<li>可以与模型对象一起，添加到场景中</li>
+<li>可以与材质的颜色进行计算，计算得到最终看到的颜色值</li>
+<li>分类：<ul>
+<li>环境光：无方向的光，其他都是有方向的</li>
+<li>点光源</li>
+<li>平行光源</li>
+<li>聚光光源</li>
+</ul>
+</li>
+</ul>
+<h5 id="点光源PointLight"><a href="#点光源PointLight" class="headerlink" title="点光源PointLight"></a>点光源PointLight</h5><ul>
+<li>add插入场景中，render的时候会获取光源的信息进行光照计算</li>
+</ul>
+<pre><code class="js">    //点光源
+    var point = new THREE.PointLight(0xffffff);
+    point.position.set(400, 200, 300); //点光源位置
+    scene.add(point); //点光源添加到场景中</code></pre>
+<h5 id="环境光AmbientLight"><a href="#环境光AmbientLight" class="headerlink" title="环境光AmbientLight"></a>环境光AmbientLight</h5><ul>
+<li>环境光颜色与网格模型的颜色进行RGB进行乘法运算</li>
+<li>没有方向，所以没有明显的棱</li>
+</ul>
+<pre><code class="js">    //环境光
+    var ambient = new THREE.AmbientLight(0x444444);
+    scene.add(ambient);</code></pre>
+<h5 id="聚光"><a href="#聚光" class="headerlink" title="聚光"></a>聚光</h5><pre><code class="js">    var spotLight = new THREE.SpotLight(0xffffff);
+    // 设置聚光光源位置
+    spotLight.position.set(200, 200, 200);
+    // 聚光灯光源指向网格模型mesh2
+    spotLight.target = mesh2;
+    // 设置聚光光源发散角度
+    spotLight.angle = Math.PI / 6
+    scene.add(spotLight);//光对象添加到scene场景中</code></pre>
+<h5 id="平行光"><a href="#平行光" class="headerlink" title="平行光"></a>平行光</h5><pre><code class="js">    var directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    // 设置光源的方向：通过光源position属性和目标指向对象的position属性计算
+    // 注意：位置属性在这里不代表方向光的位置，你可以认为方向光没有位置
+    directionalLight.position.set(80, 100, 50);
+    // 方向光指向对象，可以不设置，默认的位置是0,0,0
+    directionalLight.target = mesh2;
+    scene.add(directionalLight);</code></pre>
+<h5 id="添加阴影"><a href="#添加阴影" class="headerlink" title="添加阴影"></a>添加阴影</h5><ul>
+<li>分两步<ul>
+<li>1.开启模型的阴影</li>
+<li>2.添加一个接收阴影的模型</li>
+</ul>
+</li>
+</ul>
+<pre><code class="js">    var mesh = new THREE.Mesh(geometry, material); //网格模型对象Mesh
+    scene.add(mesh); //网格模型添加到场景中
+    mesh.castShadow = true;
+    //创建一个平面几何体作为投影面
+    var planeGeometry = new THREE.PlaneGeometry(300, 200);
+    var planeMaterial = new THREE.MeshLambertMaterial({
+      color: 0x999999
+    }); //材质对象Material
+    // 平面网格模型作为投影面
+    var planeMesh = new THREE.Mesh(planeGeometry, planeMaterial); //网格模型对象Mesh
+    scene.add(planeMesh); //网格模型添加到场景中
+    planeMesh.receiveShadow = true;
+    planeMesh.rotateX(-Math.PI / 2)
+    planeMesh.position.y = -25;</code></pre>
+<h3 id="五、组对象Group"><a href="#五、组对象Group" class="headerlink" title="五、组对象Group"></a>五、组对象Group</h3><ul>
+<li>目的是方便批量处理，可以将多个模型对象组合成一个Group，然后对这个Group进行统一的处理。</li>
+</ul>
+<pre><code class="js">    var group1 = new THREE.Group();
+    var mesh = new THREE.Mesh(geometry, material);
+    group1.add(mesh); //把网格模型插入到组group1中
+    scene.add(group);</code></pre>
+<h3 id="六、位置坐标"><a href="#六、位置坐标" class="headerlink" title="六、位置坐标"></a>六、位置坐标</h3><ul>
+<li>本地与世界作保<ul>
+<li>本地坐标：该模型对象属性中设置的坐标</li>
+<li>世界坐标：一个模型对象可能还存在其他Group中，Group的坐标变化也会造成该模型对象的位置变化，最终该模型的坐标便是它的世界坐标。</li>
+</ul>
+</li>
+<li>获得世界坐标的方法</li>
+</ul>
+<pre><code class="js">  scene.updateMatrixWorld(true); // 更新世界坐标矩阵，不可缺少
+  var worldPosition = new THREE.Vector3();
+  mesh.getWorldPosition(worldPosition)</code></pre>
+<h3 id="七、纹理贴图"><a href="#七、纹理贴图" class="headerlink" title="七、纹理贴图"></a>七、纹理贴图</h3><h5 id="顶点UV映射数据"><a href="#顶点UV映射数据" class="headerlink" title="顶点UV映射数据"></a>顶点UV映射数据</h5><ul>
+<li>3D模型除了有顶点坐标、颜色等属性外，还有一个顶点纹理UV数据，UV负责实现外部纹理与模型顶点之间的映射</li>
+<li>对于常用的立方体、球体、平面等模型，内部已经具有了UV数据。</li>
+<li>对于更复杂的3D模型，通过外部modle.json文件导入的方式导入模型，该json中会包括UV数据。</li>
+</ul>
+<h5 id="图片作为纹理"><a href="#图片作为纹理" class="headerlink" title="图片作为纹理"></a>图片作为纹理</h5><ul>
+<li>通过TextureLoader加载一个图片，然后把图片数据作为纹理数据，传递给map属性即可。</li>
+</ul>
+<pre><code class="js">    var geometry = new THREE.BoxGeometry(100, 100, 100); //立方体
+    var geometry = new THREE.PlaneGeometry(204, 102); //矩形平面
+    var geometry = new THREE.SphereGeometry(60, 25, 25); //球体
+    // TextureLoader创建一个纹理加载器对象，可以加载图片作为几何体纹理
+    var textureLoader = new THREE.TextureLoader();
+    // 执行load方法，加载纹理贴图成功后，返回一个纹理对象Texture
+    textureLoader.load(&#39;Earth.png&#39;, function (texture) {
+      var material = new THREE.MeshLambertMaterial({
+        map: texture,        // 设置纹理贴图：Texture对象作为材质map属性的属性值
+      });
+      var mesh = new THREE.Mesh(geometry, material); //网格模型对象Mesh
+      scene.add(mesh); //网格模型添加到场景中
+    })</code></pre>
+<h5 id="视频作为纹理"><a href="#视频作为纹理" class="headerlink" title="视频作为纹理"></a>视频作为纹理</h5><pre><code class="js">    var geometry = new THREE.PlaneGeometry(108, 71); //矩形平面
+    let video = document.createElement(&#39;video&#39;);     // 创建video对象
+    video.src = &quot;video.mp4&quot;; // 设置视频地址
+    video.autoplay = &quot;autoplay&quot;; //要设置播放
+    // video对象作为VideoTexture参数创建纹理对象
+    var texture = new THREE.VideoTexture(video)
+    var material = new THREE.MeshPhongMaterial({
+      map: texture, // 设置纹理贴图
+    });
+    var mesh = new THREE.Mesh(geometry, material); //网格模型对象Mesh
+    scene.add(mesh); //网格模型添加到场景中</code></pre>
+<h5 id="纹理整列"><a href="#纹理整列" class="headerlink" title="纹理整列"></a>纹理整列</h5><ul>
+<li>加载纹理之后，不断重复该纹理，即贴图效果。</li>
+<li>实现草地效果</li>
+</ul>
+<pre><code class="js">    var geometry = new THREE.PlaneGeometry(1000, 1000); //矩形平面
+    var texture = new THREE.TextureLoader().load(&quot;grass.jpg&quot;);
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+    texture.repeat.set(10, 10);     // uv两个方向纹理重复数量
+    var material = new THREE.MeshLambertMaterial({
+      map: texture,
+    });
+    var mesh = new THREE.Mesh(geometry, material); //网格模型对象Mesh
+    scene.add(mesh); //网格模型添加到场景中
+    mesh.rotateX(-Math.PI / 2);
+</code></pre>
+<h3 id="八、相机"><a href="#八、相机" class="headerlink" title="八、相机"></a>八、相机</h3><ul>
+<li>相机拍摄的过程其实就是进行投影计算的过程，我们看到的物体实际是一个三维物体在一个方向上的投影</li>
+<li>分类<ul>
+<li>正投影：没有近大远小效果，适用于小场景，一般用于三维设计或者零件展示。可视区域是一个立方体。</li>
+<li>透视投影：近大远小效果，适用于大场景，比如游戏场景，可视区域是一个视锥体</li>
+</ul>
+</li>
+</ul>
+<h5 id="相机窗口自适应"><a href="#相机窗口自适应" class="headerlink" title="相机窗口自适应"></a>相机窗口自适应</h5><ul>
+<li>透视相机自适应</li>
+</ul>
+<pre><code class="js">  window.onresize=function(){
+    // 重置渲染器输出画布canvas尺寸
+    renderer.setSize(window.innerWidth,window.innerHeight);
+    // 全屏情况下：设置观察范围长宽比aspect为窗口宽高比
+    camera.aspect = window.innerWidth/window.innerHeight;
+    // 渲染器执行render方法的时候会读取相机对象的投影矩阵属性projectionMatrix
+    // 但是不会每渲染一帧，就通过相机的属性计算投影矩阵(节约计算资源)
+    // 如果相机的一些属性发生了变化，需要执行updateProjectionMatrix ()方法更新相机的投影矩阵
+    camera.updateProjectionMatrix ();
+  };</code></pre>
+<ul>
+<li>正交相机自适应</li>
+</ul>
+<pre><code class="js">    window.onresize=function(){
+      // 重置渲染器输出画布canvas尺寸
+      renderer.setSize(window.innerWidth,window.innerHeight);
+      // 重置相机投影的相关参数
+      k = window.innerWidth/window.innerHeight;//窗口宽高比
+      camera.left = -s*k;
+      camera.right = s*k;
+      camera.top = s;
+      camera.bottom = -s;
+      // 渲染器执行render方法的时候会读取相机对象的投影矩阵属性projectionMatrix
+      // 但是不会每渲染一帧，就通过相机的属性计算投影矩阵(节约计算资源)
+      // 如果相机的一些属性发生了变化，需要执行updateProjectionMatrix ()方法更新相机的投影矩阵
+      camera.updateProjectionMatrix ();
+    };</code></pre>
+<h3 id="九、精灵模型Sprite"><a href="#九、精灵模型Sprite" class="headerlink" title="九、精灵模型Sprite"></a>九、精灵模型Sprite</h3><h5 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h5><ul>
+<li>应用：<ul>
+<li>大数据可视化</li>
+<li>下雨效果</li>
+</ul>
+</li>
+<li>渲染效果:无论相机如何变化，始终平行于桌面矩形区域，等价于一个正面永远朝向屏幕的PlaneGeometry。</li>
+<li>相比与网格模型等，精灵模型只需要材质属性，而不需要几何体参数。</li>
+</ul>
+<h5 id="精灵模型实现下雨"><a href="#精灵模型实现下雨" class="headerlink" title="精灵模型实现下雨"></a>精灵模型实现下雨</h5><pre><code class="js">    // 加载雨滴纹理贴图
+    var textureTree = new THREE.TextureLoader().load(&quot;rain.png&quot;);
+    // 创建一个组表示所有的雨滴
+    var group = new THREE.Group();
+    // 批量创建雨滴精灵模型
+    for (let i = 0; i &lt; 400; i++) {
+      var spriteMaterial = new THREE.SpriteMaterial({
+        map: textureTree, //设置精灵纹理贴图
+      });
+      // 创建精灵模型对象
+      var sprite = new THREE.Sprite(spriteMaterial);
+      group.add(sprite);
+      // 控制精灵大小,
+      sprite.scale.set(8, 10, 1); //// 只需要设置x、y两个分量就可以
+      var k1 = Math.random() - 0.5;
+      var k2 = Math.random() - 0.5;
+      // 设置精灵模型位置，在一个长方体空间中随机分布
+      sprite.position.set(200 * k1, 200 * Math.random(), 200 * k2)
+    }
+    scene.add(group);//雨滴群组插入场景中</code></pre>
+<h3 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h3><p><a href="https://alligator.io/react/react-with-threejs" target="_blank" rel="noopener">https://alligator.io/react/react-with-threejs</a><br><a href="https://github.com/react-spring/react-three-fiber" target="_blank" rel="noopener">https://github.com/react-spring/react-three-fiber</a><br><a href="https://github.com/zrysmt/react-threejs-app" target="_blank" rel="noopener">https://github.com/zrysmt/react-threejs-app</a><br><a href="https://github.com/chenjsh36/ThreeJSForFun" target="_blank" rel="noopener">https://github.com/chenjsh36/ThreeJSForFun</a><br><a href="http://www.yanhuangxueyuan.com/Three.js/" target="_blank" rel="noopener">http://www.yanhuangxueyuan.com/Three.js/</a><br><a href="https://wow.techbrood.com/fiddle/new" target="_blank" rel="noopener">https://wow.techbrood.com/fiddle/new</a></p>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">ZWboy</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://blog.zwboy.cn/ji-zhu/bi-ji-three-js-xue-xi.html">http://blog.zwboy.cn/ji-zhu/bi-ji-three-js-xue-xi.html</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">ZWboy</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/前端/">
+                                    <span class="chip bg-color">前端</span>
+                                </a>
+                            
+                                <a href="/tags/Three-js/">
+                                    <span class="chip bg-color">Three.js</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .mvaline-card {
+        margin: 1.5rem auto;
+    }
+
+    .mvaline-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+</style>
+
+<div class="card mvaline-card" data-aos="fade-up">
+    <div class="comment_headling" style="font-size: 20px; font-weight: 700; position: relative; padding-left: 20px; top: 15px; padding-bottom: 5px;">
+        <i class="fas fa-comments fa-fw" aria-hidden="true"></i>
+        <span>评论</span>
+    </div>
+    <div id="mvcomments" class="card-content" style="display: grid">
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/minivaline/dist/MiniValine.min.js"></script>
+<script>
+    new MiniValine({
+        el: '#mvcomments',
+        appId: 'aigEzx2YaT7pjXQWfOSwL7Tq-gzGzoHsz',
+        appKey: 'q33kn3yCFlSStRS1AQD94Szo',
+        mode: 'DesertsP',
+        placeholder: 'Write a Comment',
+        pathname: window.location.pathname,
+        lang: '',
+        adminEmailMd5: 'FkD4IA7jYrh6JoH8mjIhpWVe',
+        tagMeta: ["管理员", "小伙伴", "访客"],
+        master: ["de8a7aa53d07e6b6bceb45c64027763d"],
+        friends: ["b5bd5d836c7a0091aa8473e79ed4c25e", "adb7d1cd192658a55c0ad22a3309cecf", "3ce1e6c77b4910f1871106cb30dc62b0", "cfce8dc43725cc14ffcd9fb4892d5bfc"],
+        math: true,
+        md: true,
+        enableQQ: false,
+        NoRecordIP: false,
+        visitor: true,
+        maxNest: 6,
+        pageSize: 6,
+        serverURLs: '',
+        emoticonUrl: ["https://cdn.jsdelivr.net/npm/alus@latest", "https://cdn.jsdelivr.net/gh/MiniValine/qq@latest", "https://cdn.jsdelivr.net/gh/MiniValine/Bilibilis@latest", "https://cdn.jsdelivr.net/gh/MiniValine/tieba@latest", "https://cdn.jsdelivr.net/gh/MiniValine/twemoji@latest", "https://cdn.jsdelivr.net/gh/MiniValine/weibo@latest"],
+    });
+</script>
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/ji-zhu/bi-ji-three-js-xue-xi.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="【学习笔记】Three.js以及三维技术学习">
+                        
+                        <span class="card-title">【学习笔记】Three.js以及三维技术学习</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+背景知识
+
+视频云项目又有了开发XR应用的需求了，就是实现各种AR、VR、全景视频直播等效果。Three.js是Web端进行3D展示的工具库，它对底层的WebGL进行了封装，大大简化了3D的开发。
+Three.js入门学习时候的难点在于对
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-13
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/技术/" class="post-category">
+                                    技术
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/前端/">
+                        <span class="chip bg-color">前端</span>
+                    </a>
+                    
+                    <a href="/tags/Three-js/">
+                        <span class="chip bg-color">Three.js</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/da-nao-cache/da-nao-cache-xi-lie-java-kuai-su-shu-li-fang-bian-sui-shi-load-dao-da-nao-jian-shao-di-ji-bug-san.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="大脑Cache系列 -- Java快速梳理，方便随时load到大脑，减少低级bug（三）">
+                        
+                        <span class="card-title">大脑Cache系列 -- Java快速梳理，方便随时load到大脑，减少低级bug（三）</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            背景
+
+Java程序常常会遇到一些蛋疼的bug，最后发现，都是在一些很基础的方面造成的。大量的时间花在调试代码找低级bug上是十分没有性价比的。所以，再系统梳理下Java，是十分必要的。
+已经反复学习和使用Java多次了，但只要有段时间没用
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-01-27
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/技术/" class="post-category">
+                                    技术
+                                </a>
+                            
+                            <a href="/categories/大脑Cache/" class="post-category">
+                                    大脑Cache
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+
+<!-- 代码块折行 -->
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="360752083"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align"
+        style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2018</span>
+            <a href="/about" target="_blank">ZWboy</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">32.5k</span>&nbsp;字
+            
+            
+            
+            
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2018";
+                    var startMonth = "1";
+                    var startDate = "28";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            <script>
+                var _hmt = _hmt || [];
+                (function () {
+                    var hm = document.createElement("script");
+                    hm.src = "https://hm.baidu.com/hm.js?855ec9ebdff2265971b6efa346e3f5ec";
+                    var s = document.getElementsByTagName("script")[0];
+                    s.parentNode.insertBefore(hm, s);
+                })();
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link ">
+    <a href="https://github.com/ZWboy97" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:ljc@zwboy.cn" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?855ec9ebdff2265971b6efa346e3f5ec";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
